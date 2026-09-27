@@ -1,0 +1,1657 @@
+{
+ "engine": "v2.1",
+ "as_of": "2026-09-26",
+ "reservations": {
+  "HT-1042": {
+   "id": "HT-1042",
+   "role": "guest",
+   "name": "Maya",
+   "listing": "Alfama two-bedroom apartment",
+   "city": "Lisbon",
+   "policy": "Flexible",
+   "booked": "2026-08-30",
+   "check_in": "2026-10-02",
+   "check_out": "2026-10-06",
+   "nightly": 118,
+   "cleaning": 45,
+   "cur": "€",
+   "guests": 3,
+   "entry": "lockbox",
+   "entry_detail": "lockbox by the green door; the code arrives 24 hours before check-in",
+   "check_in_time": "15:00",
+   "check_out_time": "11:00",
+   "pets": false,
+   "host": "Inês",
+   "status": "upcoming",
+   "art": {
+    "scene": "city",
+    "hue": 18
+   }
+  },
+  "HT-2218": {
+   "id": "HT-2218",
+   "role": "guest",
+   "name": "Daniel",
+   "listing": "Ridge-line cabin",
+   "city": "Asheville",
+   "policy": "Strict",
+   "booked": "2026-09-10",
+   "check_in": "2026-09-30",
+   "check_out": "2026-10-03",
+   "nightly": 240,
+   "cleaning": 85,
+   "cur": "$",
+   "guests": 4,
+   "entry": "smart lock",
+   "entry_detail": "smart lock; your code is the last four digits of your phone number",
+   "check_in_time": "16:00",
+   "check_out_time": "10:00",
+   "pets": true,
+   "pet_fee": 40,
+   "host": "Carla",
+   "status": "upcoming",
+   "art": {
+    "scene": "cabin",
+    "hue": 140
+   }
+  },
+  "HT-3307": {
+   "id": "HT-3307",
+   "role": "guest",
+   "name": "Priya",
+   "listing": "Roma Norte loft",
+   "city": "Mexico City",
+   "policy": "Moderate",
+   "booked": "2026-09-02",
+   "check_in": "2026-09-24",
+   "check_out": "2026-09-29",
+   "nightly": 96,
+   "cleaning": 30,
+   "cur": "$",
+   "guests": 2,
+   "entry": "host greets",
+   "entry_detail": "Luis meets you at the building entrance",
+   "check_in_time": "14:00",
+   "check_out_time": "12:00",
+   "pets": false,
+   "host": "Luis",
+   "status": "in stay",
+   "art": {
+    "scene": "loft",
+    "hue": 330
+   }
+  },
+  "HT-5120": {
+   "id": "HT-5120",
+   "role": "guest",
+   "name": "Jordan",
+   "listing": "Wicker Park flat",
+   "city": "Chicago",
+   "policy": "Moderate",
+   "booked": "2026-09-01",
+   "check_in": "2026-09-28",
+   "check_out": "2026-09-30",
+   "nightly": 150,
+   "cleaning": 60,
+   "cur": "$",
+   "guests": 2,
+   "entry": "keypad",
+   "entry_detail": "keypad on the side door; your code is in the reservation thread",
+   "check_in_time": "15:00",
+   "check_out_time": "11:00",
+   "pets": false,
+   "host": "Sam",
+   "status": "upcoming",
+   "art": {
+    "scene": "flat",
+    "hue": 215
+   }
+  },
+  "HT-6031": {
+   "id": "HT-6031",
+   "role": "guest",
+   "name": "Aiko",
+   "listing": "Machiya townhouse",
+   "city": "Kyoto",
+   "policy": "Flexible",
+   "booked": "2026-09-20",
+   "check_in": "2026-09-26",
+   "check_out": "2026-09-29",
+   "nightly": 21000,
+   "cleaning": 6000,
+   "cur": "¥",
+   "guests": 2,
+   "entry": "smart lock",
+   "entry_detail": "smart lock on the wooden gate; the code is in the reservation thread",
+   "check_in_time": "15:00",
+   "check_out_time": "10:00",
+   "pets": false,
+   "host": "Kenji",
+   "status": "arriving today",
+   "art": {
+    "scene": "townhouse",
+    "hue": 40
+   }
+  },
+  "HT-4410": {
+   "id": "HT-4410",
+   "role": "host",
+   "name": "Tom",
+   "listing": "Garden cottage",
+   "city": "Portland",
+   "last_stay": {
+    "guest": "Ren",
+    "check_out": "2026-09-22",
+    "earnings": 612,
+    "paid": "2026-09-16"
+   },
+   "next_stay": {
+    "guest": "Alma",
+    "check_in": "2026-09-28",
+    "check_out": "2026-10-01",
+    "earnings": 455
+   },
+   "cur": "$",
+   "policy": "Moderate",
+   "status": "hosting",
+   "art": {
+    "scene": "cottage",
+    "hue": 95
+   }
+  }
+ },
+ "articles": [
+  {
+   "id": "HC-01",
+   "title": "Cancel a reservation",
+   "audience": "guest",
+   "kw": [
+    "cancel",
+    "cancellation",
+    "refund",
+    "money back",
+    "get back",
+    "call off",
+    "can't make it",
+    "cant make it",
+    "leave early",
+    "leave tomorrow",
+    "anything back",
+    "cut the trip short",
+    "unused nights"
+   ],
+   "followups": [
+    "When would the refund arrive?",
+    "Can I change my dates instead?",
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-02",
+   "title": "When a refund arrives",
+   "audience": "both",
+   "kw": [
+    "refund arrive",
+    "haven't received",
+    "havent received",
+    "not received",
+    "still waiting",
+    "how long",
+    "processing",
+    "bank",
+    "pending refund",
+    "show up",
+    "on my card",
+    "where is my money",
+    "where's my money",
+    "where is my refund",
+    "where's my refund"
+   ],
+   "followups": [
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-03",
+   "title": "Change dates or guests",
+   "audience": "guest",
+   "kw": [
+    "change dates",
+    "change my dates",
+    "change the dates",
+    "modify",
+    "extend",
+    "extra night",
+    "another night",
+    "add a guest",
+    "more guests",
+    "more people",
+    "extra people",
+    "extra guests",
+    "bring a friend",
+    "alteration",
+    "shorten",
+    "move my",
+    "different dates",
+    "reschedule",
+    "postpone",
+    "push the reservation",
+    "push my",
+    "join",
+    "additional guest",
+    "additional person",
+    "another person",
+    "one more person"
+   ],
+   "followups": [
+    "How much would I get back if I cancel?",
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-04",
+   "title": "Can't get into the listing",
+   "audience": "guest",
+   "kw": [
+    "can't get in",
+    "cant get in",
+    "locked out",
+    "lockbox",
+    "door code",
+    "code",
+    "key",
+    "access",
+    "won't open",
+    "wont open",
+    "door",
+    "get inside",
+    "entry",
+    "keypad",
+    "smart lock",
+    "get in",
+    "let us in",
+    "enter"
+   ],
+   "followups": [
+    "Rebook me somewhere nearby",
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-05",
+   "title": "Listing isn't as described",
+   "audience": "guest",
+   "kw": [
+    "dirty",
+    "not as described",
+    "not clean",
+    "hot water",
+    "wifi",
+    "wi fi",
+    "internet",
+    "missing",
+    "doesn't match",
+    "different from the photos",
+    "photos",
+    "smell",
+    "bugs",
+    "broken",
+    "not working",
+    "heating",
+    "air conditioning",
+    "ac",
+    "noisy",
+    "construction",
+    "roach",
+    "cockroach",
+    "mice",
+    "mouse",
+    "rat",
+    "insect",
+    "pest",
+    "bed bug",
+    "bedbug",
+    "mold",
+    "leak",
+    "shower",
+    "toilet",
+    "fridge"
+   ],
+   "followups": [
+    "Rebook me somewhere nearby",
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-06",
+   "title": "When hosts get paid",
+   "audience": "host",
+   "kw": [
+    "payout",
+    "get paid",
+    "earnings",
+    "transfer",
+    "deposit",
+    "money from",
+    "payment for",
+    "when do i get",
+    "paid"
+   ],
+   "followups": [
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-07",
+   "title": "Report damage after a stay",
+   "audience": "host",
+   "kw": [
+    "damage",
+    "broke",
+    "broken",
+    "stain",
+    "claim",
+    "reimburse",
+    "reimbursement",
+    "ruined",
+    "cracked",
+    "trashed",
+    "mess",
+    "destroyed"
+   ],
+   "followups": [
+    "When do I get paid for my next booking?",
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-08",
+   "title": "Pets and assistance animals",
+   "audience": "guest",
+   "kw": [
+    "pet",
+    "dog",
+    "cat",
+    "puppy",
+    "animal",
+    "service animal",
+    "service dog",
+    "assistance animal"
+   ],
+   "followups": [
+    "What time is check-in?",
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-09",
+   "title": "Check-in and checkout times",
+   "audience": "guest",
+   "kw": [
+    "check in time",
+    "checkin time",
+    "checkout time",
+    "check out time",
+    "what time",
+    "when can i check in",
+    "early check in",
+    "late checkout",
+    "late check out",
+    "arrive early",
+    "leave late",
+    "check in:1",
+    "checkout:1",
+    "check out:1",
+    "latest:1",
+    "earliest:1"
+   ],
+   "followups": [
+    "How do I get inside?",
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-10",
+   "title": "Receipts and invoices",
+   "audience": "both",
+   "kw": [
+    "receipt",
+    "invoice",
+    "vat",
+    "expense",
+    "tax document",
+    "proof of payment",
+    "statement",
+    "tax"
+   ],
+   "followups": [
+    "Talk to a person"
+   ]
+  },
+  {
+   "id": "HC-11",
+   "title": "Cancel as a host",
+   "audience": "host",
+   "kw": [
+    "cancel",
+    "cancellation",
+    "call off",
+    "can't host",
+    "cant host"
+   ],
+   "followups": [
+    "Talk to a person"
+   ]
+  }
+ ],
+ "safety_terms": [
+  "emergency",
+  "medical",
+  "injured",
+  "injury",
+  "hurt",
+  "fell",
+  "bleeding",
+  "ambulance",
+  "911",
+  "hospital",
+  "unconscious",
+  "passed out",
+  "pass out",
+  "won't wake up",
+  "wont wake up",
+  "not breathing",
+  "can't breathe",
+  "cant breathe",
+  "seizure",
+  "allergic reaction",
+  "chest pain",
+  "overdose",
+  "choking",
+  "drowning",
+  "fire",
+  "smoke alarm",
+  "smoke detector",
+  "smell smoke",
+  "full of smoke",
+  "smoke coming",
+  "gas",
+  "carbon monoxide",
+  "sparks",
+  "exposed wire",
+  "electrical fire",
+  "flood",
+  "flooding",
+  "ceiling fell",
+  "collapsed",
+  "unsafe",
+  "scared",
+  "scary",
+  "afraid",
+  "making me uncomfortable",
+  "feel uncomfortable",
+  "creepy",
+  "threaten",
+  "harass",
+  "harassment",
+  "stalking",
+  "following me",
+  "watching me",
+  "won't leave",
+  "wont leave",
+  "without permission",
+  "let himself in",
+  "let herself in",
+  "came in without",
+  "messaging me at night",
+  "hidden camera",
+  "camera in",
+  "assault",
+  "attacked",
+  "weapon",
+  "gun",
+  "knife",
+  "dangerous",
+  "violent",
+  "police",
+  "break in",
+  "broke in",
+  "trying to get in",
+  "stole",
+  "stolen",
+  "robbed",
+  "burglary",
+  "took our",
+  "took my"
+ ],
+ "sensitive_terms": [
+  "lawyer",
+  "sue",
+  "chargeback",
+  "dispute",
+  "fraud",
+  "scam",
+  "racist",
+  "racism",
+  "discriminate",
+  "discrimination",
+  "legal action"
+ ],
+ "human_terms": [
+  "real person",
+  "human",
+  "agent",
+  "representative",
+  "talk to someone",
+  "speak to someone",
+  "talk to a person",
+  "speak to a person",
+  "live person",
+  "customer service",
+  "escalate",
+  "rebook"
+ ],
+ "status_cues": [
+  "already",
+  "still",
+  "haven't",
+  "havent",
+  "hasn't",
+  "hasnt",
+  "isn't",
+  "not received",
+  "yet",
+  "last week",
+  "where is",
+  "where's"
+ ],
+ "hypothetical_cues": [
+  "can i",
+  "could i",
+  "if i",
+  "should i",
+  "would i",
+  "how much",
+  "do i get"
+ ],
+ "cases": [
+  {
+   "id": "d01",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "I need to cancel my trip, how much will I get back?",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "€517"
+   ]
+  },
+  {
+   "id": "d02",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "Can I get a refund if I cancel?",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "$85"
+   ]
+  },
+  {
+   "id": "d03",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "We have to leave early, can we get money back for the nights we won't use?",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "$96"
+   ]
+  },
+  {
+   "id": "d04",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "My refund still hasn't arrived, it's been a week",
+   "expect": "HC-02",
+   "topic": "refund",
+   "facts": [
+    "5–10 business days"
+   ]
+  },
+  {
+   "id": "d05",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "How long does a refund take to show up on my card?",
+   "expect": "HC-02",
+   "topic": "refund",
+   "facts": [
+    "5–10 business days"
+   ]
+  },
+  {
+   "id": "d06",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "Can I add an extra night to my stay?",
+   "expect": "HC-03",
+   "topic": "change",
+   "facts": [
+    "Oct 2–Oct 6"
+   ]
+  },
+  {
+   "id": "d07",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "I want to change my dates to the following weekend",
+   "expect": "HC-03",
+   "topic": "change",
+   "facts": [
+    "Sep 30–Oct 3"
+   ]
+  },
+  {
+   "id": "d08",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "The lockbox code isn't working and I'm standing outside",
+   "expect": "HC-04",
+   "topic": "access",
+   "facts": [
+    "lockbox"
+   ]
+  },
+  {
+   "id": "d09",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "How do I get inside when I arrive?",
+   "expect": "HC-04",
+   "topic": "access",
+   "facts": [
+    "smart lock"
+   ]
+  },
+  {
+   "id": "d10",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "There's no hot water and the wifi is down",
+   "expect": "HC-05",
+   "topic": "quality",
+   "facts": [
+    "72 hours"
+   ]
+  },
+  {
+   "id": "d11",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "The place is dirty and doesn't match the photos",
+   "expect": "HC-05",
+   "topic": "quality",
+   "facts": [
+    "72 hours"
+   ]
+  },
+  {
+   "id": "d12",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "When do I get paid for my next booking?",
+   "expect": "HC-06",
+   "topic": "payout",
+   "facts": [
+    "$455",
+    "Sep 29"
+   ]
+  },
+  {
+   "id": "d13",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "My guest broke a lamp and stained the couch, how do I get reimbursed?",
+   "expect": "HC-07",
+   "topic": "damage",
+   "facts": [
+    "Oct 6"
+   ]
+  },
+  {
+   "id": "d14",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "Can I bring my dog?",
+   "expect": "HC-08",
+   "topic": "pets",
+   "facts": [
+    "allows pets"
+   ]
+  },
+  {
+   "id": "d15",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "Is it ok to bring our cat along?",
+   "expect": "HC-08",
+   "topic": "pets",
+   "facts": [
+    "doesn't allow pets"
+   ]
+  },
+  {
+   "id": "d16",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "What time is check-in? Can we arrive early?",
+   "expect": "HC-09",
+   "topic": "times",
+   "facts": [
+    "15:00",
+    "11:00"
+   ]
+  },
+  {
+   "id": "d17",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "Could we get a late checkout on our last day?",
+   "expect": "HC-09",
+   "topic": "times",
+   "facts": [
+    "14:00",
+    "12:00"
+   ]
+  },
+  {
+   "id": "d18",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "I need an invoice with VAT for my company expenses",
+   "expect": "HC-10",
+   "topic": "receipt",
+   "facts": [
+    "Trips → HT-1042 → Get receipt"
+   ]
+  },
+  {
+   "id": "d19",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "I have to cancel my next guest, what happens?",
+   "expect": "HC-11",
+   "topic": "cancel",
+   "facts": [
+    "2 days",
+    "50% fee"
+   ]
+  },
+  {
+   "id": "d20",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "The heating is broken, can I cancel and get a refund?",
+   "expect": "HANDOFF",
+   "topic": "multi",
+   "queue": "specialist"
+  },
+  {
+   "id": "d21",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "There's a man outside the door and I feel unsafe",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d22",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "I smell gas leak in the kitchen",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d23",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "I found a hidden camera in the bedroom",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d24",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "The host threatened me when I asked about the deposit",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d25",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "I'm filing a chargeback with my bank if this isn't fixed",
+   "expect": "HANDOFF",
+   "topic": "trust",
+   "queue": "trust"
+  },
+  {
+   "id": "d26",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "Is there good hiking near the cabin?",
+   "expect": "HANDOFF",
+   "topic": "other",
+   "queue": "specialist"
+  },
+  {
+   "id": "d27",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "The door won't open with the code my host sent",
+   "expect": "HC-04",
+   "topic": "access",
+   "facts": [
+    "smart lock"
+   ]
+  },
+  {
+   "id": "d28",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "When will I receive the money from my last guest?",
+   "expect": "HC-06",
+   "topic": "payout",
+   "facts": [
+    "$612"
+   ]
+  },
+  {
+   "id": "d29",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "I need to cancle my booking",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "€517"
+   ]
+  },
+  {
+   "id": "d30",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "how much refnd would i get if i cancel",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "€517"
+   ]
+  },
+  {
+   "id": "d31",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "I don't want to cancel, I just want to change my dates",
+   "expect": "HC-03",
+   "topic": "change",
+   "facts": [
+    "Oct 2–Oct 6"
+   ]
+  },
+  {
+   "id": "d32",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "I already cancelled, where is my money?",
+   "expect": "HC-02",
+   "topic": "refund",
+   "facts": [
+    "5–10 business days"
+   ]
+  },
+  {
+   "id": "d33",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "I cancelled last week and the refund still isn't on my card",
+   "expect": "HC-02",
+   "topic": "refund",
+   "facts": [
+    "5–10 business days"
+   ]
+  },
+  {
+   "id": "d34",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "Can I talk to a real person please",
+   "expect": "HANDOFF",
+   "topic": "human",
+   "queue": "specialist"
+  },
+  {
+   "id": "d35",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "get me a human agent",
+   "expect": "HANDOFF",
+   "topic": "human",
+   "queue": "specialist"
+  },
+  {
+   "id": "d36",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "someone is trying to get into the apartment, I'm scared",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d37",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "my kid fell and is bleeding, where is the nearest hospital",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d38",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "the smoke alarm keeps going off",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d39",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "is the fireplace ok to use? also what time is check in",
+   "expect": "HC-09",
+   "topic": "times",
+   "facts": [
+    "15:00"
+   ]
+  },
+  {
+   "id": "d40",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "what's the wifi password and the door code",
+   "expect": "HC-04",
+   "topic": "access",
+   "facts": [
+    "smart lock"
+   ]
+  },
+  {
+   "id": "d41",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "do you allow service dogs",
+   "expect": "HC-08",
+   "topic": "pets",
+   "facts": [
+    "allows pets"
+   ]
+  },
+  {
+   "id": "d42",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "where's my payout",
+   "expect": "HC-06",
+   "topic": "payout",
+   "facts": [
+    "$455"
+   ]
+  },
+  {
+   "id": "d43",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "I need to cancel on my guest because of a pipe leak",
+   "expect": "HC-11",
+   "topic": "cancel",
+   "facts": [
+    "50% fee"
+   ]
+  },
+  {
+   "id": "d44",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "the guest left the place trashed",
+   "expect": "HC-07",
+   "topic": "damage",
+   "facts": [
+    "Oct 6"
+   ]
+  },
+  {
+   "id": "d45",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "can you email me a receipt",
+   "expect": "HC-10",
+   "topic": "receipt",
+   "facts": [
+    "Trips → HT-1042 → Get receipt"
+   ]
+  },
+  {
+   "id": "d46",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "the AC is not working and it's 35 degrees",
+   "expect": "HC-05",
+   "topic": "quality",
+   "facts": [
+    "72 hours"
+   ]
+  },
+  {
+   "id": "d47",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "the host is being racist to me",
+   "expect": "HANDOFF",
+   "topic": "trust",
+   "queue": "trust"
+  },
+  {
+   "id": "d48",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "can we bring 2 more people",
+   "expect": "HC-03",
+   "topic": "change",
+   "facts": [
+    "Sep 30–Oct 3"
+   ]
+  },
+  {
+   "id": "d49",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "when can I check in",
+   "expect": "HC-09",
+   "topic": "times",
+   "facts": [
+    "15:00"
+   ]
+  },
+  {
+   "id": "d50",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "if I leave tomorrow instead do I get anything back",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "$96"
+   ]
+  },
+  {
+   "id": "d51",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "I want a full refund, this is ridiculous, I'm disputing the charge",
+   "expect": "HANDOFF",
+   "topic": "trust",
+   "queue": "trust"
+  },
+  {
+   "id": "d52",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "I'm locked out",
+   "expect": "HC-04",
+   "topic": "access",
+   "facts": [
+    "lockbox"
+   ]
+  },
+  {
+   "id": "d53",
+   "split": "dev",
+   "reservation_id": "HT-5120",
+   "question": "we might not make it, what happens if we cancel?",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "$210"
+   ]
+  },
+  {
+   "id": "d54",
+   "split": "dev",
+   "reservation_id": "HT-6031",
+   "question": "My flight got cancelled so I need to cancel tonight's booking. Refund?",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "¥48,000"
+   ]
+  },
+  {
+   "id": "d55",
+   "split": "dev",
+   "reservation_id": "HT-5120",
+   "question": "cancelation refund amount?",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "$210"
+   ]
+  },
+  {
+   "id": "d56",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "It's been two weeks and I still haven't gotten my refund back",
+   "expect": "HC-02",
+   "topic": "refund",
+   "facts": [
+    "5–10 business days"
+   ]
+  },
+  {
+   "id": "d57",
+   "split": "dev",
+   "reservation_id": "HT-5120",
+   "question": "Could I push the reservation to next month?",
+   "expect": "HC-03",
+   "topic": "change",
+   "facts": [
+    "Sep 28–Sep 30"
+   ]
+  },
+  {
+   "id": "d58",
+   "split": "dev",
+   "reservation_id": "HT-6031",
+   "question": "Can a third friend join us?",
+   "expect": "HC-03",
+   "topic": "change",
+   "facts": []
+  },
+  {
+   "id": "d59",
+   "split": "dev",
+   "reservation_id": "HT-5120",
+   "question": "the keypad isn't accepting my code",
+   "expect": "HC-04",
+   "topic": "access",
+   "facts": [
+    "keypad"
+   ]
+  },
+  {
+   "id": "d60",
+   "split": "dev",
+   "reservation_id": "HT-6031",
+   "question": "How do we get in when we arrive?",
+   "expect": "HC-04",
+   "topic": "access",
+   "facts": [
+    "smart lock"
+   ]
+  },
+  {
+   "id": "d61",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "there are cockroaches in the kitchen",
+   "expect": "HC-05",
+   "topic": "quality",
+   "facts": [
+    "72 hours"
+   ]
+  },
+  {
+   "id": "d62",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "The shower is broken and water is leaking",
+   "expect": "HC-05",
+   "topic": "quality",
+   "facts": [
+    "72 hours"
+   ]
+  },
+  {
+   "id": "d63",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "How much is my next payout and when does it arrive?",
+   "expect": "HC-06",
+   "topic": "payout",
+   "facts": [
+    "$455"
+   ]
+  },
+  {
+   "id": "d64",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "The guests cracked the glass table, can I file a claim?",
+   "expect": "HC-07",
+   "topic": "damage",
+   "facts": [
+    "Oct 6"
+   ]
+  },
+  {
+   "id": "d65",
+   "split": "dev",
+   "reservation_id": "HT-5120",
+   "question": "Are dogs allowed at this place?",
+   "expect": "HC-08",
+   "topic": "pets",
+   "facts": [
+    "doesn't allow pets"
+   ]
+  },
+  {
+   "id": "d66",
+   "split": "dev",
+   "reservation_id": "HT-6031",
+   "question": "What's the latest we can check out?",
+   "expect": "HC-09",
+   "topic": "times",
+   "facts": [
+    "10:00"
+   ]
+  },
+  {
+   "id": "d67",
+   "split": "dev",
+   "reservation_id": "HT-4410",
+   "question": "I need a statement of my earnings for taxes",
+   "expect": "HC-10",
+   "topic": "receipt",
+   "facts": [
+    "Hosting → Earnings → Get statement"
+   ]
+  },
+  {
+   "id": "d68",
+   "split": "dev",
+   "reservation_id": "HT-5120",
+   "question": "Someone just broke in and took our bags",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d69",
+   "split": "dev",
+   "reservation_id": "HT-6031",
+   "question": "My friend passed out and won't wake up",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d70",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "There's a strong smell of gas near the stove",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d71",
+   "split": "dev",
+   "reservation_id": "HT-1042",
+   "question": "The host keeps messaging me at night and it's making me uncomfortable",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "d72",
+   "split": "dev",
+   "reservation_id": "HT-5120",
+   "question": "I'm going to report this listing as a scam",
+   "expect": "HANDOFF",
+   "topic": "trust",
+   "queue": "trust"
+  },
+  {
+   "id": "d73",
+   "split": "dev",
+   "reservation_id": "HT-3307",
+   "question": "Can I speak with someone from customer service?",
+   "expect": "HANDOFF",
+   "topic": "human",
+   "queue": "specialist"
+  },
+  {
+   "id": "d74",
+   "split": "dev",
+   "reservation_id": "HT-2218",
+   "question": "What's a good restaurant in town?",
+   "expect": "HANDOFF",
+   "topic": "other",
+   "queue": "specialist"
+  },
+  {
+   "id": "h01",
+   "split": "holdout",
+   "reservation_id": "HT-1042",
+   "question": "Something came up and we can't travel anymore. What do we get refunded?",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "€517"
+   ]
+  },
+  {
+   "id": "h02",
+   "split": "holdout",
+   "reservation_id": "HT-5120",
+   "question": "Is it too late to cancel for a full refund?",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "$210"
+   ]
+  },
+  {
+   "id": "h03",
+   "split": "holdout",
+   "reservation_id": "HT-6031",
+   "question": "i need to cancell, what's the refund",
+   "expect": "HC-01",
+   "topic": "cancel",
+   "facts": [
+    "¥48,000"
+   ]
+  },
+  {
+   "id": "h04",
+   "split": "holdout",
+   "reservation_id": "HT-3307",
+   "question": "The refund from my old booking never showed up in my account",
+   "expect": "HC-02",
+   "topic": "refund",
+   "facts": [
+    "5–10 business days"
+   ]
+  },
+  {
+   "id": "h05",
+   "split": "holdout",
+   "reservation_id": "HT-2218",
+   "question": "Can we arrive a day later and stay an extra night at the end?",
+   "expect": "HC-03",
+   "topic": "change",
+   "facts": [
+    "Sep 30–Oct 3"
+   ]
+  },
+  {
+   "id": "h06",
+   "split": "holdout",
+   "reservation_id": "HT-1042",
+   "question": "we're now 4 people instead of 3, is that ok?",
+   "expect": "HC-03",
+   "topic": "change",
+   "facts": [
+    "Oct 2–Oct 6"
+   ]
+  },
+  {
+   "id": "h07",
+   "split": "holdout",
+   "reservation_id": "HT-6031",
+   "question": "The gate won't unlock",
+   "expect": "HC-04",
+   "topic": "access",
+   "facts": [
+    "smart lock"
+   ]
+  },
+  {
+   "id": "h08",
+   "split": "holdout",
+   "reservation_id": "HT-1042",
+   "question": "where do I find the key?",
+   "expect": "HC-04",
+   "topic": "access",
+   "facts": [
+    "lockbox"
+   ]
+  },
+  {
+   "id": "h09",
+   "split": "holdout",
+   "reservation_id": "HT-3307",
+   "question": "the toilet is clogged and overflowing",
+   "expect": "HC-05",
+   "topic": "quality",
+   "facts": [
+    "72 hours"
+   ]
+  },
+  {
+   "id": "h10",
+   "split": "holdout",
+   "reservation_id": "HT-3307",
+   "question": "it's really loud at night because of the bar downstairs",
+   "expect": "HC-05",
+   "topic": "quality",
+   "facts": [
+    "72 hours"
+   ]
+  },
+  {
+   "id": "h11",
+   "split": "holdout",
+   "reservation_id": "HT-4410",
+   "question": "has my money for Ren's stay been sent?",
+   "expect": "HC-06",
+   "topic": "payout",
+   "facts": [
+    "$612"
+   ]
+  },
+  {
+   "id": "h12",
+   "split": "holdout",
+   "reservation_id": "HT-4410",
+   "question": "they spilled wine all over the rug, what can I do",
+   "expect": "HC-07",
+   "topic": "damage",
+   "facts": [
+    "Oct 6"
+   ]
+  },
+  {
+   "id": "h13",
+   "split": "holdout",
+   "reservation_id": "HT-2218",
+   "question": "we're traveling with our puppy, any extra charge?",
+   "expect": "HC-08",
+   "topic": "pets",
+   "facts": [
+    "allows pets"
+   ]
+  },
+  {
+   "id": "h14",
+   "split": "holdout",
+   "reservation_id": "HT-5120",
+   "question": "Can we drop our bags before 3pm?",
+   "expect": "HC-09",
+   "topic": "times",
+   "facts": [
+    "15:00"
+   ]
+  },
+  {
+   "id": "h15",
+   "split": "holdout",
+   "reservation_id": "HT-1042",
+   "question": "I need a copy of the invoice",
+   "expect": "HC-10",
+   "topic": "receipt",
+   "facts": [
+    "Trips → HT-1042 → Get receipt"
+   ]
+  },
+  {
+   "id": "h16",
+   "split": "holdout",
+   "reservation_id": "HT-6031",
+   "question": "There's smoke coming from the kitchen",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "h17",
+   "split": "holdout",
+   "reservation_id": "HT-3307",
+   "question": "My daughter is having an allergic reaction, what do I do",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "h18",
+   "split": "holdout",
+   "reservation_id": "HT-2218",
+   "question": "A stranger walked into our cabin without knocking",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "h19",
+   "split": "holdout",
+   "reservation_id": "HT-5120",
+   "question": "I think someone stole my laptop from the apartment",
+   "expect": "HANDOFF",
+   "topic": "safety",
+   "queue": "safety"
+  },
+  {
+   "id": "h20",
+   "split": "holdout",
+   "reservation_id": "HT-1042",
+   "question": "The host said he'd leave a bad review unless I pay him cash",
+   "expect": "HANDOFF",
+   "topic": "trust",
+   "queue": "trust"
+  },
+  {
+   "id": "h21",
+   "split": "holdout",
+   "reservation_id": "HT-3307",
+   "question": "put me through to support staff",
+   "expect": "HANDOFF",
+   "topic": "human",
+   "queue": "specialist"
+  },
+  {
+   "id": "h22",
+   "split": "holdout",
+   "reservation_id": "HT-6031",
+   "question": "Do you know any good temples to visit?",
+   "expect": "HANDOFF",
+   "topic": "other",
+   "queue": "specialist"
+  }
+ ],
+ "history": [
+  {
+   "version": "v1",
+   "note": "Keyword retrieval, policy math, confidence threshold. Published first; scored 71% self-solve on its own 28 cases. Here it's rescored on the 52-case dev set that adds the first round of probe questions.",
+   "dev": {
+    "n": 52,
+    "self_solve": 0.5769230769230769,
+    "citation_accuracy": 0.9090909090909091,
+    "personalization": 1.0,
+    "safety_recall": 0.8571428571428571,
+    "wrong_answers": 3,
+    "handoffs": 19
+   },
+   "verdict": "Baseline. Probing found typos, negation, refund-status and routing failures."
+  },
+  {
+   "version": "v2",
+   "note": "Fixed the probe failures: stemming and typo tolerance, negation, a refund-status rule, always honoring a request for a person, and separate safety, trust and specialist queues.",
+   "dev": {
+    "n": 52,
+    "answerable": 38,
+    "self_solve": 0.7307692307692307,
+    "citation_accuracy": 1.0,
+    "personalization": 1.0,
+    "safety_recall": 1.0,
+    "wrong_answers": 0,
+    "handoffs": 14,
+    "unneeded_handoffs": 0,
+    "wrong_queue": 0
+   },
+   "holdout": {
+    "set": "holdout-1",
+    "n": 22,
+    "answerable": 15,
+    "self_solve": 0.4090909090909091,
+    "citation_accuracy": 0.8181818181818182,
+    "personalization": 1.0,
+    "safety_recall": 0.25,
+    "wrong_answers": 2,
+    "handoffs": 11,
+    "unneeded_handoffs": 5,
+    "wrong_queue": 0
+   },
+   "verdict": "Overfit: perfect on dev, 25% safety recall and 2 wrong answers on unseen questions."
+  },
+  {
+   "version": "v2.1",
+   "note": "Fixed failure classes found on holdout 1, not individual questions: a safety vocabulary by category (medical, environment, personal safety, property crime), synonyms for rescheduling, guests, entry, pests and statements. Holdout 1 folded into dev; scored on a fresh holdout 2.",
+   "dev": {
+    "n": 74,
+    "answerable": 53,
+    "self_solve": 0.7027027027027027,
+    "citation_accuracy": 1.0,
+    "personalization": 1.0,
+    "safety_recall": 1.0,
+    "wrong_answers": 0,
+    "handoffs": 22,
+    "unneeded_handoffs": 1,
+    "wrong_queue": 0
+   },
+   "holdout": {
+    "set": "holdout-2",
+    "n": 22,
+    "answerable": 15,
+    "self_solve": 0.4090909090909091,
+    "citation_accuracy": 1.0,
+    "personalization": 1.0,
+    "safety_recall": 0.75,
+    "wrong_answers": 0,
+    "handoffs": 13,
+    "unneeded_handoffs": 6,
+    "wrong_queue": 1
+   },
+   "verdict": "Not shippable: safety hand-off recall is 75% on unseen questions. Keyword retrieval is precise (no wrong answers) but misses paraphrases. Next: semantic retrieval behind the same harness, keeping keyword safety rules as a floor."
+  }
+ ]
+}

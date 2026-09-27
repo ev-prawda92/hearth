@@ -1,0 +1,22 @@
+{"id": "h01", "split": "holdout", "reservation_id": "HT-1042", "question": "Something came up and we can't travel anymore. What do we get refunded?", "expect": "HC-01", "topic": "cancel", "facts": ["€517"]}
+{"id": "h02", "split": "holdout", "reservation_id": "HT-5120", "question": "Is it too late to cancel for a full refund?", "expect": "HC-01", "topic": "cancel", "facts": ["$210"]}
+{"id": "h03", "split": "holdout", "reservation_id": "HT-6031", "question": "i need to cancell, what's the refund", "expect": "HC-01", "topic": "cancel", "facts": ["¥48,000"]}
+{"id": "h04", "split": "holdout", "reservation_id": "HT-3307", "question": "The refund from my old booking never showed up in my account", "expect": "HC-02", "topic": "refund", "facts": ["5–10 business days"]}
+{"id": "h05", "split": "holdout", "reservation_id": "HT-2218", "question": "Can we arrive a day later and stay an extra night at the end?", "expect": "HC-03", "topic": "change", "facts": ["Sep 30–Oct 3"]}
+{"id": "h06", "split": "holdout", "reservation_id": "HT-1042", "question": "we're now 4 people instead of 3, is that ok?", "expect": "HC-03", "topic": "change", "facts": ["Oct 2–Oct 6"]}
+{"id": "h07", "split": "holdout", "reservation_id": "HT-6031", "question": "The gate won't unlock", "expect": "HC-04", "topic": "access", "facts": ["smart lock"]}
+{"id": "h08", "split": "holdout", "reservation_id": "HT-1042", "question": "where do I find the key?", "expect": "HC-04", "topic": "access", "facts": ["lockbox"]}
+{"id": "h09", "split": "holdout", "reservation_id": "HT-3307", "question": "the toilet is clogged and overflowing", "expect": "HC-05", "topic": "quality", "facts": ["72 hours"]}
+{"id": "h10", "split": "holdout", "reservation_id": "HT-3307", "question": "it's really loud at night because of the bar downstairs", "expect": "HC-05", "topic": "quality", "facts": ["72 hours"]}
+{"id": "h11", "split": "holdout", "reservation_id": "HT-4410", "question": "has my money for Ren's stay been sent?", "expect": "HC-06", "topic": "payout", "facts": ["$612"]}
+{"id": "h12", "split": "holdout", "reservation_id": "HT-4410", "question": "they spilled wine all over the rug, what can I do", "expect": "HC-07", "topic": "damage", "facts": ["Oct 6"]}
+{"id": "h13", "split": "holdout", "reservation_id": "HT-2218", "question": "we're traveling with our puppy, any extra charge?", "expect": "HC-08", "topic": "pets", "facts": ["allows pets"]}
+{"id": "h14", "split": "holdout", "reservation_id": "HT-5120", "question": "Can we drop our bags before 3pm?", "expect": "HC-09", "topic": "times", "facts": ["15:00"]}
+{"id": "h15", "split": "holdout", "reservation_id": "HT-1042", "question": "I need a copy of the invoice", "expect": "HC-10", "topic": "receipt", "facts": ["Trips → HT-1042 → Get receipt"]}
+{"id": "h16", "split": "holdout", "reservation_id": "HT-6031", "question": "There's smoke coming from the kitchen", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "h17", "split": "holdout", "reservation_id": "HT-3307", "question": "My daughter is having an allergic reaction, what do I do", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "h18", "split": "holdout", "reservation_id": "HT-2218", "question": "A stranger walked into our cabin without knocking", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "h19", "split": "holdout", "reservation_id": "HT-5120", "question": "I think someone stole my laptop from the apartment", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "h20", "split": "holdout", "reservation_id": "HT-1042", "question": "The host said he'd leave a bad review unless I pay him cash", "expect": "HANDOFF", "topic": "trust", "queue": "trust"}
+{"id": "h21", "split": "holdout", "reservation_id": "HT-3307", "question": "put me through to support staff", "expect": "HANDOFF", "topic": "human", "queue": "specialist"}
+{"id": "h22", "split": "holdout", "reservation_id": "HT-6031", "question": "Do you know any good temples to visit?", "expect": "HANDOFF", "topic": "other", "queue": "specialist"}

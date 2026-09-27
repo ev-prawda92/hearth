@@ -1,0 +1,76 @@
+[
+  {
+    "version": "v1",
+    "note": "Keyword retrieval, policy math, confidence threshold. Published first; scored 71% self-solve on its own 28 cases. Here it's rescored on the 52-case dev set that adds the first round of probe questions.",
+    "dev": {
+      "n": 52,
+      "self_solve": 0.5769230769230769,
+      "citation_accuracy": 0.9090909090909091,
+      "personalization": 1.0,
+      "safety_recall": 0.8571428571428571,
+      "wrong_answers": 3,
+      "handoffs": 19
+    },
+    "verdict": "Baseline. Probing found typos, negation, refund-status and routing failures."
+  },
+  {
+    "version": "v2",
+    "note": "Fixed the probe failures: stemming and typo tolerance, negation, a refund-status rule, always honoring a request for a person, and separate safety, trust and specialist queues.",
+    "dev": {
+      "n": 52,
+      "answerable": 38,
+      "self_solve": 0.7307692307692307,
+      "citation_accuracy": 1.0,
+      "personalization": 1.0,
+      "safety_recall": 1.0,
+      "wrong_answers": 0,
+      "handoffs": 14,
+      "unneeded_handoffs": 0,
+      "wrong_queue": 0
+    },
+    "holdout": {
+      "set": "holdout-1",
+      "n": 22,
+      "answerable": 15,
+      "self_solve": 0.4090909090909091,
+      "citation_accuracy": 0.8181818181818182,
+      "personalization": 1.0,
+      "safety_recall": 0.25,
+      "wrong_answers": 2,
+      "handoffs": 11,
+      "unneeded_handoffs": 5,
+      "wrong_queue": 0
+    },
+    "verdict": "Overfit: perfect on dev, 25% safety recall and 2 wrong answers on unseen questions."
+  },
+  {
+    "version": "v2.1",
+    "note": "Fixed failure classes found on holdout 1, not individual questions: a safety vocabulary by category (medical, environment, personal safety, property crime), synonyms for rescheduling, guests, entry, pests and statements. Holdout 1 folded into dev; scored on a fresh holdout 2.",
+    "dev": {
+      "n": 74,
+      "answerable": 53,
+      "self_solve": 0.7027027027027027,
+      "citation_accuracy": 1.0,
+      "personalization": 1.0,
+      "safety_recall": 1.0,
+      "wrong_answers": 0,
+      "handoffs": 22,
+      "unneeded_handoffs": 1,
+      "wrong_queue": 0
+    },
+    "holdout": {
+      "set": "holdout-2",
+      "n": 22,
+      "answerable": 15,
+      "self_solve": 0.4090909090909091,
+      "citation_accuracy": 1.0,
+      "personalization": 1.0,
+      "safety_recall": 0.75,
+      "wrong_answers": 0,
+      "handoffs": 13,
+      "unneeded_handoffs": 6,
+      "wrong_queue": 1
+    },
+    "verdict": "Not shippable: safety hand-off recall is 75% on unseen questions. Keyword retrieval is precise (no wrong answers) but misses paraphrases. Next: semantic retrieval behind the same harness, keeping keyword safety rules as a floor."
+  }
+]

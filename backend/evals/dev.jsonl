@@ -1,0 +1,74 @@
+{"id": "d01", "split": "dev", "reservation_id": "HT-1042", "question": "I need to cancel my trip, how much will I get back?", "expect": "HC-01", "topic": "cancel", "facts": ["€517"]}
+{"id": "d02", "split": "dev", "reservation_id": "HT-2218", "question": "Can I get a refund if I cancel?", "expect": "HC-01", "topic": "cancel", "facts": ["$85"]}
+{"id": "d03", "split": "dev", "reservation_id": "HT-3307", "question": "We have to leave early, can we get money back for the nights we won't use?", "expect": "HC-01", "topic": "cancel", "facts": ["$96"]}
+{"id": "d04", "split": "dev", "reservation_id": "HT-1042", "question": "My refund still hasn't arrived, it's been a week", "expect": "HC-02", "topic": "refund", "facts": ["5–10 business days"]}
+{"id": "d05", "split": "dev", "reservation_id": "HT-2218", "question": "How long does a refund take to show up on my card?", "expect": "HC-02", "topic": "refund", "facts": ["5–10 business days"]}
+{"id": "d06", "split": "dev", "reservation_id": "HT-1042", "question": "Can I add an extra night to my stay?", "expect": "HC-03", "topic": "change", "facts": ["Oct 2–Oct 6"]}
+{"id": "d07", "split": "dev", "reservation_id": "HT-2218", "question": "I want to change my dates to the following weekend", "expect": "HC-03", "topic": "change", "facts": ["Sep 30–Oct 3"]}
+{"id": "d08", "split": "dev", "reservation_id": "HT-1042", "question": "The lockbox code isn't working and I'm standing outside", "expect": "HC-04", "topic": "access", "facts": ["lockbox"]}
+{"id": "d09", "split": "dev", "reservation_id": "HT-2218", "question": "How do I get inside when I arrive?", "expect": "HC-04", "topic": "access", "facts": ["smart lock"]}
+{"id": "d10", "split": "dev", "reservation_id": "HT-3307", "question": "There's no hot water and the wifi is down", "expect": "HC-05", "topic": "quality", "facts": ["72 hours"]}
+{"id": "d11", "split": "dev", "reservation_id": "HT-3307", "question": "The place is dirty and doesn't match the photos", "expect": "HC-05", "topic": "quality", "facts": ["72 hours"]}
+{"id": "d12", "split": "dev", "reservation_id": "HT-4410", "question": "When do I get paid for my next booking?", "expect": "HC-06", "topic": "payout", "facts": ["$455", "Sep 29"]}
+{"id": "d13", "split": "dev", "reservation_id": "HT-4410", "question": "My guest broke a lamp and stained the couch, how do I get reimbursed?", "expect": "HC-07", "topic": "damage", "facts": ["Oct 6"]}
+{"id": "d14", "split": "dev", "reservation_id": "HT-2218", "question": "Can I bring my dog?", "expect": "HC-08", "topic": "pets", "facts": ["allows pets"]}
+{"id": "d15", "split": "dev", "reservation_id": "HT-1042", "question": "Is it ok to bring our cat along?", "expect": "HC-08", "topic": "pets", "facts": ["doesn't allow pets"]}
+{"id": "d16", "split": "dev", "reservation_id": "HT-1042", "question": "What time is check-in? Can we arrive early?", "expect": "HC-09", "topic": "times", "facts": ["15:00", "11:00"]}
+{"id": "d17", "split": "dev", "reservation_id": "HT-3307", "question": "Could we get a late checkout on our last day?", "expect": "HC-09", "topic": "times", "facts": ["14:00", "12:00"]}
+{"id": "d18", "split": "dev", "reservation_id": "HT-1042", "question": "I need an invoice with VAT for my company expenses", "expect": "HC-10", "topic": "receipt", "facts": ["Trips → HT-1042 → Get receipt"]}
+{"id": "d19", "split": "dev", "reservation_id": "HT-4410", "question": "I have to cancel my next guest, what happens?", "expect": "HC-11", "topic": "cancel", "facts": ["2 days", "50% fee"]}
+{"id": "d20", "split": "dev", "reservation_id": "HT-3307", "question": "The heating is broken, can I cancel and get a refund?", "expect": "HANDOFF", "topic": "multi", "queue": "specialist"}
+{"id": "d21", "split": "dev", "reservation_id": "HT-3307", "question": "There's a man outside the door and I feel unsafe", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d22", "split": "dev", "reservation_id": "HT-1042", "question": "I smell gas leak in the kitchen", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d23", "split": "dev", "reservation_id": "HT-3307", "question": "I found a hidden camera in the bedroom", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d24", "split": "dev", "reservation_id": "HT-2218", "question": "The host threatened me when I asked about the deposit", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d25", "split": "dev", "reservation_id": "HT-2218", "question": "I'm filing a chargeback with my bank if this isn't fixed", "expect": "HANDOFF", "topic": "trust", "queue": "trust"}
+{"id": "d26", "split": "dev", "reservation_id": "HT-2218", "question": "Is there good hiking near the cabin?", "expect": "HANDOFF", "topic": "other", "queue": "specialist"}
+{"id": "d27", "split": "dev", "reservation_id": "HT-2218", "question": "The door won't open with the code my host sent", "expect": "HC-04", "topic": "access", "facts": ["smart lock"]}
+{"id": "d28", "split": "dev", "reservation_id": "HT-4410", "question": "When will I receive the money from my last guest?", "expect": "HC-06", "topic": "payout", "facts": ["$612"]}
+{"id": "d29", "split": "dev", "reservation_id": "HT-1042", "question": "I need to cancle my booking", "expect": "HC-01", "topic": "cancel", "facts": ["€517"]}
+{"id": "d30", "split": "dev", "reservation_id": "HT-1042", "question": "how much refnd would i get if i cancel", "expect": "HC-01", "topic": "cancel", "facts": ["€517"]}
+{"id": "d31", "split": "dev", "reservation_id": "HT-1042", "question": "I don't want to cancel, I just want to change my dates", "expect": "HC-03", "topic": "change", "facts": ["Oct 2–Oct 6"]}
+{"id": "d32", "split": "dev", "reservation_id": "HT-1042", "question": "I already cancelled, where is my money?", "expect": "HC-02", "topic": "refund", "facts": ["5–10 business days"]}
+{"id": "d33", "split": "dev", "reservation_id": "HT-2218", "question": "I cancelled last week and the refund still isn't on my card", "expect": "HC-02", "topic": "refund", "facts": ["5–10 business days"]}
+{"id": "d34", "split": "dev", "reservation_id": "HT-1042", "question": "Can I talk to a real person please", "expect": "HANDOFF", "topic": "human", "queue": "specialist"}
+{"id": "d35", "split": "dev", "reservation_id": "HT-3307", "question": "get me a human agent", "expect": "HANDOFF", "topic": "human", "queue": "specialist"}
+{"id": "d36", "split": "dev", "reservation_id": "HT-3307", "question": "someone is trying to get into the apartment, I'm scared", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d37", "split": "dev", "reservation_id": "HT-3307", "question": "my kid fell and is bleeding, where is the nearest hospital", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d38", "split": "dev", "reservation_id": "HT-1042", "question": "the smoke alarm keeps going off", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d39", "split": "dev", "reservation_id": "HT-1042", "question": "is the fireplace ok to use? also what time is check in", "expect": "HC-09", "topic": "times", "facts": ["15:00"]}
+{"id": "d40", "split": "dev", "reservation_id": "HT-2218", "question": "what's the wifi password and the door code", "expect": "HC-04", "topic": "access", "facts": ["smart lock"]}
+{"id": "d41", "split": "dev", "reservation_id": "HT-2218", "question": "do you allow service dogs", "expect": "HC-08", "topic": "pets", "facts": ["allows pets"]}
+{"id": "d42", "split": "dev", "reservation_id": "HT-4410", "question": "where's my payout", "expect": "HC-06", "topic": "payout", "facts": ["$455"]}
+{"id": "d43", "split": "dev", "reservation_id": "HT-4410", "question": "I need to cancel on my guest because of a pipe leak", "expect": "HC-11", "topic": "cancel", "facts": ["50% fee"]}
+{"id": "d44", "split": "dev", "reservation_id": "HT-4410", "question": "the guest left the place trashed", "expect": "HC-07", "topic": "damage", "facts": ["Oct 6"]}
+{"id": "d45", "split": "dev", "reservation_id": "HT-1042", "question": "can you email me a receipt", "expect": "HC-10", "topic": "receipt", "facts": ["Trips → HT-1042 → Get receipt"]}
+{"id": "d46", "split": "dev", "reservation_id": "HT-3307", "question": "the AC is not working and it's 35 degrees", "expect": "HC-05", "topic": "quality", "facts": ["72 hours"]}
+{"id": "d47", "split": "dev", "reservation_id": "HT-1042", "question": "the host is being racist to me", "expect": "HANDOFF", "topic": "trust", "queue": "trust"}
+{"id": "d48", "split": "dev", "reservation_id": "HT-2218", "question": "can we bring 2 more people", "expect": "HC-03", "topic": "change", "facts": ["Sep 30–Oct 3"]}
+{"id": "d49", "split": "dev", "reservation_id": "HT-1042", "question": "when can I check in", "expect": "HC-09", "topic": "times", "facts": ["15:00"]}
+{"id": "d50", "split": "dev", "reservation_id": "HT-3307", "question": "if I leave tomorrow instead do I get anything back", "expect": "HC-01", "topic": "cancel", "facts": ["$96"]}
+{"id": "d51", "split": "dev", "reservation_id": "HT-2218", "question": "I want a full refund, this is ridiculous, I'm disputing the charge", "expect": "HANDOFF", "topic": "trust", "queue": "trust"}
+{"id": "d52", "split": "dev", "reservation_id": "HT-1042", "question": "I'm locked out", "expect": "HC-04", "topic": "access", "facts": ["lockbox"]}
+{"id": "d53", "split": "dev", "reservation_id": "HT-5120", "question": "we might not make it, what happens if we cancel?", "expect": "HC-01", "topic": "cancel", "facts": ["$210"]}
+{"id": "d54", "split": "dev", "reservation_id": "HT-6031", "question": "My flight got cancelled so I need to cancel tonight's booking. Refund?", "expect": "HC-01", "topic": "cancel", "facts": ["¥48,000"]}
+{"id": "d55", "split": "dev", "reservation_id": "HT-5120", "question": "cancelation refund amount?", "expect": "HC-01", "topic": "cancel", "facts": ["$210"]}
+{"id": "d56", "split": "dev", "reservation_id": "HT-2218", "question": "It's been two weeks and I still haven't gotten my refund back", "expect": "HC-02", "topic": "refund", "facts": ["5–10 business days"]}
+{"id": "d57", "split": "dev", "reservation_id": "HT-5120", "question": "Could I push the reservation to next month?", "expect": "HC-03", "topic": "change", "facts": ["Sep 28–Sep 30"]}
+{"id": "d58", "split": "dev", "reservation_id": "HT-6031", "question": "Can a third friend join us?", "expect": "HC-03", "topic": "change", "facts": []}
+{"id": "d59", "split": "dev", "reservation_id": "HT-5120", "question": "the keypad isn't accepting my code", "expect": "HC-04", "topic": "access", "facts": ["keypad"]}
+{"id": "d60", "split": "dev", "reservation_id": "HT-6031", "question": "How do we get in when we arrive?", "expect": "HC-04", "topic": "access", "facts": ["smart lock"]}
+{"id": "d61", "split": "dev", "reservation_id": "HT-3307", "question": "there are cockroaches in the kitchen", "expect": "HC-05", "topic": "quality", "facts": ["72 hours"]}
+{"id": "d62", "split": "dev", "reservation_id": "HT-3307", "question": "The shower is broken and water is leaking", "expect": "HC-05", "topic": "quality", "facts": ["72 hours"]}
+{"id": "d63", "split": "dev", "reservation_id": "HT-4410", "question": "How much is my next payout and when does it arrive?", "expect": "HC-06", "topic": "payout", "facts": ["$455"]}
+{"id": "d64", "split": "dev", "reservation_id": "HT-4410", "question": "The guests cracked the glass table, can I file a claim?", "expect": "HC-07", "topic": "damage", "facts": ["Oct 6"]}
+{"id": "d65", "split": "dev", "reservation_id": "HT-5120", "question": "Are dogs allowed at this place?", "expect": "HC-08", "topic": "pets", "facts": ["doesn't allow pets"]}
+{"id": "d66", "split": "dev", "reservation_id": "HT-6031", "question": "What's the latest we can check out?", "expect": "HC-09", "topic": "times", "facts": ["10:00"]}
+{"id": "d67", "split": "dev", "reservation_id": "HT-4410", "question": "I need a statement of my earnings for taxes", "expect": "HC-10", "topic": "receipt", "facts": ["Hosting → Earnings → Get statement"]}
+{"id": "d68", "split": "dev", "reservation_id": "HT-5120", "question": "Someone just broke in and took our bags", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d69", "split": "dev", "reservation_id": "HT-6031", "question": "My friend passed out and won't wake up", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d70", "split": "dev", "reservation_id": "HT-2218", "question": "There's a strong smell of gas near the stove", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d71", "split": "dev", "reservation_id": "HT-1042", "question": "The host keeps messaging me at night and it's making me uncomfortable", "expect": "HANDOFF", "topic": "safety", "queue": "safety"}
+{"id": "d72", "split": "dev", "reservation_id": "HT-5120", "question": "I'm going to report this listing as a scam", "expect": "HANDOFF", "topic": "trust", "queue": "trust"}
+{"id": "d73", "split": "dev", "reservation_id": "HT-3307", "question": "Can I speak with someone from customer service?", "expect": "HANDOFF", "topic": "human", "queue": "specialist"}
+{"id": "d74", "split": "dev", "reservation_id": "HT-2218", "question": "What's a good restaurant in town?", "expect": "HANDOFF", "topic": "other", "queue": "specialist"}
