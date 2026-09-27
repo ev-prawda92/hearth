@@ -3,13 +3,13 @@ import { DEMO, getApi, type Api } from "./api";
 import { Brief } from "./components/Brief";
 import { Console } from "./components/Console";
 import { Evaluation } from "./components/Evaluation";
-import { Inbox } from "./components/Inbox";
+import { Activity } from "./components/Inbox";
 import { Logo } from "./components/icons";
 import { Probe } from "./components/Probe";
 import { fmtDate } from "./engine/engine";
 import type { Meta, Reservation } from "./types";
 
-const TABS = [["console", "Console"], ["eval", "Evaluation"], ["probe", "Probe"], ["handoffs", "Hand-offs"], ["brief", "Brief"]] as const;
+const TABS = [["console", "Console"], ["eval", "Evaluation"], ["probe", "Probe"], ["activity", "Activity"], ["brief", "Brief"]] as const;
 type Tab = (typeof TABS)[number][0];
 const readHash = (): Tab => {
   const h = window.location.hash.slice(1);
@@ -23,6 +23,7 @@ export default function App() {
   const [tab, setTab] = useState<Tab>(readHash);
   const [current, setCurrent] = useState("HT-1042");
   const [threshold, setThreshold] = useState(0.45);
+  const [maxClarify, setMaxClarify] = useState(2);
   const [pending, setPending] = useState<{ rid: string; q: string } | null>(null);
   const [openTickets, setOpenTickets] = useState(0);
   const [ticketKey, setTicketKey] = useState(0);
@@ -58,7 +59,7 @@ export default function App() {
           <div className="tabs" role="tablist" aria-label="Sections">
             {TABS.map(([k, label]) => (
               <button key={k} role="tab" className="tab" aria-selected={tab === k} onClick={() => go(k)}>
-                {label}{k === "handoffs" && openTickets > 0 && <span className="count">{openTickets}</span>}
+                {label}{k === "activity" && openTickets > 0 && <span className="count">{openTickets}</span>}
               </button>
             ))}
           </div>
@@ -75,11 +76,12 @@ export default function App() {
           <>
             <div hidden={tab !== "console"}>
               <Console api={api} reservations={reservations} current={current} setCurrent={setCurrent} threshold={threshold}
-                setThreshold={setThreshold} pending={pending} clearPending={() => setPending(null)} onTicket={refreshTickets} />
+                setThreshold={setThreshold} maxClarify={maxClarify} setMaxClarify={setMaxClarify}
+                pending={pending} clearPending={() => setPending(null)} onActivity={refreshTickets} />
             </div>
-            {tab === "eval" && <Evaluation api={api} threshold={threshold} setThreshold={setThreshold} replay={replay} />}
+            {tab === "eval" && <Evaluation api={api} threshold={threshold} setThreshold={setThreshold} maxClarify={maxClarify} setMaxClarify={setMaxClarify} replay={replay} />}
             {tab === "probe" && <Probe api={api} reservations={reservations} threshold={threshold} />}
-            {tab === "handoffs" && <Inbox api={api} refreshKey={ticketKey} onChange={refreshTickets} goToConsole={replay} />}
+            {tab === "activity" && <Activity api={api} refreshKey={ticketKey} onChange={refreshTickets} goToConsole={replay} />}
             {tab === "brief" && <Brief />}
           </>
         )}

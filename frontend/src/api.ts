@@ -1,6 +1,6 @@
 // One client, two backends: the FastAPI server (npm run dev / production),
 // or the bundled TypeScript engine for the single-file shareable demo (npm run build:demo).
-import type { Answer, EvalResult, HistoryEntry, Meta, ProbeRow, Reservation, SweepPoint, Ticket } from "./types";
+import type { Answer, ConvState, EvalResult, HistoryEntry, LogEntry, Meta, ProbeRow, Reservation, SweepPoint, Ticket, TurnInput, TurnResult } from "./types";
 
 declare const __DEMO__: boolean;
 export const DEMO = typeof __DEMO__ !== "undefined" && __DEMO__;
@@ -10,8 +10,10 @@ export interface Api {
   reservations(): Promise<Reservation[]>;
   answer(question: string, reservationId: string, threshold: number): Promise<Answer>;
   probe(questions: string[], reservationId: string, threshold: number): Promise<ProbeRow[]>;
-  evaluate(threshold: number, split: string): Promise<EvalResult>;
-  sweep(split: string): Promise<SweepPoint[]>;
+  turn(reservationId: string, input: TurnInput, state: ConvState | null, threshold: number, maxClarify: number): Promise<TurnResult>;
+  actions(): Promise<LogEntry[]>;
+  evaluate(threshold: number, split: string, maxClarify: number): Promise<EvalResult>;
+  sweep(split: string, maxClarify: number): Promise<SweepPoint[]>;
   history(): Promise<HistoryEntry[]>;
   handoffs(): Promise<Ticket[]>;
   resolve(id: string): Promise<Ticket>;
@@ -33,8 +35,11 @@ const http: Api = {
   reservations: () => fetch("/api/reservations").then(j<Reservation[]>),
   answer: (question, reservation_id, threshold) => post("/api/answer", { question, reservation_id, threshold }).then(j<Answer>),
   probe: (questions, reservation_id, threshold) => post("/api/probe", { questions, reservation_id, threshold }).then(j<ProbeRow[]>),
-  evaluate: (t, split) => fetch(`/api/eval?threshold=${t}&split=${split}`).then(j<EvalResult>),
-  sweep: (split) => fetch(`/api/sweep?split=${split}`).then(j<SweepPoint[]>),
+  turn: (reservation_id, input, state, threshold, max_clarify) =>
+    post("/api/turn", { reservation_id, input, state, threshold, max_clarify }).then(j<TurnResult>),
+  actions: () => fetch("/api/actions").then(j<LogEntry[]>),
+  evaluate: (t, split, m) => fetch(`/api/eval?threshold=${t}&split=${split}&max_clarify=${m}`).then(j<EvalResult>),
+  sweep: (split, m) => fetch(`/api/sweep?split=${split}&max_clarify=${m}`).then(j<SweepPoint[]>),
   history: () => fetch("/api/history").then(j<HistoryEntry[]>),
   handoffs: () => fetch("/api/handoffs").then(j<Ticket[]>),
   resolve: (id) => post(`/api/handoffs/${id}/resolve`, {}).then(j<Ticket>),
@@ -45,6 +50,8 @@ const http: Api = {
 
 async function localApi(): Promise<Api> {
   const eng = await import("./engine/engine");
+  const conv = await import("./engine/conversation");
+  const log: LogEntry[] = [];
   const data = (await import("./demo/data.json")).default as unknown as {
     as_of: string; reservations: Record<string, Reservation>; history: HistoryEntry[];
     articles: { id: string; title: string; audience: string }[];
@@ -71,8 +78,21 @@ async function localApi(): Promise<Api> {
       return { question: q, decision: a.decision, article: a.article ?? null, article_title: a.article_title ?? null,
         queue: a.queue, confidence: a.confidence, reason: a.reason, top: a.ranked[0], rules: a.rules };
     })),
-    evaluate: (t, split) => later(eng.runEval(t, split)),
-    sweep: (split) => later(eng.sweep(split)),
+    turn: (rid, input, state, t, m) => {
+      const out = conv.turn(rid, input, state, t, m);
+      if (out.kind === "handoff" && out.handoff) {
+        const question = out.question ?? out.handoff.summary[1][1].replace(/^\u201c|\u201d$/g, "");
+        const ticket: Ticket = { id: `T-${String(++n).padStart(4, "0")}`, created: new Date().toISOString(), status: "open",
+          reservation_id: rid, question, ...out.handoff };
+        tickets.unshift(ticket);
+        out.ticket_id = ticket.id;
+      }
+      if (out.kind === "done" && out.entry) log.unshift({ ...out.entry, created: new Date().toISOString() });
+      return later(out);
+    },
+    actions: () => later([...log]),
+    evaluate: (t, split, m) => later(eng.runEval(t, split, m)),
+    sweep: (split, m) => later(eng.sweep(split, m)),
     history: () => later(data.history),
     handoffs: () => later([...tickets]),
     resolve: (id) => {

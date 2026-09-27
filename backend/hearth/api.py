@@ -12,6 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .data import AS_OF, ARTICLES, RESERVATIONS
+from .conversation import DEFAULT_MAX_CLARIFY, turn
 from .engine import DEFAULT_THRESHOLD, ENGINE_VERSION, answer
 from .evals import EVAL_DIR, run_eval, sweep
 
@@ -22,6 +23,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http
 # In-memory stores; a production build would persist these.
 HANDOFFS: list[dict] = []
 FEEDBACK: list[dict] = []
+ACTIONS: list[dict] = []
 _ids = itertools.count(1)
 
 
@@ -29,6 +31,14 @@ class AskIn(BaseModel):
     question: str = Field(min_length=1, max_length=500)
     reservation_id: str
     threshold: float = Field(DEFAULT_THRESHOLD, ge=0, le=1)
+
+
+class TurnIn(BaseModel):
+    reservation_id: str
+    input: dict
+    state: dict | None = None
+    threshold: float = Field(DEFAULT_THRESHOLD, ge=0, le=1)
+    max_clarify: int = Field(DEFAULT_MAX_CLARIFY, ge=0, le=5)
 
 
 class ProbeIn(BaseModel):
@@ -77,6 +87,33 @@ def ask(body: AskIn) -> dict:
     return out
 
 
+@app.post("/api/turn")
+def conversation_turn(body: TurnIn) -> dict:
+    _res(body.reservation_id)
+    kind = body.input.get("type")
+    if kind not in ("message", "choose", "action"):
+        raise HTTPException(422, "input.type must be message, choose or action")
+    if kind == "message":
+        text = str(body.input.get("text", "")).strip()
+        if not text or len(text) > 500:
+            raise HTTPException(422, "Message must be 1 to 500 characters")
+    out = turn(body.reservation_id, body.input, body.state, body.threshold, body.max_clarify)
+    if out["kind"] == "handoff":
+        question = out.get("question") or out["handoff"]["summary"][1][1].strip("\u201c\u201d")
+        ticket = {"id": f"T-{next(_ids):04d}", "created": _now(), "status": "open",
+                  "reservation_id": body.reservation_id, "question": question, **out["handoff"]}
+        HANDOFFS.insert(0, ticket)
+        out["ticket_id"] = ticket["id"]
+    if out["kind"] == "done":
+        ACTIONS.insert(0, {**out["entry"], "created": _now()})
+    return out
+
+
+@app.get("/api/actions")
+def actions_log() -> list[dict]:
+    return ACTIONS
+
+
 @app.post("/api/probe")
 def probe(body: ProbeIn) -> list[dict]:
     _res(body.reservation_id)
@@ -93,17 +130,18 @@ def probe(body: ProbeIn) -> list[dict]:
 
 
 @app.get("/api/eval")
-def evaluate(threshold: float = Query(DEFAULT_THRESHOLD, ge=0, le=1), split: str = "all") -> dict:
+def evaluate(threshold: float = Query(DEFAULT_THRESHOLD, ge=0, le=1), split: str = "all",
+             max_clarify: int = Query(DEFAULT_MAX_CLARIFY, ge=0, le=5)) -> dict:
     if split not in ("all", "dev", "holdout"):
         raise HTTPException(400, "split must be all, dev or holdout")
-    return run_eval(threshold, split)
+    return run_eval(threshold, split, max_clarify)
 
 
 @app.get("/api/sweep")
-def threshold_sweep(split: str = "all") -> list[dict]:
+def threshold_sweep(split: str = "all", max_clarify: int = Query(DEFAULT_MAX_CLARIFY, ge=0, le=5)) -> list[dict]:
     if split not in ("all", "dev", "holdout"):
         raise HTTPException(400, "split must be all, dev or holdout")
-    return sweep(split)
+    return sweep(split, max_clarify)
 
 
 @app.get("/api/history")

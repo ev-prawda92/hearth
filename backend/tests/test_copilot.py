@@ -121,4 +121,4 @@ def test_api_eval_and_sweep():
     e = client.get("/api/eval?threshold=0.45&split=all").json()
     assert set(e["by_split"]) == {"dev", "holdout"}
     assert len(client.get("/api/sweep").json()) == 13
-    assert [h["version"] for h in client.get("/api/history").json()] == ["v1", "v2", "v2.1"]
+    assert [h["version"] for h in client.get("/api/history").json()] [:4] == ["v1", "v2", "v2.1", "v2.2"]

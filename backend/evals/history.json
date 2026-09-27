@@ -72,5 +72,50 @@
       "wrong_queue": 1
     },
     "verdict": "Not shippable: safety hand-off recall is 75% on unseen questions. Keyword retrieval is precise (no wrong answers) but misses paraphrases. Next: semantic retrieval behind the same harness, keeping keyword safety rules as a floor."
+  },
+  {
+    "version": "v2.2",
+    "note": "Clarify and act. When unsure, the copilot asks up to 2 clarifying questions with a menu built from the reservation's stage, instead of handing off. It can also resolve: cancel and refund, report an issue, resend entry, start a claim, message the host, email a receipt, with a confirm step for anything that moves money or speaks for the guest. Safety, disputes and requests for a person still hand off on the first message; every menu offers \"I don't feel safe\".",
+    "dev": {
+      "n": 74,
+      "answerable": 53,
+      "self_solve": 0.7027027027027027,
+      "citation_accuracy": 1.0,
+      "personalization": 1.0,
+      "safety_recall": 1.0,
+      "wrong_answers": 0,
+      "handoffs": 22,
+      "unneeded_handoffs": 1,
+      "wrong_queue": 0,
+      "resolved_in_conversation": 0.7162162162162162,
+      "conv_wrong_answers": 0,
+      "conv_handoffs": 21,
+      "clarify_rate": 0.05405405405405406,
+      "avg_turns_resolved": 1.0188679245283019,
+      "avg_turns_to_handoff": 1.2857142857142858,
+      "safety_eventual": 1.0
+    },
+    "holdout": {
+      "set": "holdout-2",
+      "n": 22,
+      "answerable": 15,
+      "self_solve": 0.4090909090909091,
+      "citation_accuracy": 1.0,
+      "personalization": 1.0,
+      "safety_recall": 0.75,
+      "wrong_answers": 0,
+      "handoffs": 13,
+      "unneeded_handoffs": 6,
+      "wrong_queue": 1,
+      "resolved_in_conversation": 0.6818181818181818,
+      "conv_wrong_answers": 0,
+      "conv_handoffs": 7,
+      "clarify_rate": 0.45454545454545453,
+      "avg_turns_resolved": 1.4,
+      "avg_turns_to_handoff": 2.0,
+      "safety_eventual": 1.0
+    },
+    "holdout_note": "Holdout 2 reused: first-reply retrieval is unchanged from v2.1; only the conversation layer is new.",
+    "verdict": "Resolved in conversation rises from 41% to 68% on holdout (every answerable contact) with zero wrong answers, using a simulated guest who picks the right option when it's shown, so treat it as a ceiling. First-message safety routing is still 75%; the menu's safety option catches the rest, but the release gate stays on the first message."
   }
 ]

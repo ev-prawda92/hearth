@@ -21,12 +21,13 @@ export function Brief() {
         <section>
           <h2>What the evaluation says so far</h2>
           <div className="callout">
-            <p><b>v2.1 is precise but not shippable.</b> On questions it has never seen, it gave no wrong answers, but it resolved only 41% of contacts and sent 3 of 4 safety cases to the safety line. By the release rule, a missed safety case blocks the release.</p>
+            <p><b>v2.2 resolves far more, safely, but still isn't shippable.</b> On unseen questions it resolves 68% of contacts in conversation (41% on the first reply) with no wrong answers. It still catches only 3 of 4 safety cases on the first message, and by the release rule a missed safety case blocks the release.</p>
           </div>
           <ul>
             <li><b>v1 → v2:</b> probing with 24 harder questions found typos, negation, refund-status and routing failures. Fixing them made dev perfect.</li>
             <li><b>v2 on unseen questions:</b> 25% safety routing and 2 wrong answers. The fixes had overfit to the phrasings I'd seen.</li>
             <li><b>v2.1:</b> fixed failure <i>classes</i> instead of phrasings (safety vocabulary by category, synonyms). Wrong answers went to zero and safety rose to 75%, but paraphrase coverage stayed flat.</li>
+            <li><b>v2.2:</b> clarify and act. Up to two clarifying questions before a hand-off, plus confirmable actions (cancel and refund, report an issue, message the host). Resolved in conversation rose from 41% to 68% on holdout with zero wrong answers, measured with a simulated guest, so it's a ceiling. First-message safety detection is unchanged, so the gate still blocks release.</li>
             <li><b>Next (v3):</b> retrieve by meaning with embeddings or a language model. Keep the keyword safety rules as a floor and keep every gate.</li>
           </ul>
         </section>

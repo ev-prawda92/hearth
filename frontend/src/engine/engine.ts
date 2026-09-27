@@ -2,6 +2,7 @@
 // Kept line-for-line parallel with the Python; src/engine/parity.test.ts proves identical output.
 import DATA from "../demo/data.json";
 import type { Answer, Case, EvalResult, EvalSummary, Reservation, ScoredCase, SweepPoint } from "../types";
+import { turn } from "./conversation";
 
 const D = DATA as unknown as {
   engine: string; as_of: string; reservations: Record<string, Reservation>;
@@ -106,10 +107,12 @@ const addDays = (s: string, n: number) => new Date((isoDays(s) + n) * 86400000).
 export const fmtDate = (s: string) => `${MONTHS[Number(s.slice(5, 7)) - 1]} ${Number(s.slice(8, 10))}`;
 const group = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 export const money = (r: Reservation, n: number) => `${r.cur}${group(n)}`;
-const roundHalfUp = (x: number) => Math.floor(x + 0.5);
+export const roundHalfUp = (x: number) => Math.floor(x + 0.5);
 const round2 = (x: number) => Math.floor(x * 100 + 0.5) / 100;
 const plural = (n: number, w: string) => (n === 1 ? `${n} ${w}` : `${n} ${w}s`);
 const TODAY = D.as_of;
+export const QUEUE_LABELS = { safety: "Safety line · priority 1", trust: "Trust & disputes", specialist: "Support specialist" } as Record<string, string>;
+export const SAFETY_FIRST_STEP = "Call now and confirm they're safe before anything else. Emergency services first if needed.";
 
 // ------------------------------------------------------------------ policy
 type Refund = { total: number; refund: number; days_out: number; nights: number; rule: string; detail?: string };
@@ -142,7 +145,14 @@ const when = (d: number) => (d === 0 ? "today" : `in ${plural(d, "day")}`);
 
 // ------------------------------------------------------------------ answers
 type Body = { text: string; facts: string[]; signals: [string, string][] };
-function render(id: string, r: Reservation): Body {
+export function render(id: string, r: Reservation): Body {
+  if (id === "HC-01" && r.status === "cancelled")
+    return { text: `This reservation is already cancelled. Your refund of <mark>${money(r, r.refunded!)}</mark> was issued under confirmation ${r.cancel_code} and usually posts in 5–10 business days.`,
+      facts: [money(r, r.refunded!)], signals: [["Status", "cancelled"], ["Refunded", money(r, r.refunded!)]] };
+  if (id === "HC-11" && r.next_cancelled) {
+    const n = r.next_stay!;
+    return { text: `${n.guest}'s stay is already cancelled, and the fee comes out of your next payout.`, facts: [], signals: [["Next stay", "cancelled"]] };
+  }
   switch (id) {
     case "HC-01": {
       const f = refundFor(r);
@@ -277,8 +287,8 @@ const FIRST_STEP: Record<string, string> = {
 };
 const audience = (id: string) => D.articles.find((a) => a.id === id)!.audience;
 
-export function answer(question: string, reservationId: string, threshold = DEFAULT_THRESHOLD): Answer {
-  const r = D.reservations[reservationId];
+export function answer(question: string, reservationId: string, threshold = DEFAULT_THRESHOLD, reservation?: Reservation): Answer {
+  const r = reservation ?? D.reservations[reservationId];
   const ret = retrieve(question, r);
   const ranked = ret.ranked;
   const all = stems(question);
@@ -288,23 +298,23 @@ export function answer(question: string, reservationId: string, threshold = DEFA
   const margin = top.score > 0 ? (top.score - second.score) / top.score : 0.0;
   const confidence = round2(0.5 * strength + 0.5 * margin);
 
-  let decision: "answer" | "handoff" = "answer", queue: string | null = null, reason = "";
-  if (safety.length) { decision = "handoff"; queue = "safety"; reason = "Safety signal: " + safety.map((h) => h.label).join(", "); }
-  else if (sensitive.length) { decision = "handoff"; queue = "trust"; reason = "Sensitive topic: " + sensitive.map((h) => h.label).join(", "); }
+  let decision: "answer" | "handoff" = "answer", queue: string | null = null, reason = "", kind: string | null = null;
+  if (safety.length) { decision = "handoff"; queue = "safety"; kind = "safety"; reason = "Safety signal: " + safety.map((h) => h.label).join(", "); }
+  else if (sensitive.length) { decision = "handoff"; queue = "trust"; kind = "trust"; reason = "Sensitive topic: " + sensitive.map((h) => h.label).join(", "); }
   else if (human.length) {
     const labels = human.map((h) => h.label);
-    decision = "handoff"; queue = "specialist";
+    decision = "handoff"; queue = "specialist"; kind = "human";
     reason = labels.length === 1 && labels[0] === "rebook" ? "Asked to rebook" : "Asked for a person";
   }
-  else if (top.score === 0) { decision = "handoff"; queue = "specialist"; reason = "No matching help article"; }
+  else if (top.score === 0) { decision = "handoff"; queue = "specialist"; kind = "unclear"; reason = "No matching help article"; }
   else if (!["both", r.role].includes(audience(top.id))) {
-    decision = "handoff"; queue = "specialist";
+    decision = "handoff"; queue = "specialist"; kind = "unclear";
     reason = `Best match is a ${audience(top.id)}-only article, but this is a ${r.role} account`;
   }
-  else if (confidence < threshold) { decision = "handoff"; queue = "specialist"; reason = `Confidence ${confidence.toFixed(2)} is below the ${threshold.toFixed(2)} threshold`; }
+  else if (confidence < threshold) { decision = "handoff"; queue = "specialist"; kind = "unclear"; reason = `Confidence ${confidence.toFixed(2)} is below the ${threshold.toFixed(2)} threshold`; }
 
   const out: Answer = { reservation_id: reservationId, question, engine: ENGINE_VERSION, ranked: ranked.slice(0, 3), rules: ret.rules,
-    confidence, threshold, decision, queue, reason } as Answer;
+    confidence, threshold, decision, queue, reason, handoff_kind: kind } as Answer;
   if (decision === "answer") {
     const art = D.articles.find((a) => a.id === top.id)!;
     const body = render(art.id, r);
@@ -336,7 +346,7 @@ function handoff(question: string, r: Reservation, top: Ranked, confidence: numb
 }
 
 // ------------------------------------------------------------------ evals
-export function scoreCase(c: Case, threshold: number): ScoredCase {
+export function scoreCase(c: Case, threshold: number, maxClarify = 2): ScoredCase {
   const a = answer(c.question, c.reservation_id, threshold);
   const got = a.decision === "answer" ? a.article! : "HANDOFF";
   let factsOk: boolean | null = null;
@@ -348,7 +358,32 @@ export function scoreCase(c: Case, threshold: number): ScoredCase {
     else verdict = "pass";
   } else if (got === "HANDOFF") verdict = "handoff";
   else verdict = got === c.expect && factsOk !== false ? "pass" : "wrong";
-  return { ...c, got, got_queue: a.queue, confidence: a.confidence, reason: a.reason, facts_ok: factsOk, verdict };
+  const sim = simulate(c, threshold, maxClarify);
+  let conv: ScoredCase["conv_verdict"];
+  if (c.expect === "HANDOFF") {
+    if (sim.got !== "HANDOFF") conv = c.queue === "safety" ? "missed_safety" : "wrong";
+    else if (sim.queue !== c.queue) conv = c.queue === "safety" ? "missed_safety" : "wrong_queue";
+    else if (c.queue === "safety" && a.queue !== "safety") conv = "late_safety";
+    else conv = "pass";
+  } else if (sim.got === "HANDOFF") conv = "handoff";
+  else if (sim.got === c.expect && (c.facts ?? []).every((f) => sim.text.includes(f))) conv = "resolved";
+  else conv = "wrong";
+  return { ...c, got, got_queue: a.queue, confidence: a.confidence, reason: a.reason, facts_ok: factsOk, verdict,
+    conv_verdict: conv, conv_got: sim.got, conv_queue: sim.queue, turns: sim.turns, clarified: sim.clarified };
+}
+
+function simulate(c: Case, threshold: number, maxClarify: number) {
+  let out = turn(c.reservation_id, { type: "message", text: c.question }, null, threshold, maxClarify);
+  let turns = 1, clarified = 0;
+  while (out.kind === "clarify" && turns < 10) {
+    const ids = (out.options ?? []).map((o) => o.id);
+    const pick = c.queue === "safety" && ids.includes("SAFETY") ? "SAFETY" : ids.includes(c.expect) ? c.expect : "OTHER";
+    clarified += 1;
+    out = turn(c.reservation_id, { type: "choose", option: pick }, out.state, threshold, maxClarify);
+    turns += 1;
+  }
+  const got = out.kind === "answer" ? out.article! : "HANDOFF";
+  return { got, queue: out.queue ?? null, turns, clarified, text: out.text ?? "" };
 }
 
 export function summarize(rows: ScoredCase[]): EvalSummary {
@@ -366,22 +401,32 @@ export function summarize(rows: ScoredCase[]): EvalSummary {
     wrong_answers: answered.length - correct.length, handoffs: n - answered.length,
     unneeded_handoffs: rows.filter((r) => r.verdict === "handoff").length,
     wrong_queue: rows.filter((r) => r.verdict === "wrong_queue").length,
+    resolved_in_conversation: n ? rows.filter((r) => r.conv_verdict === "resolved").length / n : 0.0,
+    conv_wrong_answers: rows.filter((r) => r.conv_verdict === "wrong").length,
+    conv_handoffs: rows.filter((r) => r.conv_got === "HANDOFF").length,
+    clarify_rate: n ? rows.filter((r) => r.clarified).length / n : 0.0,
+    avg_turns_resolved: rows.filter((r) => r.conv_verdict === "resolved").reduce((s, r) => s + r.turns, 0) /
+      Math.max(1, rows.filter((r) => r.conv_verdict === "resolved").length),
+    avg_turns_to_handoff: rows.filter((r) => r.conv_got === "HANDOFF").reduce((s, r) => s + r.turns, 0) /
+      Math.max(1, rows.filter((r) => r.conv_got === "HANDOFF").length),
+    safety_eventual: safety.length ? safety.filter((r) => r.conv_verdict === "pass" || r.conv_verdict === "late_safety").length / safety.length : 1.0,
   };
 }
 
-export function runEval(threshold = DEFAULT_THRESHOLD, split = "all"): EvalResult {
-  const rows = D.cases.filter((c) => split === "all" || c.split === split).map((c) => scoreCase(c, threshold));
+export function runEval(threshold = DEFAULT_THRESHOLD, split = "all", maxClarify = 2): EvalResult {
+  const rows = D.cases.filter((c) => split === "all" || c.split === split).map((c) => scoreCase(c, threshold, maxClarify));
   const by_split: Record<string, EvalSummary> = {};
   for (const s of ["dev", "holdout"]) if (split === "all" || split === s) by_split[s] = summarize(rows.filter((r) => r.split === s));
-  return { threshold, split, summary: summarize(rows), by_split, rows };
+  return { threshold, split, max_clarify: maxClarify, summary: summarize(rows), by_split, rows };
 }
 
-export function sweep(split = "all"): SweepPoint[] {
+export function sweep(split = "all", maxClarify = 2): SweepPoint[] {
   const out: SweepPoint[] = [];
   for (let i = 0; i < 13; i++) {
     const t = Math.round((0.2 + 0.05 * i) * 100) / 100;
-    const s = runEval(t, split).summary;
-    out.push({ threshold: t, self_solve: s.self_solve, citation_accuracy: s.citation_accuracy, wrong_answers: s.wrong_answers, handoffs: s.handoffs });
+    const s = runEval(t, split, maxClarify).summary;
+    out.push({ threshold: t, self_solve: s.self_solve, citation_accuracy: s.citation_accuracy, wrong_answers: s.wrong_answers, handoffs: s.handoffs,
+      resolved_in_conversation: s.resolved_in_conversation });
   }
   return out;
 }

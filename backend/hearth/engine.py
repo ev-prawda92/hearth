@@ -16,7 +16,7 @@ from . import text as tx
 from .data import (AS_OF, ARTICLES, HUMAN_TERMS, HYPOTHETICAL_CUES, RESERVATIONS, SAFETY_TERMS,
                    SENSITIVE_TERMS, STATUS_CUES)
 
-ENGINE_VERSION = "v2.1"
+ENGINE_VERSION = "v2.2"
 DEFAULT_THRESHOLD = 0.45
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 TODAY = date.fromisoformat(AS_OF)
@@ -98,6 +98,10 @@ def _when(days_out: int) -> str:
 # ---------------------------------------------------------------- answers
 
 def render(article_id: str, r: dict) -> dict:
+    if article_id == "HC-01" and r["status"] == "cancelled":
+        return {"text": (f"This reservation is already cancelled. Your refund of <mark>{money(r, r['refunded'])}</mark> was "
+                         f"issued under confirmation {r['cancel_code']} and usually posts in 5–10 business days."),
+                "facts": [money(r, r["refunded"])], "signals": [["Status", "cancelled"], ["Refunded", money(r, r["refunded"])]]}
     if article_id == "HC-01":
         f = refund_for(r)
         signals = [["Policy", r["policy"]],
@@ -177,6 +181,10 @@ def render(article_id: str, r: dict) -> dict:
         return {"text": (f"Download it from <mark>{path}</mark>. For a business invoice with VAT details, add your company "
                          f"info under Account → Payments first, then regenerate it."),
                 "facts": [path], "signals": [["Reservation", r["id"]]]}
+    if article_id == "HC-11" and r.get("next_cancelled"):
+        n = r["next_stay"]
+        return {"text": f"{n['guest']}'s stay is already cancelled, and the fee comes out of your next payout.",
+                "facts": [], "signals": [["Next stay", "cancelled"]]}
     if article_id == "HC-11":
         n = r["next_stay"]
         days = _days(TODAY, _d(n["check_in"]))
@@ -275,8 +283,9 @@ FIRST_STEP = {
 }
 
 
-def answer(question: str, reservation_id: str, threshold: float = DEFAULT_THRESHOLD) -> dict:
-    r = RESERVATIONS[reservation_id]
+def answer(question: str, reservation_id: str, threshold: float = DEFAULT_THRESHOLD,
+           reservation: dict | None = None) -> dict:
+    r = reservation or RESERVATIONS[reservation_id]
     ret = retrieve(question, r)
     tokens, ranked = ret["tokens"], ret["ranked"]
     all_tokens = tx.stems(question)
@@ -288,27 +297,30 @@ def answer(question: str, reservation_id: str, threshold: float = DEFAULT_THRESH
     margin = (top["score"] - second["score"]) / top["score"] if top["score"] > 0 else 0.0
     confidence = round2(0.5 * strength + 0.5 * margin)
 
-    decision, queue, reason = "answer", None, ""
+    decision, queue, reason, kind = "answer", None, "", None
     if safety:
-        decision, queue, reason = "handoff", "safety", "Safety signal: " + ", ".join(h["label"] for h in safety)
+        decision, queue, kind = "handoff", "safety", "safety"
+        reason = "Safety signal: " + ", ".join(h["label"] for h in safety)
     elif sensitive:
-        decision, queue, reason = "handoff", "trust", "Sensitive topic: " + ", ".join(h["label"] for h in sensitive)
+        decision, queue, kind = "handoff", "trust", "trust"
+        reason = "Sensitive topic: " + ", ".join(h["label"] for h in sensitive)
     elif human:
         labels = [h["label"] for h in human]
-        decision, queue = "handoff", "specialist"
+        decision, queue, kind = "handoff", "specialist", "human"
         reason = "Asked to rebook" if labels == ["rebook"] else "Asked for a person"
     elif top["score"] == 0:
-        decision, queue, reason = "handoff", "specialist", "No matching help article"
+        decision, queue, kind, reason = "handoff", "specialist", "unclear", "No matching help article"
     elif _audience(top["id"]) not in ("both", r["role"]):
-        decision, queue = "handoff", "specialist"
+        decision, queue, kind = "handoff", "specialist", "unclear"
         reason = f"Best match is a {_audience(top['id'])}-only article, but this is a {r['role']} account"
     elif confidence < threshold:
-        decision, queue, reason = "handoff", "specialist", f"Confidence {confidence:.2f} is below the {threshold:.2f} threshold"
+        decision, queue, kind = "handoff", "specialist", "unclear"
+        reason = f"Confidence {confidence:.2f} is below the {threshold:.2f} threshold"
 
     out = {
         "reservation_id": reservation_id, "question": question, "engine": ENGINE_VERSION,
         "ranked": ranked[:3], "rules": ret["rules"], "confidence": confidence, "threshold": threshold,
-        "decision": decision, "queue": queue, "reason": reason,
+        "decision": decision, "queue": queue, "reason": reason, "handoff_kind": kind,
     }
     if decision == "answer":
         art = next(a for a in ARTICLES if a["id"] == top["id"])

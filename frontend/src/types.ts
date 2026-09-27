@@ -5,6 +5,7 @@ export type Reservation = {
   entry?: string; entry_detail?: string; check_in_time?: string; check_out_time?: string; pets?: boolean; pet_fee?: number; host?: string;
   last_stay?: { guest: string; check_out: string; earnings: number; paid: string };
   next_stay?: { guest: string; check_in: string; check_out: string; earnings: number };
+  refunded?: number; cancel_code?: string; next_cancelled?: boolean;
 };
 
 export type Ranked = { id: string; title: string; score: number; hits: string[] };
@@ -16,6 +17,22 @@ export type Answer = {
   confidence: number; threshold: number; decision: "answer" | "handoff"; queue: string | null; reason: string;
   article?: string; article_title?: string; also?: { id: string; title: string } | null; followups: string[];
   text?: string; facts?: string[]; signals?: [string, string][]; handoff?: Handoff; ticket_id?: string;
+  handoff_kind?: string | null;
+};
+
+export type ActionOffer = { id: string; label: string; confirm: boolean };
+export type LogEntry = { action: string; code: string; reservation_id: string; summary: string; created?: string };
+export type ConvState = {
+  clarify_turns: number; context: string; pending_action: string | null;
+  overrides: Partial<Reservation> & Record<string, unknown>; log: LogEntry[];
+};
+export type TurnInput = { type: "message" | "choose" | "action"; text?: string; option?: string; action?: string; confirm?: boolean | null };
+export type Option = { id: string; label: string };
+export type TurnResult = Partial<Omit<Answer, "decision" | "text">> & {
+  kind: "answer" | "clarify" | "handoff" | "confirm" | "done" | "notice";
+  decision?: string; text?: string | null; state: ConvState;
+  options?: Option[]; open?: boolean; turn?: number; max?: number; chosen?: boolean;
+  actions?: ActionOffer[]; action?: string; title?: string; confirm_label?: string; points?: string[]; entry?: LogEntry;
 };
 
 export type Case = {
@@ -26,19 +43,23 @@ export type Case = {
 export type ScoredCase = Case & {
   got: string; got_queue: string | null; confidence: number; reason: string; facts_ok: boolean | null;
   verdict: "pass" | "handoff" | "wrong" | "wrong_queue" | "missed_safety";
+  conv_verdict: "pass" | "resolved" | "handoff" | "wrong" | "wrong_queue" | "missed_safety" | "late_safety";
+  conv_got: string; conv_queue: string | null; turns: number; clarified: number;
 };
 
 export type EvalSummary = {
   n: number; answerable: number; self_solve: number; citation_accuracy: number; personalization: number;
   safety_recall: number; wrong_answers: number; handoffs: number; unneeded_handoffs: number; wrong_queue: number;
+  resolved_in_conversation: number; conv_wrong_answers: number; conv_handoffs: number; clarify_rate: number;
+  avg_turns_resolved: number; avg_turns_to_handoff: number; safety_eventual: number;
 };
 
-export type EvalResult = { threshold: number; split: string; summary: EvalSummary; by_split: Record<string, EvalSummary>; rows: ScoredCase[] };
+export type EvalResult = { threshold: number; split: string; max_clarify: number; summary: EvalSummary; by_split: Record<string, EvalSummary>; rows: ScoredCase[] };
 
-export type SweepPoint = { threshold: number; self_solve: number; citation_accuracy: number; wrong_answers: number; handoffs: number };
+export type SweepPoint = { threshold: number; self_solve: number; citation_accuracy: number; wrong_answers: number; handoffs: number; resolved_in_conversation: number };
 
 export type HistoryEntry = {
-  version: string; note: string; verdict?: string; dev: Partial<EvalSummary> & { n: number };
+  version: string; note: string; verdict?: string; holdout_note?: string; dev: Partial<EvalSummary> & { n: number };
   holdout?: Partial<EvalSummary> & { set: string; n: number };
 };
 

@@ -3,7 +3,7 @@
   --line: #dddddd; --line-soft: #ebebeb;
   --ember: #e0474c; --ember-deep: #bd2e4a; --ember-soft: #fdeeee; --ember-ink: #ffffff;
   --good: #0b7a42; --good-soft: #e5f4ec; --warn: #a55f0a; --warn-soft: #fcf1e1; --crit: #b3261e; --crit-soft: #fbe8e6;
-  --s1: #00917f; --s2: #6a58c7;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
   --mark: #fff0c4; --mark-ink: #3d2e00;
   --shadow: 0 6px 20px rgba(0, 0, 0, 0.08); --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
   --r: 16px; --r-sm: 12px;
@@ -18,7 +18,7 @@
     --line: #353535; --line-soft: #2a2a2a;
     --ember: #ff6168; --ember-deep: #e0405c; --ember-soft: #3a1c1f; --ember-ink: #1a0707;
     --good: #58c98c; --good-soft: #14301f; --warn: #e8a64e; --warn-soft: #342510; --crit: #f28b82; --crit-soft: #3b1a17;
-    --s1: #2fa396; --s2: #8b7ae6; --mark: #4a3d12; --mark-ink: #ffe9a8;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --mark: #4a3d12; --mark-ink: #ffe9a8;
     --shadow: 0 6px 20px rgba(0, 0, 0, 0.4); --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 }
@@ -28,7 +28,7 @@
   --line: #353535; --line-soft: #2a2a2a;
   --ember: #ff6168; --ember-deep: #e0405c; --ember-soft: #3a1c1f; --ember-ink: #1a0707;
   --good: #58c98c; --good-soft: #14301f; --warn: #e8a64e; --warn-soft: #342510; --crit: #f28b82; --crit-soft: #3b1a17;
-  --s1: #2fa396; --s2: #8b7ae6; --mark: #4a3d12; --mark-ink: #ffe9a8;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --mark: #4a3d12; --mark-ink: #ffe9a8;
   --shadow: 0 6px 20px rgba(0, 0, 0, 0.4); --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -147,6 +147,23 @@ p { margin: 0; }
 .slider small { color: var(--faint); font-size: 12px; display: block; margin-top: 2px; }
 .empty-why { color: var(--muted); font-size: 14px; }
 
+.tag.off { background: var(--bg-soft); color: var(--faint); text-decoration: line-through; }
+.bubble.inspected { box-shadow: 0 0 0 2px var(--line); }
+.clarify-meta { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+.clarify-note { font-size: 12.5px; color: var(--muted); margin: 0 4px 8px; }
+.pill-btn.action { background: var(--ink); color: var(--bg); border-color: var(--ink); font-weight: 600; }
+.pill-btn.action:hover { box-shadow: var(--shadow); }
+.pill-btn.danger { border-color: var(--crit); color: var(--crit); }
+.pill-btn.quiet { color: var(--muted); }
+.confirm-card { display: flex; flex-direction: column; gap: 8px; }
+.confirm-card ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.confirm-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.btn-primary.sm { padding: 8px 14px; font-size: 14px; }
+.done-card { display: flex; gap: 10px; align-items: flex-start; }
+.done-icon { width: 26px; height: 26px; border-radius: 50%; background: var(--good-soft); color: var(--good); display: grid; place-items: center; flex: none; }
+.activity-row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: start; padding: 12px 0; border-top: 1px solid var(--line-soft); }
+.activity-row:first-child { border-top: 0; }
+
 /* ---------- badges */
 .badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; }
 .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
@@ -178,7 +195,7 @@ p { margin: 0; }
 .grid-2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; }
 .stack { display: flex; flex-direction: column; gap: 12px; }
 
-.timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.timeline { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
 .step { border: 1px solid var(--line); border-radius: var(--r-sm); padding: 14px; display: flex; flex-direction: column; gap: 10px; position: relative; background: var(--card); }
 .step.next { border-style: dashed; background: var(--bg-soft); }
 .step-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
