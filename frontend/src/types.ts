@@ -59,7 +59,8 @@ export type EvalResult = { threshold: number; split: string; max_clarify: number
 export type SweepPoint = { threshold: number; self_solve: number; citation_accuracy: number; wrong_answers: number; handoffs: number; resolved_in_conversation: number };
 
 export type HistoryEntry = {
-  version: string; note: string; verdict?: string; holdout_note?: string; dev: Partial<EvalSummary> & { n: number };
+  version: string; note: string; verdict?: string; holdout_note?: string;
+  external?: { set: string; n: number } & Record<string, { _total_wrong: number; _false_safety: number } & Record<string, unknown>>; dev: Partial<EvalSummary> & { n: number };
   holdout?: Partial<EvalSummary> & { set: string; n: number };
 };
 

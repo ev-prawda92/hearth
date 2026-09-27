@@ -8,7 +8,7 @@ const D = DATA as unknown as {
   engine: string; as_of: string; reservations: Record<string, Reservation>;
   articles: { id: string; title: string; audience: string; kw: string[]; followups: string[] }[];
   safety_terms: string[]; sensitive_terms: string[]; human_terms: string[]; status_cues: string[];
-  hypothetical_cues: string[]; cases: Case[];
+  hypothetical_cues: string[]; cases: Case[]; strong_status_cues: string[]; out_of_scope_terms: string[]; in_domain_anchors: string[];
 };
 
 export const ENGINE_VERSION = D.engine;
@@ -44,9 +44,13 @@ export function stem(token: string): string {
   return t;
 }
 
+const SYNONYMS: Record<string, string> = { reimbursement: "refund", compensation: "refund", rebat: "refund", restitution: "refund", bill: "invoic", invoic: "invoic" };
+const NOT_CHECK_IN_NEXT = new Set(["what", "which", "whether", "on", "to", "if", "how"]);
+
 export function stems(text: string): string[] {
   if (!text.trim()) return [];
-  return normalize(text).split(" ").filter(Boolean).map(stem);
+  const out = normalize(text).split(" ").filter(Boolean).map(stem).map((s) => SYNONYMS[s] ?? s);
+  return out.filter((s, i) => !(s === "in" && i > 0 && out[i - 1] === "check" && i + 1 < out.length && NOT_CHECK_IN_NEXT.has(out[i + 1])));
 }
 
 const eq = (a: string[], b: string[]) => a.length === b.length && a.every((x, i) => x === b[i]);
@@ -235,7 +239,8 @@ function compile(terms: string[], phraseWeight = 2.0): Kw[] {
 }
 const COMPILED = Object.fromEntries(D.articles.map((a) => [a.id, compile(a.kw)]));
 const SAFETY = compile(D.safety_terms), SENSITIVE = compile(D.sensitive_terms), HUMAN = compile(D.human_terms);
-const STATUS = compile(D.status_cues), HYPO = compile(D.hypothetical_cues);
+const STATUS = compile(D.status_cues), HYPO = compile(D.hypothetical_cues), STRONG_STATUS = compile(D.strong_status_cues);
+const OFF_SCOPE = compile(D.out_of_scope_terms), ANCHORS = compile(D.in_domain_anchors);
 const MONEY_STEMS = ["refund", "money", "cancel", "cancellation"];
 
 type Hit = { label: string; weight: number; kind: string };
@@ -268,7 +273,8 @@ function retrieve(question: string, r: Reservation) {
   });
   const status = matches(tokens, STATUS, false);
   const hypo = matches(tokens, HYPO, false);
-  if (status.length && !hypo.length && MONEY_STEMS.some((m) => tokens.includes(m))) {
+  const strong = matches(tokens, STRONG_STATUS, false);
+  if (status.length && (strong.length || !hypo.length) && MONEY_STEMS.some((m) => tokens.includes(m))) {
     for (const x of ranked) {
       if (x.id === "HC-02") x.score += 3;
       if (x.id === "HC-01") x.score *= 0.5;
@@ -292,7 +298,8 @@ export function answer(question: string, reservationId: string, threshold = DEFA
   const ret = retrieve(question, r);
   const ranked = ret.ranked;
   const all = stems(question);
-  const safety = matches(all, SAFETY, true), sensitive = matches(all, SENSITIVE, false), human = matches(all, HUMAN, false);
+  const offScope = matches(all, OFF_SCOPE, false), anchored = matches(all, ANCHORS, false).length > 0;
+  const safety = matches(all, SAFETY, false), sensitive = matches(all, SENSITIVE, false), human = matches(all, HUMAN, false);
   const top = ranked[0], second = ranked[1];
   const strength = Math.min(1.0, top.score / 3);
   const margin = top.score > 0 ? (top.score - second.score) / top.score : 0.0;
@@ -307,6 +314,10 @@ export function answer(question: string, reservationId: string, threshold = DEFA
     reason = labels.length === 1 && labels[0] === "rebook" ? "Asked to rebook" : "Asked for a person";
   }
   else if (top.score === 0) { decision = "handoff"; queue = "specialist"; kind = "unclear"; reason = "No matching help article"; }
+  else if (offScope.length && !anchored) {
+    decision = "handoff"; queue = "specialist"; kind = "unclear";
+    reason = "Mentions " + offScope.map((h) => h.label).join(", ") + ", which this copilot doesn't handle";
+  }
   else if (!["both", r.role].includes(audience(top.id))) {
     decision = "handoff"; queue = "specialist"; kind = "unclear";
     reason = `Best match is a ${audience(top.id)}-only article, but this is a ${r.role} account`;

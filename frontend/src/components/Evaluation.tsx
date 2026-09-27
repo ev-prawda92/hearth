@@ -97,7 +97,7 @@ export function Evaluation({ api, threshold, setThreshold, maxClarify, setMaxCla
           {history.map((h) => <Step key={h.version} h={h} />)}
           <div className="step next">
             <div className="step-head"><span className="step-v">v3</span><span className="badge neutral">Next</span></div>
-            <p>Retrieve by meaning (embeddings or a language model) so the first message lands more often, and first-message safety detection reaches 100%. Keep the keyword safety rules as a floor and every gate unchanged.</p>
+            <p>Retrieve by meaning (embeddings or a language model) instead of keywords, which keep colliding ("Guess" jeans matched "guest"). Add a red-team set of new safety phrasing, and keep the keyword safety rules as a floor and every gate unchanged.</p>
           </div>
         </div>
       </section>
@@ -190,8 +190,8 @@ function Kpi({ name, dev, hold, note, ok, okLabel, badLabel, crit, count }: {
 }
 
 function Step({ h }: { h: HistoryEntry }) {
-  const label = h.version === "v1" ? "Baseline" : h.version === "v2" ? "Overfit" : h.version === "v2.1" ? "Not shippable" : "Blocked on safety";
-  const tone = h.version === "v1" ? "neutral" : h.version === "v2.2" ? "warn" : "crit";
+  const label = h.version === "v1" ? "Baseline" : h.version === "v2" ? "Overfit" : h.version === "v2.1" ? "Not shippable" : h.version === "v2.2" ? "Blocked on safety" : "Generalizes";
+  const tone = h.version === "v1" ? "neutral" : h.version === "v2.3" ? "good" : h.version === "v2.2" ? "warn" : "crit";
   const cell = (v: number | undefined, gate?: number) =>
     v === undefined ? "–" : <span className={gate !== undefined && v < gate ? "bad" : undefined}>{pct(v)}</span>;
   return (
@@ -202,12 +202,13 @@ function Step({ h }: { h: HistoryEntry }) {
         <thead><tr><th /><th>Dev</th><th>{h.holdout ? h.holdout.set.replace("holdout-", "Holdout ") : "Holdout"}</th></tr></thead>
         <tbody>
           <tr><td>First reply</td><td>{cell(h.dev.self_solve)}</td><td>{cell(h.holdout?.self_solve)}</td></tr>
-          {h.holdout?.resolved_in_conversation !== undefined && h.version === "v2.2" &&
+          {h.holdout?.resolved_in_conversation !== undefined && (h.version === "v2.2" || h.version === "v2.3") &&
             <tr><td>In conversation</td><td>{cell(h.dev.resolved_in_conversation)}</td><td>{cell(h.holdout.resolved_in_conversation)}</td></tr>}
           <tr><td>Citation</td><td>{cell(h.dev.citation_accuracy, 0.95)}</td><td>{cell(h.holdout?.citation_accuracy, 0.95)}</td></tr>
           <tr><td>Safety, 1st msg</td><td>{cell(h.dev.safety_recall, 1)}</td><td>{cell(h.holdout?.safety_recall, 1)}</td></tr>
         </tbody>
       </table>
+      {h.external && <p style={{ fontSize: 13 }}>Public questions, untouched half: wrong answers <b>{h.external["v2.2"]._total_wrong} → {h.external["v2.3"]._total_wrong}</b>, false safety alarms <b>{h.external["v2.2"]._false_safety} → {h.external["v2.3"]._false_safety}</b>.</p>}
       {h.verdict && <p style={{ fontWeight: 600 }}>{h.verdict}</p>}
       {h.holdout_note && <p className="muted" style={{ fontSize: 12 }}>{h.holdout_note}</p>}
     </div>

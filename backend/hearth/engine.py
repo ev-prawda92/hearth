@@ -13,10 +13,10 @@ import math
 from datetime import date, timedelta
 
 from . import text as tx
-from .data import (AS_OF, ARTICLES, HUMAN_TERMS, HYPOTHETICAL_CUES, RESERVATIONS, SAFETY_TERMS,
-                   SENSITIVE_TERMS, STATUS_CUES)
+from .data import (AS_OF, ARTICLES, HUMAN_TERMS, HYPOTHETICAL_CUES, IN_DOMAIN_ANCHORS, OUT_OF_SCOPE_TERMS,
+                   RESERVATIONS, SAFETY_TERMS, SENSITIVE_TERMS, STATUS_CUES, STRONG_STATUS_CUES)
 
-ENGINE_VERSION = "v2.2"
+ENGINE_VERSION = "v2.3"
 DEFAULT_THRESHOLD = 0.45
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 TODAY = date.fromisoformat(AS_OF)
@@ -224,7 +224,10 @@ SAFETY = _compile(SAFETY_TERMS)
 SENSITIVE = _compile(SENSITIVE_TERMS)
 HUMAN = _compile(HUMAN_TERMS)
 STATUS = _compile(STATUS_CUES)
+STRONG_STATUS = _compile(STRONG_STATUS_CUES)
 HYPO = _compile(HYPOTHETICAL_CUES)
+OFF_SCOPE = _compile(OUT_OF_SCOPE_TERMS)
+ANCHORS = _compile(IN_DOMAIN_ANCHORS)
 MONEY_STEMS = {"refund", "money", "cancel", "cancellation"}
 
 
@@ -258,7 +261,8 @@ def retrieve(question: str, r: dict) -> dict:
         ranked.append({"id": a["id"], "title": a["title"], "score": score, "hits": [h["label"] for h in hits]})
     status = _matches(tokens, STATUS, fuzzy=False)
     hypothetical = _matches(tokens, HYPO, fuzzy=False)
-    if status and not hypothetical and MONEY_STEMS.intersection(tokens):
+    strong = _matches(tokens, STRONG_STATUS, fuzzy=False)
+    if status and (strong or not hypothetical) and MONEY_STEMS.intersection(tokens):
         for x in ranked:
             if x["id"] == "HC-02":
                 x["score"] += 3
@@ -289,7 +293,9 @@ def answer(question: str, reservation_id: str, threshold: float = DEFAULT_THRESH
     ret = retrieve(question, r)
     tokens, ranked = ret["tokens"], ret["ranked"]
     all_tokens = tx.stems(question)
-    safety = _matches(all_tokens, SAFETY, fuzzy=True)
+    safety = _matches(all_tokens, SAFETY, fuzzy=False)
+    off_scope = _matches(all_tokens, OFF_SCOPE, fuzzy=False)
+    anchored = bool(_matches(all_tokens, ANCHORS, fuzzy=False))
     sensitive = _matches(all_tokens, SENSITIVE, fuzzy=False)
     human = _matches(all_tokens, HUMAN, fuzzy=False)
     top, second = ranked[0], ranked[1]
@@ -310,6 +316,9 @@ def answer(question: str, reservation_id: str, threshold: float = DEFAULT_THRESH
         reason = "Asked to rebook" if labels == ["rebook"] else "Asked for a person"
     elif top["score"] == 0:
         decision, queue, kind, reason = "handoff", "specialist", "unclear", "No matching help article"
+    elif off_scope and not anchored:
+        decision, queue, kind = "handoff", "specialist", "unclear"
+        reason = "Mentions " + ", ".join(h["label"] for h in off_scope) + ", which this copilot doesn't handle"
     elif _audience(top["id"]) not in ("both", r["role"]):
         decision, queue, kind = "handoff", "specialist", "unclear"
         reason = f"Best match is a {_audience(top['id'])}-only article, but this is a {r['role']} account"

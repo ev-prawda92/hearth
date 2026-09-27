@@ -26,6 +26,7 @@ By Evan Prawda · evanprawda92@gmail.com
 | v2.1 | dev (74) | 70% | 100% | 100% |
 | v2.1 | holdout 2 (22, unseen) | 41% | 100% | **75%** |
 | v2.2 | holdout 2 (reused) | 41% first reply, **68% in conversation** | 100% | 75% first message, 100% via menu |
+| v2.3 | public questions, untouched half (1,785) | see below | wrong answers 231 → 65 | false safety alarms 26 → 0 |
 
 **v2.2, clarify and act.** Instead of handing off when unsure, the copilot asks up to two clarifying questions from a menu built around the reservation's stage (upcoming, arriving today, in stay, hosting). On holdout 2, contacts resolved without a person rise from 41% to 68%, which is every answerable contact, with zero wrong answers and 1.4 turns on average. The multi-turn numbers use a simulated guest who picks the right option whenever it's shown, so they're a ceiling. The cost: people who need a person wait about 2 turns. The release gate stays on first-message safety detection (75%), so v2.2 is still blocked.
 
@@ -35,31 +36,32 @@ Holdout discipline: each holdout set is written before the version it tests runs
 
 ## At scale: 3,572 questions from public support data
 
-v2.2 was also scored, unchanged, on questions drawn from two public datasets and mapped to Hearth's topics and queues:
-[ABCD](https://github.com/asappresearch/abcd) (ASAPP Research, MIT; 1,472 used) and the
-[Bitext customer support dataset](https://github.com/bitext/customer-support-llm-chatbot-training-dataset) (CDLA-Sharing-1.0; 2,100 used).
-Bitext's e-commerce wording was adapted ("order" to "reservation") for in-scope intents; ABCD text is untouched. Labels were mapped from each
-dataset's own intents, and random samples were hand-checked (79 of 80 fit). Neither dataset has safety situations.
+Questions drawn from [ABCD](https://github.com/asappresearch/abcd) (ASAPP Research, MIT; 1,472 used) and the
+[Bitext customer support dataset](https://github.com/bitext/customer-support-llm-chatbot-training-dataset) (CDLA-Sharing-1.0; 2,100 used),
+mapped to Hearth's topics and queues. Bitext's e-commerce wording was adapted ("order" to "reservation") for in-scope intents; ABCD text is
+untouched. Labels come from each dataset's own intents; random samples were hand-checked (79 of 80 fit). Neither dataset has safety situations.
 
-| Track | Cases | Right on first reply | Right in conversation | Wrong answers |
+The set is split in half by intent. v2.2 was scored as-is on both halves. **v2.3's fixes were made looking only at one half**; the other
+half was scored once, after the fixes were final.
+
+| Untouched half (1,785 questions) | Right, v2.2 | Right, v2.3 | Wrong, v2.2 | Wrong, v2.3 |
 |---|---|---|---|---|
-| In scope, reworded (Bitext) | 1,200 | 36% | 67% | 47 |
-| In scope, real phrasing (ABCD refund status) | 177 | 6% | 8% | **138** |
-| Asks for a person (Bitext) | 200 | 90% | 90% | 20 |
-| Billing disputes to trust (ABCD) | 200 | 0% | 0% | 61 |
-| Out of scope, handed off (both) | 1,795 | 88% | 88% | 184 |
+| In scope, real phrasing (ABCD refund status) | 9% | **81%** | 65 | **4** |
+| In scope, reworded (Bitext) | 67% | **94%** | 21 | **11** |
+| Asks for a person | 91% | **100%** | 9 | **0** |
+| Billing disputes to trust team | 0% | **53%** | 33 | 20 |
+| Out of scope, handed off | 87% | **96%** | 103 | **30** |
+| **All** (false safety alarms 26 → **0**) | | | 231 | **65** |
 
-What it found that the 96 hand-written cases couldn't:
+What the public data exposed, and v2.3 fixed: "what's the status of my refund?" got the cancellation answer; typo matching sent
+"policy" to the police; billing disputes never reached the trust team; account and shipping questions got confident answers.
 
-1. "What's the status of my refund?", the most common real phrasing, gets the cancellation answer 78% of the time.
-2. Typo tolerance on safety words misfires: "policy" matches "police" and "attach" matches "attacked", sending 53 ordinary questions to the safety line.
-3. Billing disputes never reach the trust team.
-4. 10% of out-of-scope questions get a confident answer ("cancel my premium account" as a reservation cancellation).
+Still open: only about half of disputes reach the trust team; some labels are genuinely ambiguous; first-message safety detection on new
+phrasing is untested because these datasets have none; and keyword matching keeps colliding (the brand "Guess" matched "guest" during tuning).
 
-Next (v2.3): split these questions in half, fix each failure class on one half, and report the untouched half.
-
-Rebuild and rescore with `python scripts/build_external.py` then `python scripts/score_external.py` (downloads the source data from GitHub on first run).
-The sampled cases are in `backend/evals/external.jsonl` and the report in `backend/evals/external_report.json`, shared under the source licenses.
+Rebuild and rescore with `python scripts/build_external.py`, `python scripts/score_external.py`, and `python scripts/ext_quick.py dev|holdout`
+(downloads the source data from GitHub on first run). Cases are in `backend/evals/external.jsonl`, shared under the source licenses
+(see `backend/evals/EXTERNAL_DATA_NOTICE.md`).
 
 ## Run it
 

@@ -62,13 +62,16 @@ ARTICLES: list[dict] = [
     {"id": "HC-02", "title": "When a refund arrives", "audience": "both",
      "kw": ["refund arrive", "haven't received", "havent received", "not received", "still waiting", "how long",
             "processing", "bank", "pending refund", "show up", "on my card", "where is my money", "where's my money",
-            "where is my refund", "where's my refund"],
+            "where is my refund", "where's my refund",
+            "refund status", "status of my refund", "state of my refund", "track my refund"],
      "followups": ["Talk to a person"]},
     {"id": "HC-03", "title": "Change dates or guests", "audience": "guest",
      "kw": ["change dates", "change my dates", "change the dates", "modify", "extend", "extra night", "another night",
             "add a guest", "more guests", "more people", "extra people", "extra guests", "bring a friend", "alteration",
             "shorten", "move my", "different dates", "reschedule", "postpone", "push the reservation",
-            "push my", "join", "additional guest", "additional person", "another person", "one more person"],
+            "push my", "join", "additional guest", "additional person", "another person", "one more person",
+            "edit", "update:1", "change reservation", "change my reservation", "remove a guest", "fewer guests",
+            "include", "add a guests", "remove a guests", "include a guests"],
      "followups": ["How much would I get back if I cancel?", "Talk to a person"]},
     {"id": "HC-04", "title": "Can't get into the listing", "audience": "guest",
      "kw": ["can't get in", "cant get in", "locked out", "lockbox", "door code", "code", "key", "access", "won't open",
@@ -95,7 +98,7 @@ ARTICLES: list[dict] = [
             "early check in", "late checkout", "late check out", "arrive early", "leave late", "check in:1", "checkout:1", "check out:1", "latest:1", "earliest:1"],
      "followups": ["How do I get inside?", "Talk to a person"]},
     {"id": "HC-10", "title": "Receipts and invoices", "audience": "both",
-     "kw": ["receipt", "invoice", "vat", "expense", "tax document", "proof of payment", "statement", "tax"],
+     "kw": ["receipt", "invoice", "vat", "expense", "tax document", "proof of payment", "statement", "tax", "bill"],
      "followups": ["Talk to a person"]},
     {"id": "HC-11", "title": "Cancel as a host", "audience": "host",
      "kw": ["cancel", "cancellation", "call off", "can't host", "cant host"],
@@ -111,17 +114,40 @@ SAFETY_TERMS = [
     "fire", "smoke alarm", "smoke detector", "smell smoke", "full of smoke", "smoke coming", "gas", "carbon monoxide",
     "sparks", "exposed wire", "electrical fire", "flood", "flooding", "ceiling fell", "collapsed",
     # personal safety
-    "unsafe", "scared", "scary", "afraid", "making me uncomfortable", "feel uncomfortable", "creepy", "threaten",
-    "harass", "harassment", "stalking", "following me", "watching me", "won't leave", "wont leave",
-    "without permission", "let himself in", "let herself in", "came in without", "messaging me at night",
-    "hidden camera", "camera in", "assault", "attacked", "weapon", "gun", "knife", "dangerous", "violent", "police",
+    "unsafe", "scared", "scary", "feel afraid", "afraid for", "making me uncomfortable", "feel uncomfortable", "creepy",
+    "threaten", "harass", "harassment", "stalking", "following me", "watching me", "won't leave", "wont leave",
+    "without permission", "let himself in", "let herself in", "came in without", "walked in", "walked into",
+    "messaging me at night", "hidden camera", "camera in", "assault", "attacked", "weapon", "gun", "knife", "dangerous",
+    "violent", "police", "stranger",
     # property crime
-    "break in", "broke in", "trying to get in", "stole", "stolen", "robbed", "burglary", "took our", "took my",
+    "break in", "broke in", "trying to get into", "trying to get inside", "stole", "was stolen", "been stolen",
+    "were stolen", "stolen from", "robbed", "burglary", "took our", "took my",
+    # v2.3: common misspellings, matched exactly (general typo matching raised false alarms like policy -> police)
+    "emergancy", "emergeny", "bleading", "bleding", "unconcious", "unconsious", "ambulence", "siezure", "assalt",
 ]
 SENSITIVE_TERMS = ["lawyer", "sue", "chargeback", "dispute", "fraud", "scam", "racist", "racism", "discriminate",
+                   # v2.3: billing disputes
+                   "reversed", "reversal", "never bought", "never ordered", "never purchased", "never placed",
+                   "didn't order", "did not order", "didn't buy", "did not buy", "charged twice", "double charged",
+                   "overcharged", "unauthorized", "mistaken charge", "wrong charge",
                    "discrimination", "legal action"]
 HUMAN_TERMS = ["real person", "human", "agent", "representative", "talk to someone", "speak to someone",
+               "customer support", "customer assistance", "support team", "get in touch", "contact support",
+               "reach support", "operator", "live agent", "talk to somebody",
                "talk to a person", "speak to a person", "live person", "customer service", "escalate", "rebook"]
 STATUS_CUES = ["already", "still", "haven't", "havent", "hasn't", "hasnt", "isn't", "not received", "yet", "last week",
+               "status", "state", "update on", "anything new", "any news", "processed", "check on", "checking on",
+               "expecting", "waiting for", "expect",
                "where is", "where's"]
 HYPOTHETICAL_CUES = ["can i", "could i", "if i", "should i", "would i", "how much", "do i get"]
+
+# v2.3 scope check: talk about accounts, logins or shipping is outside what this copilot handles,
+# unless the question also anchors on the reservation.
+OUT_OF_SCOPE_TERMS = ["account", "profile", "password", "pin", "pin code", "username", "user", "login", "log in",
+                      "sign in", "newsletter", "subscription", "membership", "premium", "shipping", "shipment",
+                      "package", "delivery", "cart", "promo", "coupon", "stock", "warranty", "address",
+                      "personal information", "personal info", "email address", "phone number"]
+IN_DOMAIN_ANCHORS = ["reservation", "booking", "stay", "trip", "listing", "host", "check in", "apartment",
+                     "cabin", "loft", "flat", "cottage", "townhouse", "room", "guest", "night", "lockbox", "door"]
+# A clear status word means "where is my refund" even inside "where can I see..." (which otherwise reads as hypothetical).
+STRONG_STATUS_CUES = ["status", "state", "update on", "anything new", "any news", "processed"]

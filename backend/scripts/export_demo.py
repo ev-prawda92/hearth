@@ -19,6 +19,10 @@ EXTRA_PROBES = [
     "", "   ", "cancel", "CANCEL!!!", "can I smoke on the balcony?", "is there a gas station nearby",
     "I want to cancel, there's a fire in the building", "rebook", "escalate", "refund refund refund",
     "the stain on the couch was there before", "we don't need to cancel anymore, can we add a guest",
+    "what's your cancellation policy?", "how does the hood attach", "I want to check the status of my refund",
+    "where can I see the status of my reimbursement", "I was charged for a stay I never booked, the charge was not reversed",
+    "how do I reset my account password", "cancel my premium account", "check in which cases I get a refund",
+    "what hours can I reach customer support", "can I edit my reservation", "I need my bill",
 ]
 
 
@@ -64,6 +68,8 @@ def main() -> None:
         "engine": ENGINE_VERSION, "as_of": data.AS_OF, "reservations": data.RESERVATIONS, "articles": data.ARTICLES,
         "safety_terms": data.SAFETY_TERMS, "sensitive_terms": data.SENSITIVE_TERMS, "human_terms": data.HUMAN_TERMS,
         "status_cues": data.STATUS_CUES, "hypothetical_cues": data.HYPOTHETICAL_CUES,
+        "strong_status_cues": data.STRONG_STATUS_CUES, "out_of_scope_terms": data.OUT_OF_SCOPE_TERMS,
+        "in_domain_anchors": data.IN_DOMAIN_ANCHORS,
         "cases": load_cases("all"), "history": json.loads((EVAL_DIR / "history.json").read_text()),
         "external": json.loads((EVAL_DIR / "external_report.json").read_text()),
     }

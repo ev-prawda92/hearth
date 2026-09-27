@@ -137,6 +137,17 @@ def main() -> None:
                           "expect": expect, **({"queue": queue} if queue else {})})
 
     cases = [c for c in cases if c["question"]]
+    # Stratified half split: within each source intent, alternate after a seeded shuffle.
+    # "dev" is the half used to fix failures; "holdout" is never looked at until a version is scored on it once.
+    groups: dict[tuple, list[dict]] = defaultdict(list)
+    for c in cases:
+        groups[(c["source"], c["source_intent"])].append(c)
+    split_rng = random.Random(SEED + 1)
+    for key in sorted(groups):
+        members = groups[key][:]
+        split_rng.shuffle(members)
+        for j, c in enumerate(members):
+            c["ext_split"] = "dev" if j % 2 == 0 else "holdout"
     lines = []
     for i, c in enumerate(cases, 1):
         topic = c["source_intent"]

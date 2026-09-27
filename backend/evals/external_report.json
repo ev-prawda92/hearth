@@ -1,5 +1,5 @@
 {
- "engine": "v2.2",
+ "engine": "v2.3",
  "threshold": 0.45,
  "n": 3572,
  "sources": [
@@ -25,45 +25,45 @@
    "track": "in_scope_adapted",
    "label": "In scope, reworded from e-commerce (Bitext)",
    "n": 1200,
-   "clarify_rate": 0.5808333333333333,
-   "resolved_first_reply": 0.36083333333333334,
-   "resolved_in_conversation": 0.6691666666666667,
-   "wrong_first_reply": 47,
-   "wrong_in_conversation": 47,
-   "handed_off": 350
+   "clarify_rate": 0.2225,
+   "resolved_first_reply": 0.7525,
+   "resolved_in_conversation": 0.9325,
+   "wrong_first_reply": 30,
+   "wrong_in_conversation": 30,
+   "handed_off": 51
   },
   {
    "track": "in_scope_real",
    "label": "In scope, real phrasing (ABCD refund status)",
    "n": 177,
-   "clarify_rate": 0.1638418079096045,
-   "resolved_first_reply": 0.05649717514124294,
-   "resolved_in_conversation": 0.07909604519774012,
-   "wrong_first_reply": 138,
-   "wrong_in_conversation": 138,
-   "handed_off": 25
+   "clarify_rate": 0.11864406779661017,
+   "resolved_first_reply": 0.8192090395480226,
+   "resolved_in_conversation": 0.8248587570621468,
+   "wrong_first_reply": 11,
+   "wrong_in_conversation": 11,
+   "handed_off": 20
   },
   {
    "track": "asks_for_person",
    "label": "Asks for a person (Bitext)",
    "n": 200,
-   "clarify_rate": 0.55,
-   "correct_queue_first_reply": 0.895,
-   "correct_queue_in_conversation": 0.895,
-   "answered_first_reply": 20,
-   "answered_in_conversation": 20,
-   "to_safety_line": 1,
+   "clarify_rate": 0.275,
+   "correct_queue_first_reply": 1.0,
+   "correct_queue_in_conversation": 1.0,
+   "answered_first_reply": 0,
+   "answered_in_conversation": 0,
+   "to_safety_line": 0,
    "expected_queue": "specialist"
   },
   {
    "track": "dispute",
    "label": "Billing disputes (ABCD)",
    "n": 200,
-   "clarify_rate": 0.695,
-   "correct_queue_first_reply": 0.0,
-   "correct_queue_in_conversation": 0.0,
-   "answered_first_reply": 61,
-   "answered_in_conversation": 61,
+   "clarify_rate": 0.32,
+   "correct_queue_first_reply": 0.545,
+   "correct_queue_in_conversation": 0.545,
+   "answered_first_reply": 27,
+   "answered_in_conversation": 27,
    "to_safety_line": 0,
    "expected_queue": "trust"
   },
@@ -71,12 +71,12 @@
    "track": "out_of_scope",
    "label": "Out of scope for Hearth (both)",
    "n": 1795,
-   "clarify_rate": 0.8807799442896936,
-   "correct_queue_first_reply": 0.8807799442896936,
-   "correct_queue_in_conversation": 0.8807799442896936,
-   "answered_first_reply": 184,
-   "answered_in_conversation": 184,
-   "to_safety_line": 29,
+   "clarify_rate": 0.9654596100278552,
+   "correct_queue_first_reply": 0.9654596100278552,
+   "correct_queue_in_conversation": 0.9654596100278552,
+   "answered_first_reply": 54,
+   "answered_in_conversation": 54,
+   "to_safety_line": 0,
    "expected_queue": "specialist"
   }
  ],
@@ -187,9 +187,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
-   "answered_wrong": 1
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -237,8 +237,8 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
    "answered_wrong": 0
   },
   {
@@ -257,9 +257,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.75,
-   "conversation_ok": 0.75,
-   "answered_wrong": 3
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.8333333333333334,
+   "answered_wrong": 2
   },
   {
    "source": "abcd",
@@ -307,8 +307,8 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
    "answered_wrong": 0
   },
   {
@@ -367,9 +367,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.75,
-   "conversation_ok": 0.75,
-   "answered_wrong": 3
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
   },
   {
    "source": "abcd",
@@ -377,9 +377,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 1.0,
-   "conversation_ok": 1.0,
-   "answered_wrong": 0
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
   },
   {
    "source": "abcd",
@@ -427,9 +427,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.8333333333333334,
-   "conversation_ok": 0.8333333333333334,
-   "answered_wrong": 1
+   "first_reply_ok": 0.4166666666666667,
+   "conversation_ok": 0.4166666666666667,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -437,9 +437,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.75,
-   "conversation_ok": 0.75,
-   "answered_wrong": 3
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -487,9 +487,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
-   "answered_wrong": 1
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -507,9 +507,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
-   "answered_wrong": 1
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -517,9 +517,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.25,
-   "conversation_ok": 0.25,
-   "answered_wrong": 7
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -527,9 +527,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
-   "answered_wrong": 1
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -537,9 +537,9 @@
    "track": "dispute",
    "expect": "HANDOFF",
    "n": 100,
-   "first_reply_ok": 0.0,
-   "conversation_ok": 0.0,
-   "answered_wrong": 55
+   "first_reply_ok": 0.45,
+   "conversation_ok": 0.45,
+   "answered_wrong": 23
   },
   {
    "source": "abcd",
@@ -547,9 +547,9 @@
    "track": "dispute",
    "expect": "HANDOFF",
    "n": 100,
-   "first_reply_ok": 0.0,
-   "conversation_ok": 0.0,
-   "answered_wrong": 6
+   "first_reply_ok": 0.64,
+   "conversation_ok": 0.64,
+   "answered_wrong": 4
   },
   {
    "source": "abcd",
@@ -557,9 +557,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
-   "answered_wrong": 1
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -567,9 +567,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
-   "answered_wrong": 1
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -577,8 +577,8 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.16666666666666666,
-   "conversation_ok": 0.16666666666666666,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
    "answered_wrong": 0
   },
   {
@@ -587,9 +587,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.08333333333333333,
-   "conversation_ok": 0.08333333333333333,
-   "answered_wrong": 0
+   "first_reply_ok": 0.25,
+   "conversation_ok": 0.25,
+   "answered_wrong": 9
   },
   {
    "source": "abcd",
@@ -597,9 +597,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.4166666666666667,
-   "conversation_ok": 0.4166666666666667,
-   "answered_wrong": 7
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
   },
   {
    "source": "abcd",
@@ -607,9 +607,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.8333333333333334,
-   "conversation_ok": 0.8333333333333334,
-   "answered_wrong": 1
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -657,9 +657,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.16666666666666666,
-   "conversation_ok": 0.16666666666666666,
-   "answered_wrong": 9
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -667,9 +667,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.0,
-   "conversation_ok": 0.0,
-   "answered_wrong": 12
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -677,9 +677,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.75,
-   "conversation_ok": 0.75,
-   "answered_wrong": 3
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -687,9 +687,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.75,
-   "conversation_ok": 0.75,
-   "answered_wrong": 3
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -697,9 +697,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.16666666666666666,
-   "conversation_ok": 0.16666666666666666,
-   "answered_wrong": 10
+   "first_reply_ok": 0.3333333333333333,
+   "conversation_ok": 0.3333333333333333,
+   "answered_wrong": 8
   },
   {
    "source": "abcd",
@@ -707,9 +707,9 @@
    "track": "in_scope_real",
    "expect": "HC-02",
    "n": 177,
-   "first_reply_ok": 0.05649717514124294,
-   "conversation_ok": 0.07909604519774012,
-   "answered_wrong": 138
+   "first_reply_ok": 0.8192090395480226,
+   "conversation_ok": 0.8248587570621468,
+   "answered_wrong": 11
   },
   {
    "source": "abcd",
@@ -717,9 +717,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.75,
-   "conversation_ok": 0.75,
-   "answered_wrong": 3
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -747,9 +747,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
-   "answered_wrong": 1
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -807,8 +807,8 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.9166666666666666,
-   "conversation_ok": 0.9166666666666666,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
    "answered_wrong": 0
   },
   {
@@ -817,9 +817,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.8333333333333334,
-   "conversation_ok": 0.8333333333333334,
-   "answered_wrong": 2
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
   },
   {
    "source": "abcd",
@@ -877,9 +877,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.5,
-   "conversation_ok": 0.5,
-   "answered_wrong": 6
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -897,9 +897,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.8333333333333334,
-   "conversation_ok": 0.8333333333333334,
-   "answered_wrong": 2
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
   },
   {
    "source": "abcd",
@@ -967,9 +967,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.75,
-   "conversation_ok": 0.75,
-   "answered_wrong": 3
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 0
   },
   {
    "source": "abcd",
@@ -1027,9 +1027,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 12,
-   "first_reply_ok": 0.16666666666666666,
-   "conversation_ok": 0.16666666666666666,
-   "answered_wrong": 10
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "bitext",
@@ -1047,8 +1047,8 @@
    "track": "in_scope_adapted",
    "expect": "HC-03",
    "n": 150,
-   "first_reply_ok": 0.09333333333333334,
-   "conversation_ok": 0.6266666666666667,
+   "first_reply_ok": 0.36,
+   "conversation_ok": 0.74,
    "answered_wrong": 2
   },
   {
@@ -1057,9 +1057,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 40,
-   "first_reply_ok": 0.9,
-   "conversation_ok": 0.9,
-   "answered_wrong": 4
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "bitext",
@@ -1077,8 +1077,8 @@
    "track": "in_scope_adapted",
    "expect": "HC-10",
    "n": 150,
-   "first_reply_ok": 0.38666666666666666,
-   "conversation_ok": 0.38666666666666666,
+   "first_reply_ok": 0.98,
+   "conversation_ok": 0.98,
    "answered_wrong": 0
   },
   {
@@ -1097,9 +1097,9 @@
    "track": "in_scope_adapted",
    "expect": "HC-01",
    "n": 150,
-   "first_reply_ok": 0.4533333333333333,
-   "conversation_ok": 0.7333333333333333,
-   "answered_wrong": 17
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.94,
+   "answered_wrong": 9
   },
   {
    "source": "bitext",
@@ -1117,9 +1117,9 @@
    "track": "asks_for_person",
    "expect": "HANDOFF",
    "n": 100,
-   "first_reply_ok": 0.79,
-   "conversation_ok": 0.79,
-   "answered_wrong": 20
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "bitext",
@@ -1147,9 +1147,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 40,
-   "first_reply_ok": 0.725,
-   "conversation_ok": 0.725,
-   "answered_wrong": 11
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "bitext",
@@ -1167,9 +1167,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 40,
-   "first_reply_ok": 0.875,
-   "conversation_ok": 0.875,
-   "answered_wrong": 5
+   "first_reply_ok": 0.95,
+   "conversation_ok": 0.95,
+   "answered_wrong": 2
   },
   {
    "source": "bitext",
@@ -1177,9 +1177,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 40,
-   "first_reply_ok": 0.8,
-   "conversation_ok": 0.8,
-   "answered_wrong": 8
+   "first_reply_ok": 0.95,
+   "conversation_ok": 0.95,
+   "answered_wrong": 2
   },
   {
    "source": "bitext",
@@ -1187,8 +1187,8 @@
    "track": "in_scope_adapted",
    "expect": "HC-10",
    "n": 150,
-   "first_reply_ok": 0.5266666666666666,
-   "conversation_ok": 0.5266666666666666,
+   "first_reply_ok": 0.9666666666666667,
+   "conversation_ok": 0.9666666666666667,
    "answered_wrong": 0
   },
   {
@@ -1197,7 +1197,7 @@
    "track": "in_scope_adapted",
    "expect": "HC-01",
    "n": 150,
-   "first_reply_ok": 0.2733333333333333,
+   "first_reply_ok": 0.96,
    "conversation_ok": 1.0,
    "answered_wrong": 0
   },
@@ -1207,9 +1207,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 40,
-   "first_reply_ok": 0.775,
-   "conversation_ok": 0.775,
-   "answered_wrong": 9
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "bitext",
@@ -1237,9 +1237,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 40,
-   "first_reply_ok": 0.6,
-   "conversation_ok": 0.6,
-   "answered_wrong": 15
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "bitext",
@@ -1267,9 +1267,9 @@
    "track": "out_of_scope",
    "expect": "HANDOFF",
    "n": 40,
-   "first_reply_ok": 0.725,
-   "conversation_ok": 0.725,
-   "answered_wrong": 11
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
   },
   {
    "source": "bitext",
@@ -1297,221 +1297,315 @@
    "track": "in_scope_adapted",
    "expect": "HC-02",
    "n": 150,
-   "first_reply_ok": 0.06666666666666667,
-   "conversation_ok": 0.08,
-   "answered_wrong": 28
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.8333333333333334,
+   "answered_wrong": 19
   }
  ],
  "wrong_clusters": [
   {
+   "track": "in_scope_adapted",
+   "expected": "HC-02",
+   "got": "HC-01",
+   "count": 19,
+   "examples": [
+    "help me to check the sxtatus of my reimbursement",
+    "help seeing if there is anything wrong with the rebate",
+    "how to see if there is anything wrong with the restitution?",
+    "I can't see if there is anything wrong with the restitution"
+   ]
+  },
+  {
+   "track": "out_of_scope",
+   "expected": "HANDOFF",
+   "got": "HC-01",
+   "count": 18,
+   "examples": [
+    "hi, i wouldlike to cancel my order because i don't need it anymore",
+    "and I want to know more about the refund policies of the company",
+    ". What is your policy on refunds?",
+    "Hi. My name is Joyce Wu. I was just wondering if you could tell me about the refund policy."
+   ]
+  },
+  {
+   "track": "out_of_scope",
+   "expected": "HANDOFF",
+   "got": "HC-02",
+   "count": 14,
+   "examples": [
+    "i need assistance to check how long the shgipment takes",
+    "how can I see how long it takes for my item to arrive?",
+    "I am thinking of buying the Guess boots, and I'd like to know how long they take to wear in.",
+    "Hello, I would like to know how long it takes to wear in the Tommy Hilfiger boots as I am looking to purchase them"
+   ]
+  },
+  {
+   "track": "dispute",
+   "expected": "HANDOFF",
+   "got": "HC-02",
+   "count": 14,
+   "examples": [
+    "Hello, I returned an item not to long ago, but I have yet to get my money back.",
+    "I want to know why you guys still haven't refunded me",
+    "Hello, I didn't receive my money after I already returned the product.",
+    "I had a return that I sent in a few weeks ago, but the fee is still showing up on mjy bill"
+   ]
+  },
+  {
    "track": "in_scope_real",
    "expected": "HC-02",
    "got": "HC-01",
-   "count": 138,
+   "count": 11,
    "examples": [
-    "Hi i was checking to see the status of my refund",
-    "I wanna know the state of my refund",
-    "Hi there just checking on the status of my refund.",
-    "Hello, I want to know the status of my refund."
-   ]
-  },
-  {
-   "track": "out_of_scope",
-   "expected": "HANDOFF",
-   "got": "HC-04",
-   "count": 62,
-   "examples": [
-    "assistance restoring the access key of my profile",
-    "where can I get information about the lost PIN code?",
-    "I have got to recover my account key, help me",
-    "where can i find information about the pin code recovery"
-   ]
-  },
-  {
-   "track": "out_of_scope",
-   "expected": "HANDOFF",
-   "got": "HC-01",
-   "count": 45,
-   "examples": [
-    "what do i have to do to cancel a standard account",
-    "need help to cancel a standard account",
-    "how to cancel a premium account?",
-    "cancel premium acount"
+    "hello i was interested about my refund",
+    "hey I want to make sure my refund I'd worked out with another one of you guys before is coming",
+    "Hello. I have a question about my refund?",
+    "Hello! I need some help please. I just need to know when I'll be receiving a refund."
    ]
   },
   {
    "track": "dispute",
    "expected": "HANDOFF",
    "got": "HC-10",
-   "count": 34,
+   "count": 10,
    "examples": [
-    "The charge on my billing statement has not been reversed and i have already completed the return of the product",
-    "Hi. I recently completed a return,but my billing statement does not show that the charge has been reversed.",
     "i completed a return but i do not see the reversalof the charge on my billing statement",
-    "Hi! I did a return a few days ago but it's not showing the charge as reversed on my billing statement."
+    "I returned a pair of Michael Kors boots and my billing statement is now showing the credit for them.",
+    "I've completed a return recently but there's still a charge on my billing statement",
+    "I just checked my bill and see that an item I returned hasn't been credited back as promised."
    ]
   },
   {
    "track": "in_scope_adapted",
-   "expected": "HC-02",
-   "got": "HC-01",
-   "count": 28,
+   "expected": "HC-01",
+   "got": "HC-02",
+   "count": 9,
    "examples": [
-    "help knowing if there is anything new on the refund",
-    "I expect an refund of 517 dollars",
-    "I'm waiting for a refund of 517 dollars",
-    "I need help to know if there are any updates on my refund"
+    "I have got to see how long refunds take, help me",
+    "can uhelp me to see how long reimbursements usually take",
+    "help me seeing how long refunds take",
+    "I want assistance to check how long refunds usually take"
    ]
   },
   {
    "track": "out_of_scope",
    "expected": "HANDOFF",
-   "got": "HC-02",
-   "count": 27,
+   "got": "HC-09",
+   "count": 7,
    "examples": [
-    "i try to check how long the shipment atkes",
-    "i need assistance to check how long the shgipment takes",
-    "where do I check how long it takes for my package to arrive?",
-    "need help seeing how long the shipment takes"
-   ]
-  },
-  {
-   "track": "dispute",
-   "expected": "HANDOFF",
-   "got": "HC-02",
-   "count": 20,
-   "examples": [
-    "Hi, I am still waiting for a mistaken charge on my bill to be reversed",
-    "Hello, I returned an item not to long ago, but I have yet to get my money back.",
-    "I want to know why you guys still haven't refunded me",
-    "Hello, I didn't receive my money after I already returned the product."
-   ]
-  },
-  {
-   "track": "out_of_scope",
-   "expected": "HANDOFF",
-   "got": "HC-03",
-   "count": 18,
-   "examples": [
-    "can ya tell me about modiyfing my address",
-    "how can I modify the address?",
-    "I want help modifying my shipping address",
-    "can ya help me to modify the delivery address"
+    "Hello! I'm actually checking out a product right now and want to know more about it before I buy.",
+    "I.m checking out this Guess jacket and want to know what the material is",
+    "HI, I would like to add an item to my order but I've already checked out",
+    "Hi, I want to know what time my store closes."
    ]
   }
  ],
  "missed_in_scope": [
   {
-   "intent": "track_refund",
-   "count": 110,
-   "examples": [
-    "assistance to see the status of my compensation",
-    "help me to check the sxtatus of my reimbursement",
-    "anything new on my goddamn reimbursement",
-    "can you help me see the current status of my reimbursement?"
-   ]
-  },
-  {
-   "intent": "check_invoice",
-   "count": 92,
-   "examples": [
-    "i have lost my bill from Maya find it for me",
-    "I do not know what I have to do to look for my bill #12588",
-    "help me give a quick look at my bill #12588",
-    "want help to find my bill from Maya"
-   ]
-  },
-  {
-   "intent": "get_invoice",
-   "count": 71,
-   "examples": [
-    "getting bill #37777",
-    "can you help me get the bills from Maya?",
-    "i need help to download the damn bill from Maya",
-    "i have to download my bills from 7 last weeks i need help"
-   ]
-  },
-  {
    "intent": "change_order",
-   "count": 54,
+   "count": 37,
    "examples": [
     "help me to change a goddamn guests of reservation HT-3307",
-    "can i remove a guests from reservation HT-6031",
-    "could I edit reservation HT-3307?",
-    "can I delete some guests from reservation HT-3307?"
+    "can I delete some guests from reservation HT-3307?",
+    "how to swap an guests of reservation HT-6031?",
+    "i mised some guests in reservation HT-3307 can i add them"
    ]
   },
   {
    "intent": "refund_status",
-   "count": 25,
+   "count": 20,
    "examples": [
     "Hello I am trying to find some information on my order",
     "yes, I'm worried my payment info for my last order was wrong?",
-    "I was hoping to check in on the state of my refund, just to double check",
-    "Hello. I recently bought boots but returned them because they were way too small. I asked for a refund. I would like to know the status of the refund. Could you check that for me?"
+    "I requested a return before. I want to know what's going on with it",
+    "I would like to check on a return please."
    ]
   },
   {
-   "intent": "check_refund_policy",
-   "count": 23,
+   "intent": "track_refund",
+   "count": 6,
    "examples": [
-    "I do not know how I can check your reimbursement policu",
-    "help me check your refund policy",
-    "am I entitled to a refund according to your policy?",
-    "I do not know what to do to check your reimbursement policy"
+    "i expect a reimbursxement of $517",
+    "i expect a compensqtion of 517 dollars",
+    "I am waiting for a reimburswment of $517",
+    "I'm waiting for a reimbjrsement of $517"
+   ]
+  },
+  {
+   "intent": "get_invoice",
+   "count": 5,
+   "examples": [
+    "I don't know what I have to do to get the invoiceINV-2291",
+    "wanna get my bloody bll from Maya",
+    "send me billa from Maya",
+    "I want assistance to download myinvoice #85632"
+   ]
+  },
+  {
+   "intent": "check_invoice",
+   "count": 3,
+   "examples": [
+    "find my bilps from Maya",
+    "could I see the billfrom Maya?",
+    "seeingbill from Maya"
    ]
   }
  ],
- "total_wrong_answers": 450,
- "false_safety_alarms": [
-  {
-   "question": "I do not know how I can check your reimbursement policu",
-   "reason": "Safety signal: police (typo: policu)"
+ "total_wrong_answers": 122,
+ "halves": {
+  "v2.2": {
+   "holdout": {
+    "asks_for_person": {
+     "n": 100,
+     "first": 0.91,
+     "conv": 0.91,
+     "wrong": 9,
+     "to_safety": 0
+    },
+    "dispute": {
+     "n": 100,
+     "first": 0.0,
+     "conv": 0.0,
+     "wrong": 33,
+     "to_safety": 0
+    },
+    "in_scope_adapted": {
+     "n": 600,
+     "first": 0.36833333333333335,
+     "conv": 0.6716666666666666,
+     "wrong": 21
+    },
+    "in_scope_real": {
+     "n": 88,
+     "first": 0.06818181818181818,
+     "conv": 0.09090909090909091,
+     "wrong": 65
+    },
+    "out_of_scope": {
+     "n": 897,
+     "first": 0.8684503901895206,
+     "conv": 0.8684503901895206,
+     "wrong": 103,
+     "to_safety": 14
+    },
+    "_total_wrong": 231,
+    "_false_safety": 26
+   },
+   "dev": {
+    "asks_for_person": {
+     "n": 100,
+     "first": 0.88,
+     "conv": 0.88,
+     "wrong": 11,
+     "to_safety": 1
+    },
+    "dispute": {
+     "n": 100,
+     "first": 0.0,
+     "conv": 0.0,
+     "wrong": 28,
+     "to_safety": 0
+    },
+    "in_scope_adapted": {
+     "n": 600,
+     "first": 0.35333333333333333,
+     "conv": 0.6666666666666666,
+     "wrong": 26
+    },
+    "in_scope_real": {
+     "n": 89,
+     "first": 0.0449438202247191,
+     "conv": 0.06741573033707865,
+     "wrong": 73
+    },
+    "out_of_scope": {
+     "n": 898,
+     "first": 0.8930957683741648,
+     "conv": 0.8930957683741648,
+     "wrong": 81,
+     "to_safety": 15
+    },
+    "_total_wrong": 219,
+    "_false_safety": 27
+   }
   },
-  {
-   "question": "help me check your refund policy",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "am I entitled to a refund according to your policy?",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "I do not know what to do to check your reimbursement policy",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "assistance seeing your refund policy",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "I cannot check your reimbursement policy",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "I need assistance to check your reimbursement policy",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "i dont know what i need to do to see ur reimbursement policy",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "I want help seeing your reimbursement policy",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "i need help seeing ur monbey back policy",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "I don't know what to do to check your fucking refund policy",
-   "reason": "Safety signal: police (typo: policy)"
-  },
-  {
-   "question": "were could I check your money back policy?",
-   "reason": "Safety signal: police (typo: policy)"
+  "v2.3": {
+   "dev": {
+    "asks_for_person": {
+     "n": 100,
+     "first": 1.0,
+     "conv": 1.0,
+     "wrong": 0,
+     "to_safety": 0
+    },
+    "dispute": {
+     "n": 100,
+     "first": 0.56,
+     "conv": 0.56,
+     "wrong": 7,
+     "to_safety": 0
+    },
+    "in_scope_adapted": {
+     "n": 600,
+     "first": 0.7483333333333333,
+     "conv": 0.93,
+     "wrong": 19
+    },
+    "in_scope_real": {
+     "n": 89,
+     "first": 0.8314606741573034,
+     "conv": 0.8426966292134831,
+     "wrong": 7
+    },
+    "out_of_scope": {
+     "n": 898,
+     "first": 0.9699331848552338,
+     "conv": 0.9699331848552338,
+     "wrong": 24,
+     "to_safety": 0
+    },
+    "_total_wrong": 57,
+    "_false_safety": 0
+   },
+   "holdout": {
+    "asks_for_person": {
+     "n": 100,
+     "first": 1.0,
+     "conv": 1.0,
+     "wrong": 0,
+     "to_safety": 0
+    },
+    "dispute": {
+     "n": 100,
+     "first": 0.53,
+     "conv": 0.53,
+     "wrong": 20,
+     "to_safety": 0
+    },
+    "in_scope_adapted": {
+     "n": 600,
+     "first": 0.7566666666666667,
+     "conv": 0.935,
+     "wrong": 11
+    },
+    "in_scope_real": {
+     "n": 88,
+     "first": 0.8068181818181818,
+     "conv": 0.8068181818181818,
+     "wrong": 4
+    },
+    "out_of_scope": {
+     "n": 897,
+     "first": 0.9609810479375697,
+     "conv": 0.9609810479375697,
+     "wrong": 30,
+     "to_safety": 0
+    },
+    "_total_wrong": 65,
+    "_false_safety": 0
+   }
   }
- ],
- "false_safety_count": 53
+ },
+ "false_safety_alarms": [],
+ "false_safety_count": 0
 }

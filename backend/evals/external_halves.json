@@ -1,0 +1,154 @@
+{
+ "v2.2": {
+  "holdout": {
+   "asks_for_person": {
+    "n": 100,
+    "first": 0.91,
+    "conv": 0.91,
+    "wrong": 9,
+    "to_safety": 0
+   },
+   "dispute": {
+    "n": 100,
+    "first": 0.0,
+    "conv": 0.0,
+    "wrong": 33,
+    "to_safety": 0
+   },
+   "in_scope_adapted": {
+    "n": 600,
+    "first": 0.36833333333333335,
+    "conv": 0.6716666666666666,
+    "wrong": 21
+   },
+   "in_scope_real": {
+    "n": 88,
+    "first": 0.06818181818181818,
+    "conv": 0.09090909090909091,
+    "wrong": 65
+   },
+   "out_of_scope": {
+    "n": 897,
+    "first": 0.8684503901895206,
+    "conv": 0.8684503901895206,
+    "wrong": 103,
+    "to_safety": 14
+   },
+   "_total_wrong": 231,
+   "_false_safety": 26
+  },
+  "dev": {
+   "asks_for_person": {
+    "n": 100,
+    "first": 0.88,
+    "conv": 0.88,
+    "wrong": 11,
+    "to_safety": 1
+   },
+   "dispute": {
+    "n": 100,
+    "first": 0.0,
+    "conv": 0.0,
+    "wrong": 28,
+    "to_safety": 0
+   },
+   "in_scope_adapted": {
+    "n": 600,
+    "first": 0.35333333333333333,
+    "conv": 0.6666666666666666,
+    "wrong": 26
+   },
+   "in_scope_real": {
+    "n": 89,
+    "first": 0.0449438202247191,
+    "conv": 0.06741573033707865,
+    "wrong": 73
+   },
+   "out_of_scope": {
+    "n": 898,
+    "first": 0.8930957683741648,
+    "conv": 0.8930957683741648,
+    "wrong": 81,
+    "to_safety": 15
+   },
+   "_total_wrong": 219,
+   "_false_safety": 27
+  }
+ },
+ "v2.3": {
+  "dev": {
+   "asks_for_person": {
+    "n": 100,
+    "first": 1.0,
+    "conv": 1.0,
+    "wrong": 0,
+    "to_safety": 0
+   },
+   "dispute": {
+    "n": 100,
+    "first": 0.56,
+    "conv": 0.56,
+    "wrong": 7,
+    "to_safety": 0
+   },
+   "in_scope_adapted": {
+    "n": 600,
+    "first": 0.7483333333333333,
+    "conv": 0.93,
+    "wrong": 19
+   },
+   "in_scope_real": {
+    "n": 89,
+    "first": 0.8314606741573034,
+    "conv": 0.8426966292134831,
+    "wrong": 7
+   },
+   "out_of_scope": {
+    "n": 898,
+    "first": 0.9699331848552338,
+    "conv": 0.9699331848552338,
+    "wrong": 24,
+    "to_safety": 0
+   },
+   "_total_wrong": 57,
+   "_false_safety": 0
+  },
+  "holdout": {
+   "asks_for_person": {
+    "n": 100,
+    "first": 1.0,
+    "conv": 1.0,
+    "wrong": 0,
+    "to_safety": 0
+   },
+   "dispute": {
+    "n": 100,
+    "first": 0.53,
+    "conv": 0.53,
+    "wrong": 20,
+    "to_safety": 0
+   },
+   "in_scope_adapted": {
+    "n": 600,
+    "first": 0.7566666666666667,
+    "conv": 0.935,
+    "wrong": 11
+   },
+   "in_scope_real": {
+    "n": 88,
+    "first": 0.8068181818181818,
+    "conv": 0.8068181818181818,
+    "wrong": 4
+   },
+   "out_of_scope": {
+    "n": 897,
+    "first": 0.9609810479375697,
+    "conv": 0.9609810479375697,
+    "wrong": 30,
+    "to_safety": 0
+   },
+   "_total_wrong": 65,
+   "_false_safety": 0
+  }
+ }
+}

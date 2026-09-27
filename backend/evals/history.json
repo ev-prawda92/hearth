@@ -117,5 +117,128 @@
     },
     "holdout_note": "Holdout 2 reused: first-reply retrieval is unchanged from v2.1; only the conversation layer is new.",
     "verdict": "Resolved in conversation rises from 41% to 68% on holdout (every answerable contact) with zero wrong answers, using a simulated guest who picks the right option when it's shown, so treat it as a ceiling. First-message safety routing is still 75%; the menu's safety option catches the rest, but the release gate stays on the first message."
+  },
+  {
+    "version": "v2.3",
+    "note": "Fixed the failure types the 3,572 public questions exposed, tuning only on half of them: exact safety matching plus a short misspelling list (general typo matching had sent 'policy' to the police), refund synonyms and status cues, billing disputes to trust, a scope check for account and shipping talk, and more ways to ask for a person.",
+    "dev": {
+      "n": 74,
+      "answerable": 53,
+      "self_solve": 0.7027027027027027,
+      "citation_accuracy": 1.0,
+      "personalization": 1.0,
+      "safety_recall": 1.0,
+      "wrong_answers": 0,
+      "handoffs": 22,
+      "unneeded_handoffs": 1,
+      "wrong_queue": 0,
+      "resolved_in_conversation": 0.7162162162162162,
+      "conv_wrong_answers": 0,
+      "conv_handoffs": 21,
+      "clarify_rate": 0.05405405405405406,
+      "avg_turns_resolved": 1.0188679245283019,
+      "avg_turns_to_handoff": 1.2857142857142858,
+      "safety_eventual": 1.0
+    },
+    "holdout": {
+      "set": "holdout-2",
+      "n": 22,
+      "answerable": 15,
+      "self_solve": 0.4090909090909091,
+      "citation_accuracy": 1.0,
+      "personalization": 1.0,
+      "safety_recall": 1.0,
+      "wrong_answers": 0,
+      "handoffs": 13,
+      "unneeded_handoffs": 6,
+      "wrong_queue": 1,
+      "resolved_in_conversation": 0.6818181818181818,
+      "conv_wrong_answers": 0,
+      "conv_handoffs": 7,
+      "clarify_rate": 0.4090909090909091,
+      "avg_turns_resolved": 1.4,
+      "avg_turns_to_handoff": 1.8571428571428572,
+      "safety_eventual": 1.0
+    },
+    "holdout_note": "Holdout 2 is reused and no longer clean: its missed safety case ('a stranger walked into our cabin') was known before 'stranger' and 'walked into' were added. The honest test for v2.3 is the untouched half of the public questions.",
+    "external": {
+      "set": "public questions, untouched half",
+      "n": 1785,
+      "v2.2": {
+        "asks_for_person": {
+          "n": 100,
+          "first": 0.91,
+          "conv": 0.91,
+          "wrong": 9,
+          "to_safety": 0
+        },
+        "dispute": {
+          "n": 100,
+          "first": 0.0,
+          "conv": 0.0,
+          "wrong": 33,
+          "to_safety": 0
+        },
+        "in_scope_adapted": {
+          "n": 600,
+          "first": 0.36833333333333335,
+          "conv": 0.6716666666666666,
+          "wrong": 21
+        },
+        "in_scope_real": {
+          "n": 88,
+          "first": 0.06818181818181818,
+          "conv": 0.09090909090909091,
+          "wrong": 65
+        },
+        "out_of_scope": {
+          "n": 897,
+          "first": 0.8684503901895206,
+          "conv": 0.8684503901895206,
+          "wrong": 103,
+          "to_safety": 14
+        },
+        "_total_wrong": 231,
+        "_false_safety": 26
+      },
+      "v2.3": {
+        "asks_for_person": {
+          "n": 100,
+          "first": 1.0,
+          "conv": 1.0,
+          "wrong": 0,
+          "to_safety": 0
+        },
+        "dispute": {
+          "n": 100,
+          "first": 0.53,
+          "conv": 0.53,
+          "wrong": 20,
+          "to_safety": 0
+        },
+        "in_scope_adapted": {
+          "n": 600,
+          "first": 0.7566666666666667,
+          "conv": 0.935,
+          "wrong": 11
+        },
+        "in_scope_real": {
+          "n": 88,
+          "first": 0.8068181818181818,
+          "conv": 0.8068181818181818,
+          "wrong": 4
+        },
+        "out_of_scope": {
+          "n": 897,
+          "first": 0.9609810479375697,
+          "conv": 0.9609810479375697,
+          "wrong": 30,
+          "to_safety": 0
+        },
+        "_total_wrong": 65,
+        "_false_safety": 0
+      }
+    },
+    "verdict": "On 1,785 public questions it never saw during tuning, wrong answers fall from 231 to 65 and false safety alarms from 26 to 0. Still blocked: first-message safety detection hasn't been measured on new unseen safety phrasing, and disputes reach the trust team only 53% of the time."
   }
 ]

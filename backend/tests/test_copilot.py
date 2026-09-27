@@ -133,3 +133,43 @@ def test_external_set_is_well_formed_and_reported():
     assert all(("queue" in c) == (c["expect"] == "HANDOFF") for c in cases)
     r = client.get("/api/external").json()
     assert r["n"] == len(cases) and {t["track"] for t in r["tracks"]} >= {"in_scope_adapted", "out_of_scope"}
+
+
+# ---- v2.3: failure types found on public support data
+
+@pytest.mark.parametrize("q", ["what's your cancellation policy?", "how does the hood attach?", "I'm afraid I can't make it"])
+def test_no_false_safety_alarms(q):
+    assert answer(q, "HT-1042")["queue"] != "safety"
+
+
+@pytest.mark.parametrize("q", ["what's the status of my refund?", "where can I see the status of my reimbursement",
+                               "any news on my compensation?"])
+def test_refund_status_phrasing(q):
+    assert answer(q, "HT-2218")["article"] == "HC-02"
+
+
+def test_billing_dispute_goes_to_trust():
+    a = answer("I returned it but the charge has not been reversed", "HT-2218")
+    assert a["queue"] == "trust"
+
+
+@pytest.mark.parametrize("q", ["cancel my premium account", "I need to recover my account PIN", "how long does shipping take"])
+def test_out_of_scope_is_not_answered(q):
+    assert answer(q, "HT-1042")["decision"] == "handoff"
+
+
+def test_scope_check_yields_to_reservation_context():
+    assert answer("cancel my reservation and delete my account", "HT-1042")["article"] == "HC-01"
+
+
+def test_customer_support_request_is_honored():
+    a = answer("what hours can I reach customer support", "HT-1042")
+    assert a["handoff_kind"] == "human"
+
+
+def test_v23_holds_on_untouched_public_half():
+    import json as _json
+    from hearth.evals import EVAL_DIR
+    halves = _json.loads((EVAL_DIR / "external_halves.json").read_text())
+    before, after = halves["v2.2"]["holdout"], halves["v2.3"]["holdout"]
+    assert after["_false_safety"] == 0 and after["_total_wrong"] < before["_total_wrong"]

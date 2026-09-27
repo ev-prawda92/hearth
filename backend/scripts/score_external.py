@@ -99,6 +99,7 @@ def main() -> None:
         "label_checks": LABEL_CHECKS,
         "tracks": tracks, "intents": intents, "wrong_clusters": wrong_clusters, "missed_in_scope": missed_examples,
         "total_wrong_answers": len(wrong),
+        "halves": json.loads((EVAL_DIR / "external_halves.json").read_text()) if (EVAL_DIR / "external_halves.json").exists() else {},
         "false_safety_alarms": [{"question": r["question"], "reason": r["reason"]} for r in rows
                                 if r["conv_queue"] == "safety" and r.get("queue") != "safety"][:12],
         "false_safety_count": sum(1 for r in rows if r["conv_queue"] == "safety" and r.get("queue") != "safety"),

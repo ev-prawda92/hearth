@@ -37,9 +37,22 @@ def stem(token: str) -> str:
     return t
 
 
+# v2.3: words people use for a refund. Canonicalized after stemming so keywords and questions agree.
+SYNONYMS = {"reimbursement": "refund", "compensation": "refund", "rebat": "refund", "restitution": "refund",
+            "bill": "invoic", "invoic": "invoic"}
+# "check in which cases..." is not about check-in time.
+NOT_CHECK_IN_NEXT = {"what", "which", "whether", "on", "to", "if", "how"}
+
+
 def stems(text: str) -> list[str]:
     toks = normalize(text).split(" ") if text.strip() else []
-    return [stem(t) for t in toks if t]
+    out = [SYNONYMS.get(s, s) for s in (stem(t) for t in toks if t)]
+    fixed: list[str] = []
+    for i, s in enumerate(out):
+        if s == "in" and i > 0 and out[i - 1] == "check" and i + 1 < len(out) and out[i + 1] in NOT_CHECK_IN_NEXT:
+            continue
+        fixed.append(s)
+    return fixed
 
 
 def drop_negated(tokens: list[str]) -> tuple[list[str], list[str]]:

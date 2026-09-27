@@ -15,9 +15,16 @@ export type ExternalReport = {
   wrong_clusters: { track: string; expected: string; got: string; count: number; examples: string[] }[];
   missed_in_scope: { intent: string; count: number; examples: string[] }[];
   false_safety_alarms: { question: string; reason: string }[];
+  halves?: Record<string, Record<string, HalfSummary>>;
 };
 
-const T = (r: ExternalReport, k: string) => r.tracks.find((t) => t.track === k);
+type Half = { n: number; first: number; conv: number; wrong: number; to_safety?: number };
+type HalfSummary = Record<string, Half | number>;
+const ORDER = ["in_scope_real", "in_scope_adapted", "asks_for_person", "dispute", "out_of_scope"];
+const LABELS: Record<string, string> = {
+  in_scope_real: "In scope, real phrasing (ABCD refund status)", in_scope_adapted: "In scope, reworded (Bitext)",
+  asks_for_person: "Asks for a person (Bitext)", dispute: "Billing disputes (ABCD)", out_of_scope: "Out of scope (both)",
+};
 
 export function AtScale({ api }: { api: Api }) {
   const [r, setR] = useState<ExternalReport | null>(null);
@@ -25,17 +32,16 @@ export function AtScale({ api }: { api: Api }) {
   useEffect(() => { api.external().then(setR).catch(() => setErr(true)); }, [api]);
   if (err) return null;
   if (!r) return <section className="card"><p className="muted">Loading the at-scale results…</p></section>;
-  const real = T(r, "in_scope_real"), adapted = T(r, "in_scope_adapted"), person = T(r, "asks_for_person"),
-    dispute = T(r, "dispute"), oos = T(r, "out_of_scope");
-  const refundCluster = r.wrong_clusters.find((c) => c.track === "in_scope_real");
+  const halves = r.halves;
+  const hold22 = (halves?.["v2.2"]?.holdout ?? {}) as HalfSummary, hold23 = (halves?.["v2.3"]?.holdout ?? {}) as HalfSummary;
 
   return (
     <section className="card stack" style={{ gap: 18 }} aria-labelledby="scale-title">
       <div>
         <h3 id="scale-title">At scale: {r.n.toLocaleString()} questions from public support data</h3>
         <p className="muted" style={{ marginTop: 6, maxWidth: "78ch" }}>
-          Engine {r.engine}, unchanged, scored on questions from two public datasets, mapped to Hearth's topics and queues. Nothing was tuned on
-          these first. Neither dataset has safety situations, so safety is still measured on Hearth's own sets above.
+          Questions from two public datasets, mapped to Hearth's topics and queues and split in half. v2.2 was scored as-is; v2.3's fixes were
+          made looking only at one half, and the table below is the other half, which was never looked at until v2.3 was scored on it once.
         </p>
         <div className="stat-row" style={{ marginTop: 10 }}>
           {r.sources.map((s) => (
@@ -46,40 +52,55 @@ export function AtScale({ api }: { api: Api }) {
         </div>
       </div>
 
-      <div className="table-wrap" style={{ maxHeight: "none" }}>
-        <table className="data">
-          <thead><tr><th>Track</th><th className="num">Cases</th><th className="num">Right on first reply</th><th className="num">Right in conversation</th><th className="num">Wrong answers</th></tr></thead>
-          <tbody>
-            {r.tracks.map((t) => {
-              const inScope = t.track.startsWith("in_scope");
-              const first = inScope ? t.resolved_first_reply! : t.correct_queue_first_reply!;
-              const conv = inScope ? t.resolved_in_conversation! : t.correct_queue_in_conversation!;
-              const wrong = inScope ? t.wrong_in_conversation! : t.answered_in_conversation!;
-              return (
-                <tr key={t.track}>
-                  <td>{t.label}<div className="muted" style={{ fontSize: 12 }}>{inScope ? "Right = the correct article" : `Right = handed to ${t.expected_queue}`}{r.label_checks[t.track] ? ` · ${r.label_checks[t.track]}` : ""}</div></td>
-                  <td className="num">{t.n.toLocaleString()}</td>
-                  <td className="num">{pct(first)}</td>
-                  <td className="num"><b>{pct(conv)}</b></td>
-                  <td className="num"><span className={wrong / t.n > 0.05 ? "bad" : undefined}>{wrong}</span>{t.to_safety_line ? <div className="muted" style={{ fontSize: 12 }}>{t.to_safety_line} to safety line</div> : null}</td>
+      {halves?.["v2.2"] && halves?.["v2.3"] ? (
+        <>
+          <div className="table-wrap" style={{ maxHeight: "none" }}>
+            <table className="data">
+              <thead><tr><th>Untouched half ({ORDER.reduce((s, k) => s + ((hold23[k] as Half | undefined)?.n ?? 0), 0).toLocaleString()} questions)</th><th className="num">Right, v2.2</th><th className="num">Right, v2.3</th><th className="num">Wrong, v2.2</th><th className="num">Wrong, v2.3</th></tr></thead>
+              <tbody>
+                {ORDER.filter((k) => hold22[k] && hold23[k]).map((k) => {
+                  const a = hold22[k] as Half, b = hold23[k] as Half;
+                  return (
+                    <tr key={k}>
+                      <td>{LABELS[k]}<div className="muted" style={{ fontSize: 12 }}>{a.n} questions · {k.startsWith("in_scope") ? "right = correct article, after clarifying" : k === "dispute" ? "right = handed to the trust team" : "right = handed to a specialist"}</div></td>
+                      <td className="num">{pct(a.conv)}</td>
+                      <td className="num"><b>{pct(b.conv)}</b></td>
+                      <td className="num">{a.wrong}</td>
+                      <td className="num"><b className={b.wrong > a.wrong ? "bad" : undefined}>{b.wrong}</b></td>
+                    </tr>
+                  );
+                })}
+                <tr>
+                  <td><b>All tracks</b><div className="muted" style={{ fontSize: 12 }}>False safety alarms: {hold22._false_safety as number} → {hold23._false_safety as number}</div></td>
+                  <td /><td />
+                  <td className="num">{hold22._total_wrong as number}</td>
+                  <td className="num"><b>{hold23._total_wrong as number}</b></td>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-
-      <div>
-        <div className="section-label">What it found</div>
-        <ol className="findings">
-          {real && refundCluster && <li><b>Real refund-status questions fail.</b> "What's the status of my refund?" gets the cancellation answer {refundCluster.count} of {real.n} times ({pct(refundCluster.count / real.n)}). "Status" isn't a refund-status cue, and none of the 96 hand-written cases used that phrasing.</li>}
-          <li><b>Typo tolerance raises false safety alarms.</b> "Policy" reads as a typo of "police" and "attach" of "attacked", sending {r.false_safety_count} ordinary questions across all tracks to the safety line. Any guest asking about the cancellation policy would trigger it.</li>
-          {dispute && <li><b>Billing disputes never reach the trust team.</b> {pct(dispute.correct_queue_in_conversation!)} of {dispute.n} did; {dispute.answered_in_conversation} got an invoice or refund-timing answer instead.</li>}
-          {oos && <li><b>Out-of-scope questions sometimes get confident answers.</b> {oos.answered_in_conversation} of {oos.n.toLocaleString()} ({pct(oos.answered_in_conversation! / oos.n)}): "cancel my premium account" is answered as a reservation cancellation, "recover my PIN" as entry instructions.</li>}
-          {person && <li><b>Requests for a person mostly work.</b> {pct(person.correct_queue_first_reply!)} are honored right away; the misses ask when support is open, and get check-in times.</li>}
-          {adapted && <li><b>Clarifying still pays off.</b> On the reworded in-scope questions, resolution goes from {pct(adapted.resolved_first_reply!)} on the first reply to {pct(adapted.resolved_in_conversation!)} in conversation.</li>}
-        </ol>
-      </div>
+              </tbody>
+            </table>
+          </div>
+          <div className="grid-2" style={{ marginTop: 0 }}>
+            <div>
+              <div className="section-label">What the public data exposed, and v2.3 fixed</div>
+              <ol className="findings">
+                <li><b>"What's the status of my refund?"</b> got the cancellation answer. Refund synonyms and status words now route it: {pct((hold22.in_scope_real as Half).conv)} → {pct((hold23.in_scope_real as Half).conv)} right.</li>
+                <li><b>Typo matching raised false safety alarms</b> ("policy" read as "police"). Safety words now match exactly, plus a short misspelling list: {hold22._false_safety as number} → {hold23._false_safety as number}.</li>
+                <li><b>Billing disputes never reached the trust team.</b> "Charge not reversed" and "never ordered" now go there: {pct((hold22.dispute as Half).conv)} → {pct((hold23.dispute as Half).conv)}.</li>
+                <li><b>Account and shipping questions got confident answers.</b> A scope check hands them off unless the reservation is mentioned: {(hold22.out_of_scope as Half).wrong} → {(hold23.out_of_scope as Half).wrong} wrong.</li>
+              </ol>
+            </div>
+            <div>
+              <div className="section-label">Still open</div>
+              <ol className="findings">
+                <li>Only {pct((hold23.dispute as Half).conv)} of disputes reach the trust team; many start with "I have a question about my account" and only reveal the dispute later.</li>
+                <li>Some labels are genuinely ambiguous: "what's your refund policy?" is in scope for Hearth but was labeled out of scope for a clothing store.</li>
+                <li>These datasets have no safety situations, so first-message safety detection on new phrasing is still untested.</li>
+                <li>Keyword matching keeps hitting its ceiling. The brand "Guess" matched "guest" during tuning. Meaning-based retrieval is still the next big step.</li>
+              </ol>
+            </div>
+          </div>
+        </>
+      ) : null}
 
       <details className="examples">
         <summary>Examples of wrong answers and false alarms <Chevron /></summary>
@@ -97,9 +118,6 @@ export function AtScale({ api }: { api: Api }) {
         </div>
       </details>
 
-      <div className="callout">
-        <b>Next, v2.3:</b> split these {r.n.toLocaleString()} questions in half, fix each failure class on one half (refund-status phrasing, no typo matching on safety words, billing-dispute routing, scope checks), and report the untouched half.
-      </div>
     </section>
   );
 }
