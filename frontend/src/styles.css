@@ -164,6 +164,12 @@ p { margin: 0; }
 .activity-row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: start; padding: 12px 0; border-top: 1px solid var(--line-soft); }
 .activity-row:first-child { border-top: 0; }
 
+.findings { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14.5px; color: var(--ink-2); max-width: 90ch; }
+.examples summary { cursor: pointer; font-weight: 700; font-size: 14px; list-style: none; display: inline-flex; gap: 6px; align-items: center; }
+.examples summary::-webkit-details-marker { display: none; }
+.examples[open] summary .chev { transform: rotate(180deg); }
+.examples ul { margin: 4px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); }
+
 /* ---------- badges */
 .badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; }
 .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }

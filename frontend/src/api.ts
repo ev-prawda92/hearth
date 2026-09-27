@@ -1,5 +1,6 @@
 // One client, two backends: the FastAPI server (npm run dev / production),
 // or the bundled TypeScript engine for the single-file shareable demo (npm run build:demo).
+import type { ExternalReport } from "./components/AtScale";
 import type { Answer, ConvState, EvalResult, HistoryEntry, LogEntry, Meta, ProbeRow, Reservation, SweepPoint, Ticket, TurnInput, TurnResult } from "./types";
 
 declare const __DEMO__: boolean;
@@ -15,6 +16,7 @@ export interface Api {
   evaluate(threshold: number, split: string, maxClarify: number): Promise<EvalResult>;
   sweep(split: string, maxClarify: number): Promise<SweepPoint[]>;
   history(): Promise<HistoryEntry[]>;
+  external(): Promise<ExternalReport>;
   handoffs(): Promise<Ticket[]>;
   resolve(id: string): Promise<Ticket>;
   feedback(reservationId: string, question: string, article: string | undefined, helpful: boolean): Promise<void>;
@@ -41,6 +43,7 @@ const http: Api = {
   evaluate: (t, split, m) => fetch(`/api/eval?threshold=${t}&split=${split}&max_clarify=${m}`).then(j<EvalResult>),
   sweep: (split, m) => fetch(`/api/sweep?split=${split}&max_clarify=${m}`).then(j<SweepPoint[]>),
   history: () => fetch("/api/history").then(j<HistoryEntry[]>),
+  external: () => fetch("/api/external").then(j<ExternalReport>),
   handoffs: () => fetch("/api/handoffs").then(j<Ticket[]>),
   resolve: (id) => post(`/api/handoffs/${id}/resolve`, {}).then(j<Ticket>),
   feedback: async (reservation_id, question, article, helpful) => {
@@ -53,7 +56,7 @@ async function localApi(): Promise<Api> {
   const conv = await import("./engine/conversation");
   const log: LogEntry[] = [];
   const data = (await import("./demo/data.json")).default as unknown as {
-    as_of: string; reservations: Record<string, Reservation>; history: HistoryEntry[];
+    as_of: string; reservations: Record<string, Reservation>; history: HistoryEntry[]; external: ExternalReport;
     articles: { id: string; title: string; audience: string }[];
   };
   const tickets: Ticket[] = [];
@@ -94,6 +97,7 @@ async function localApi(): Promise<Api> {
     evaluate: (t, split, m) => later(eng.runEval(t, split, m)),
     sweep: (split, m) => later(eng.sweep(split, m)),
     history: () => later(data.history),
+    external: () => later(data.external),
     handoffs: () => later([...tickets]),
     resolve: (id) => {
       const t = tickets.find((x) => x.id === id);

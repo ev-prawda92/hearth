@@ -1,0 +1,1517 @@
+{
+ "engine": "v2.2",
+ "threshold": 0.45,
+ "n": 3572,
+ "sources": [
+  {
+   "name": "ABCD (ASAPP Research)",
+   "license": "MIT",
+   "url": "https://github.com/asappresearch/abcd",
+   "used": 1472
+  },
+  {
+   "name": "Bitext customer support",
+   "license": "CDLA-Sharing-1.0",
+   "url": "https://github.com/bitext/customer-support-llm-chatbot-training-dataset",
+   "used": 2100
+  }
+ ],
+ "label_checks": {
+  "in_scope_real": "Hand-checked 40 random cases: 39 fit the label (after dropping ABCD's refund_update and name-only turns).",
+  "in_scope_adapted": "Hand-checked 40 random cases: 40 fit the label."
+ },
+ "tracks": [
+  {
+   "track": "in_scope_adapted",
+   "label": "In scope, reworded from e-commerce (Bitext)",
+   "n": 1200,
+   "clarify_rate": 0.5808333333333333,
+   "resolved_first_reply": 0.36083333333333334,
+   "resolved_in_conversation": 0.6691666666666667,
+   "wrong_first_reply": 47,
+   "wrong_in_conversation": 47,
+   "handed_off": 350
+  },
+  {
+   "track": "in_scope_real",
+   "label": "In scope, real phrasing (ABCD refund status)",
+   "n": 177,
+   "clarify_rate": 0.1638418079096045,
+   "resolved_first_reply": 0.05649717514124294,
+   "resolved_in_conversation": 0.07909604519774012,
+   "wrong_first_reply": 138,
+   "wrong_in_conversation": 138,
+   "handed_off": 25
+  },
+  {
+   "track": "asks_for_person",
+   "label": "Asks for a person (Bitext)",
+   "n": 200,
+   "clarify_rate": 0.55,
+   "correct_queue_first_reply": 0.895,
+   "correct_queue_in_conversation": 0.895,
+   "answered_first_reply": 20,
+   "answered_in_conversation": 20,
+   "to_safety_line": 1,
+   "expected_queue": "specialist"
+  },
+  {
+   "track": "dispute",
+   "label": "Billing disputes (ABCD)",
+   "n": 200,
+   "clarify_rate": 0.695,
+   "correct_queue_first_reply": 0.0,
+   "correct_queue_in_conversation": 0.0,
+   "answered_first_reply": 61,
+   "answered_in_conversation": 61,
+   "to_safety_line": 0,
+   "expected_queue": "trust"
+  },
+  {
+   "track": "out_of_scope",
+   "label": "Out of scope for Hearth (both)",
+   "n": 1795,
+   "clarify_rate": 0.8807799442896936,
+   "correct_queue_first_reply": 0.8807799442896936,
+   "correct_queue_in_conversation": 0.8807799442896936,
+   "answered_first_reply": 184,
+   "answered_in_conversation": 184,
+   "to_safety_line": 29,
+   "expected_queue": "specialist"
+  }
+ ],
+ "intents": [
+  {
+   "source": "abcd",
+   "intent": "bad_price_competitor",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "bad_price_yesterday",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "boots_how_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "boots_how_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "boots_how_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "boots_how_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.6666666666666666,
+   "conversation_ok": 0.6666666666666666,
+   "answered_wrong": 4
+  },
+  {
+   "source": "abcd",
+   "intent": "boots_other_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "boots_other_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "boots_other_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "boots_other_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "cost",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "credit_card",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jacket_how_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jacket_how_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jacket_how_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jacket_how_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jacket_other_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jacket_other_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.75,
+   "conversation_ok": 0.75,
+   "answered_wrong": 3
+  },
+  {
+   "source": "abcd",
+   "intent": "jacket_other_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "jacket_other_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "jeans_how_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jeans_how_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jeans_how_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jeans_how_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jeans_other_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jeans_other_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jeans_other_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "jeans_other_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "manage",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.75,
+   "conversation_ok": 0.75,
+   "answered_wrong": 3
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_cancel",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_change_address",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_change_name",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_change_phone",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_create",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.8333333333333334,
+   "answered_wrong": 2
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_dispute_bill",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.8333333333333334,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_downgrade",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.75,
+   "conversation_ok": 0.75,
+   "answered_wrong": 3
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_extension",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_pay_bill",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_payment_method",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.75,
+   "conversation_ok": 0.75,
+   "answered_wrong": 3
+  },
+  {
+   "source": "abcd",
+   "intent": "manage_upgrade",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "membership_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "membership_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "membership_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "membership_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.25,
+   "conversation_ok": 0.25,
+   "answered_wrong": 7
+  },
+  {
+   "source": "abcd",
+   "intent": "missing",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "mistimed_billing_already_returned",
+   "track": "dispute",
+   "expect": "HANDOFF",
+   "n": 100,
+   "first_reply_ok": 0.0,
+   "conversation_ok": 0.0,
+   "answered_wrong": 55
+  },
+  {
+   "source": "abcd",
+   "intent": "mistimed_billing_never_bought",
+   "track": "dispute",
+   "expect": "HANDOFF",
+   "n": 100,
+   "first_reply_ok": 0.0,
+   "conversation_ok": 0.0,
+   "answered_wrong": 6
+  },
+  {
+   "source": "abcd",
+   "intent": "out_of_stock_general",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "out_of_stock_one_item",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "policy_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.16666666666666666,
+   "conversation_ok": 0.16666666666666666,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "policy_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.08333333333333333,
+   "conversation_ok": 0.08333333333333333,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "policy_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.4166666666666667,
+   "conversation_ok": 0.4166666666666667,
+   "answered_wrong": 7
+  },
+  {
+   "source": "abcd",
+   "intent": "policy_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.8333333333333334,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "pricing_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "pricing_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "pricing_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "pricing_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "promo_code_invalid",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.16666666666666666,
+   "conversation_ok": 0.16666666666666666,
+   "answered_wrong": 9
+  },
+  {
+   "source": "abcd",
+   "intent": "promo_code_out_of_date",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.0,
+   "conversation_ok": 0.0,
+   "answered_wrong": 12
+  },
+  {
+   "source": "abcd",
+   "intent": "recover_password",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.75,
+   "conversation_ok": 0.75,
+   "answered_wrong": 3
+  },
+  {
+   "source": "abcd",
+   "intent": "recover_username",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.75,
+   "conversation_ok": 0.75,
+   "answered_wrong": 3
+  },
+  {
+   "source": "abcd",
+   "intent": "refund_initiate",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.16666666666666666,
+   "conversation_ok": 0.16666666666666666,
+   "answered_wrong": 10
+  },
+  {
+   "source": "abcd",
+   "intent": "refund_status",
+   "track": "in_scope_real",
+   "expect": "HC-02",
+   "n": 177,
+   "first_reply_ok": 0.05649717514124294,
+   "conversation_ok": 0.07909604519774012,
+   "answered_wrong": 138
+  },
+  {
+   "source": "abcd",
+   "intent": "reset_2fa",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.75,
+   "conversation_ok": 0.75,
+   "answered_wrong": 3
+  },
+  {
+   "source": "abcd",
+   "intent": "return_color",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "return_size",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "return_stain",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "search_results",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.8333333333333334,
+   "answered_wrong": 2
+  },
+  {
+   "source": "abcd",
+   "intent": "shirt_how_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "shirt_how_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "shirt_how_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.6666666666666666,
+   "conversation_ok": 0.6666666666666666,
+   "answered_wrong": 4
+  },
+  {
+   "source": "abcd",
+   "intent": "shirt_how_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "shirt_other_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "shirt_other_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.8333333333333334,
+   "answered_wrong": 2
+  },
+  {
+   "source": "abcd",
+   "intent": "shirt_other_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "shirt_other_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "shopping_cart",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "slow_speed",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "status",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "status_credit_missing",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.5,
+   "conversation_ok": 0.5,
+   "answered_wrong": 6
+  },
+  {
+   "source": "abcd",
+   "intent": "status_delivery_date",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 3,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "status_delivery_time",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.8333333333333334,
+   "answered_wrong": 2
+  },
+  {
+   "source": "abcd",
+   "intent": "status_due_amount",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "status_due_date",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "status_mystery_fee",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "status_payment_method",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.8333333333333334,
+   "conversation_ok": 0.8333333333333334,
+   "answered_wrong": 2
+  },
+  {
+   "source": "abcd",
+   "intent": "status_quantity",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.9166666666666666,
+   "conversation_ok": 0.9166666666666666,
+   "answered_wrong": 1
+  },
+  {
+   "source": "abcd",
+   "intent": "status_questions",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "status_service_added",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.75,
+   "conversation_ok": 0.75,
+   "answered_wrong": 3
+  },
+  {
+   "source": "abcd",
+   "intent": "status_service_removed",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "status_shipping_question",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "timing_1",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "timing_2",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.6666666666666666,
+   "conversation_ok": 0.6666666666666666,
+   "answered_wrong": 4
+  },
+  {
+   "source": "abcd",
+   "intent": "timing_3",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "abcd",
+   "intent": "timing_4",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 12,
+   "first_reply_ok": 0.16666666666666666,
+   "conversation_ok": 0.16666666666666666,
+   "answered_wrong": 10
+  },
+  {
+   "source": "bitext",
+   "intent": "cancel_order",
+   "track": "in_scope_adapted",
+   "expect": "HC-01",
+   "n": 150,
+   "first_reply_ok": 0.9066666666666666,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "change_order",
+   "track": "in_scope_adapted",
+   "expect": "HC-03",
+   "n": 150,
+   "first_reply_ok": 0.09333333333333334,
+   "conversation_ok": 0.6266666666666667,
+   "answered_wrong": 2
+  },
+  {
+   "source": "bitext",
+   "intent": "change_shipping_address",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 0.9,
+   "conversation_ok": 0.9,
+   "answered_wrong": 4
+  },
+  {
+   "source": "bitext",
+   "intent": "check_cancellation_fee",
+   "track": "in_scope_adapted",
+   "expect": "HC-01",
+   "n": 150,
+   "first_reply_ok": 0.18,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "check_invoice",
+   "track": "in_scope_adapted",
+   "expect": "HC-10",
+   "n": 150,
+   "first_reply_ok": 0.38666666666666666,
+   "conversation_ok": 0.38666666666666666,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "check_payment_methods",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "check_refund_policy",
+   "track": "in_scope_adapted",
+   "expect": "HC-01",
+   "n": 150,
+   "first_reply_ok": 0.4533333333333333,
+   "conversation_ok": 0.7333333333333333,
+   "answered_wrong": 17
+  },
+  {
+   "source": "bitext",
+   "intent": "complaint",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 60,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "contact_customer_service",
+   "track": "asks_for_person",
+   "expect": "HANDOFF",
+   "n": 100,
+   "first_reply_ok": 0.79,
+   "conversation_ok": 0.79,
+   "answered_wrong": 20
+  },
+  {
+   "source": "bitext",
+   "intent": "contact_human_agent",
+   "track": "asks_for_person",
+   "expect": "HANDOFF",
+   "n": 100,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "create_account",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "delete_account",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 0.725,
+   "conversation_ok": 0.725,
+   "answered_wrong": 11
+  },
+  {
+   "source": "bitext",
+   "intent": "delivery_options",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "delivery_period",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 0.875,
+   "conversation_ok": 0.875,
+   "answered_wrong": 5
+  },
+  {
+   "source": "bitext",
+   "intent": "edit_account",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 0.8,
+   "conversation_ok": 0.8,
+   "answered_wrong": 8
+  },
+  {
+   "source": "bitext",
+   "intent": "get_invoice",
+   "track": "in_scope_adapted",
+   "expect": "HC-10",
+   "n": 150,
+   "first_reply_ok": 0.5266666666666666,
+   "conversation_ok": 0.5266666666666666,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "get_refund",
+   "track": "in_scope_adapted",
+   "expect": "HC-01",
+   "n": 150,
+   "first_reply_ok": 0.2733333333333333,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "newsletter_subscription",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 0.775,
+   "conversation_ok": 0.775,
+   "answered_wrong": 9
+  },
+  {
+   "source": "bitext",
+   "intent": "payment_issue",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "place_order",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "recover_password",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 0.6,
+   "conversation_ok": 0.6,
+   "answered_wrong": 15
+  },
+  {
+   "source": "bitext",
+   "intent": "registration_problems",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "review",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "set_up_shipping_address",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 0.725,
+   "conversation_ok": 0.725,
+   "answered_wrong": 11
+  },
+  {
+   "source": "bitext",
+   "intent": "switch_account",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "track_order",
+   "track": "out_of_scope",
+   "expect": "HANDOFF",
+   "n": 40,
+   "first_reply_ok": 1.0,
+   "conversation_ok": 1.0,
+   "answered_wrong": 0
+  },
+  {
+   "source": "bitext",
+   "intent": "track_refund",
+   "track": "in_scope_adapted",
+   "expect": "HC-02",
+   "n": 150,
+   "first_reply_ok": 0.06666666666666667,
+   "conversation_ok": 0.08,
+   "answered_wrong": 28
+  }
+ ],
+ "wrong_clusters": [
+  {
+   "track": "in_scope_real",
+   "expected": "HC-02",
+   "got": "HC-01",
+   "count": 138,
+   "examples": [
+    "Hi i was checking to see the status of my refund",
+    "I wanna know the state of my refund",
+    "Hi there just checking on the status of my refund.",
+    "Hello, I want to know the status of my refund."
+   ]
+  },
+  {
+   "track": "out_of_scope",
+   "expected": "HANDOFF",
+   "got": "HC-04",
+   "count": 62,
+   "examples": [
+    "assistance restoring the access key of my profile",
+    "where can I get information about the lost PIN code?",
+    "I have got to recover my account key, help me",
+    "where can i find information about the pin code recovery"
+   ]
+  },
+  {
+   "track": "out_of_scope",
+   "expected": "HANDOFF",
+   "got": "HC-01",
+   "count": 45,
+   "examples": [
+    "what do i have to do to cancel a standard account",
+    "need help to cancel a standard account",
+    "how to cancel a premium account?",
+    "cancel premium acount"
+   ]
+  },
+  {
+   "track": "dispute",
+   "expected": "HANDOFF",
+   "got": "HC-10",
+   "count": 34,
+   "examples": [
+    "The charge on my billing statement has not been reversed and i have already completed the return of the product",
+    "Hi. I recently completed a return,but my billing statement does not show that the charge has been reversed.",
+    "i completed a return but i do not see the reversalof the charge on my billing statement",
+    "Hi! I did a return a few days ago but it's not showing the charge as reversed on my billing statement."
+   ]
+  },
+  {
+   "track": "in_scope_adapted",
+   "expected": "HC-02",
+   "got": "HC-01",
+   "count": 28,
+   "examples": [
+    "help knowing if there is anything new on the refund",
+    "I expect an refund of 517 dollars",
+    "I'm waiting for a refund of 517 dollars",
+    "I need help to know if there are any updates on my refund"
+   ]
+  },
+  {
+   "track": "out_of_scope",
+   "expected": "HANDOFF",
+   "got": "HC-02",
+   "count": 27,
+   "examples": [
+    "i try to check how long the shipment atkes",
+    "i need assistance to check how long the shgipment takes",
+    "where do I check how long it takes for my package to arrive?",
+    "need help seeing how long the shipment takes"
+   ]
+  },
+  {
+   "track": "dispute",
+   "expected": "HANDOFF",
+   "got": "HC-02",
+   "count": 20,
+   "examples": [
+    "Hi, I am still waiting for a mistaken charge on my bill to be reversed",
+    "Hello, I returned an item not to long ago, but I have yet to get my money back.",
+    "I want to know why you guys still haven't refunded me",
+    "Hello, I didn't receive my money after I already returned the product."
+   ]
+  },
+  {
+   "track": "out_of_scope",
+   "expected": "HANDOFF",
+   "got": "HC-03",
+   "count": 18,
+   "examples": [
+    "can ya tell me about modiyfing my address",
+    "how can I modify the address?",
+    "I want help modifying my shipping address",
+    "can ya help me to modify the delivery address"
+   ]
+  }
+ ],
+ "missed_in_scope": [
+  {
+   "intent": "track_refund",
+   "count": 110,
+   "examples": [
+    "assistance to see the status of my compensation",
+    "help me to check the sxtatus of my reimbursement",
+    "anything new on my goddamn reimbursement",
+    "can you help me see the current status of my reimbursement?"
+   ]
+  },
+  {
+   "intent": "check_invoice",
+   "count": 92,
+   "examples": [
+    "i have lost my bill from Maya find it for me",
+    "I do not know what I have to do to look for my bill #12588",
+    "help me give a quick look at my bill #12588",
+    "want help to find my bill from Maya"
+   ]
+  },
+  {
+   "intent": "get_invoice",
+   "count": 71,
+   "examples": [
+    "getting bill #37777",
+    "can you help me get the bills from Maya?",
+    "i need help to download the damn bill from Maya",
+    "i have to download my bills from 7 last weeks i need help"
+   ]
+  },
+  {
+   "intent": "change_order",
+   "count": 54,
+   "examples": [
+    "help me to change a goddamn guests of reservation HT-3307",
+    "can i remove a guests from reservation HT-6031",
+    "could I edit reservation HT-3307?",
+    "can I delete some guests from reservation HT-3307?"
+   ]
+  },
+  {
+   "intent": "refund_status",
+   "count": 25,
+   "examples": [
+    "Hello I am trying to find some information on my order",
+    "yes, I'm worried my payment info for my last order was wrong?",
+    "I was hoping to check in on the state of my refund, just to double check",
+    "Hello. I recently bought boots but returned them because they were way too small. I asked for a refund. I would like to know the status of the refund. Could you check that for me?"
+   ]
+  },
+  {
+   "intent": "check_refund_policy",
+   "count": 23,
+   "examples": [
+    "I do not know how I can check your reimbursement policu",
+    "help me check your refund policy",
+    "am I entitled to a refund according to your policy?",
+    "I do not know what to do to check your reimbursement policy"
+   ]
+  }
+ ],
+ "total_wrong_answers": 450,
+ "false_safety_alarms": [
+  {
+   "question": "I do not know how I can check your reimbursement policu",
+   "reason": "Safety signal: police (typo: policu)"
+  },
+  {
+   "question": "help me check your refund policy",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "am I entitled to a refund according to your policy?",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "I do not know what to do to check your reimbursement policy",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "assistance seeing your refund policy",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "I cannot check your reimbursement policy",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "I need assistance to check your reimbursement policy",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "i dont know what i need to do to see ur reimbursement policy",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "I want help seeing your reimbursement policy",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "i need help seeing ur monbey back policy",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "I don't know what to do to check your fucking refund policy",
+   "reason": "Safety signal: police (typo: policy)"
+  },
+  {
+   "question": "were could I check your money back policy?",
+   "reason": "Safety signal: police (typo: policy)"
+  }
+ ],
+ "false_safety_count": 53
+}

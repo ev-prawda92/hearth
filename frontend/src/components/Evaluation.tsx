@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Api } from "../api";
 import type { EvalResult, HistoryEntry, SweepPoint } from "../types";
+import { AtScale } from "./AtScale";
 import { pct, VERDICT_LABEL } from "./bits";
 
 type Props = {
@@ -100,6 +101,8 @@ export function Evaluation({ api, threshold, setThreshold, maxClarify, setMaxCla
           </div>
         </div>
       </section>
+
+      <AtScale api={api} />
 
       <div className="grid-2 eval-grid">
         <section className="card stack">

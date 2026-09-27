@@ -122,3 +122,14 @@ def test_api_eval_and_sweep():
     assert set(e["by_split"]) == {"dev", "holdout"}
     assert len(client.get("/api/sweep").json()) == 13
     assert [h["version"] for h in client.get("/api/history").json()] [:4] == ["v1", "v2", "v2.1", "v2.2"]
+
+
+def test_external_set_is_well_formed_and_reported():
+    import json as _json
+    from hearth.evals import EVAL_DIR
+    cases = [_json.loads(x) for x in (EVAL_DIR / "external.jsonl").read_text().splitlines()]
+    assert len(cases) > 3000
+    assert all(c["reservation_id"] in RESERVATIONS and c["question"] for c in cases)
+    assert all(("queue" in c) == (c["expect"] == "HANDOFF") for c in cases)
+    r = client.get("/api/external").json()
+    assert r["n"] == len(cases) and {t["track"] for t in r["tracks"]} >= {"in_scope_adapted", "out_of_scope"}

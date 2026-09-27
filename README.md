@@ -33,6 +33,34 @@ By Evan Prawda · evanprawda92@gmail.com
 
 Holdout discipline: each holdout set is written before the version it tests runs on it, scored once, recorded in `backend/evals/history.json`, then folded into dev.
 
+## At scale: 3,572 questions from public support data
+
+v2.2 was also scored, unchanged, on questions drawn from two public datasets and mapped to Hearth's topics and queues:
+[ABCD](https://github.com/asappresearch/abcd) (ASAPP Research, MIT; 1,472 used) and the
+[Bitext customer support dataset](https://github.com/bitext/customer-support-llm-chatbot-training-dataset) (CDLA-Sharing-1.0; 2,100 used).
+Bitext's e-commerce wording was adapted ("order" to "reservation") for in-scope intents; ABCD text is untouched. Labels were mapped from each
+dataset's own intents, and random samples were hand-checked (79 of 80 fit). Neither dataset has safety situations.
+
+| Track | Cases | Right on first reply | Right in conversation | Wrong answers |
+|---|---|---|---|---|
+| In scope, reworded (Bitext) | 1,200 | 36% | 67% | 47 |
+| In scope, real phrasing (ABCD refund status) | 177 | 6% | 8% | **138** |
+| Asks for a person (Bitext) | 200 | 90% | 90% | 20 |
+| Billing disputes to trust (ABCD) | 200 | 0% | 0% | 61 |
+| Out of scope, handed off (both) | 1,795 | 88% | 88% | 184 |
+
+What it found that the 96 hand-written cases couldn't:
+
+1. "What's the status of my refund?", the most common real phrasing, gets the cancellation answer 78% of the time.
+2. Typo tolerance on safety words misfires: "policy" matches "police" and "attach" matches "attacked", sending 53 ordinary questions to the safety line.
+3. Billing disputes never reach the trust team.
+4. 10% of out-of-scope questions get a confident answer ("cancel my premium account" as a reservation cancellation).
+
+Next (v2.3): split these questions in half, fix each failure class on one half, and report the untouched half.
+
+Rebuild and rescore with `python scripts/build_external.py` then `python scripts/score_external.py` (downloads the source data from GitHub on first run).
+The sampled cases are in `backend/evals/external.jsonl` and the report in `backend/evals/external_report.json`, shared under the source licenses.
+
 ## Run it
 
 Requires Python 3.11+ and Node 20+.

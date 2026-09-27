@@ -65,6 +65,7 @@ def main() -> None:
         "safety_terms": data.SAFETY_TERMS, "sensitive_terms": data.SENSITIVE_TERMS, "human_terms": data.HUMAN_TERMS,
         "status_cues": data.STATUS_CUES, "hypothetical_cues": data.HYPOTHETICAL_CUES,
         "cases": load_cases("all"), "history": json.loads((EVAL_DIR / "history.json").read_text()),
+        "external": json.loads((EVAL_DIR / "external_report.json").read_text()),
     }
     (OUT / "data.json").write_text(json.dumps(shared, ensure_ascii=False, indent=1))
 

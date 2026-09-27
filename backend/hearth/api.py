@@ -149,6 +149,14 @@ def history() -> list[dict]:
     return json.loads((EVAL_DIR / "history.json").read_text())
 
 
+@app.get("/api/external")
+def external_report() -> dict:
+    p = EVAL_DIR / "external_report.json"
+    if not p.exists():
+        raise HTTPException(404, "Run scripts/build_external.py and scripts/score_external.py first")
+    return json.loads(p.read_text())
+
+
 @app.get("/api/handoffs")
 def handoffs() -> list[dict]:
     return HANDOFFS
