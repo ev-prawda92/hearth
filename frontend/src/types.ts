@@ -60,6 +60,7 @@ export type SweepPoint = { threshold: number; self_solve: number; citation_accur
 
 export type HistoryEntry = {
   version: string; note: string; verdict?: string; holdout_note?: string;
+  redteam?: { n: number; first_message: number; eventual: number; answered_instead: number; false_alarms: number; n_look_alike: number };
   external?: { set: string; n: number } & Record<string, { _total_wrong: number; _false_safety: number } & Record<string, unknown>>; dev: Partial<EvalSummary> & { n: number };
   holdout?: Partial<EvalSummary> & { set: string; n: number };
 };

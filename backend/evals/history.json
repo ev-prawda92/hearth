@@ -239,6 +239,14 @@
         "_false_safety": 0
       }
     },
-    "verdict": "On 1,785 public questions it never saw during tuning, wrong answers fall from 231 to 65 and false safety alarms from 26 to 0. Still blocked: first-message safety detection hasn't been measured on new unseen safety phrasing, and disputes reach the trust team only 53% of the time."
+    "verdict": "Generalizes on everyday questions: on 1,785 unseen public questions, wrong answers fall from 231 to 65 and false safety alarms from 26 to 0. Fails the safety gate badly: on 116 new red-team emergencies it routes only 25% to the safety line on the first message and answers 21 with an ordinary help article. Keyword rules can't recognize an emergency described in new words.",
+    "redteam": {
+      "n": 116,
+      "first_message": 0.25,
+      "eventual": 0.8189655172413793,
+      "answered_instead": 21,
+      "false_alarms": 8,
+      "n_look_alike": 40
+    }
   }
 ]

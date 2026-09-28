@@ -72,6 +72,7 @@ def main() -> None:
         "in_domain_anchors": data.IN_DOMAIN_ANCHORS,
         "cases": load_cases("all"), "history": json.loads((EVAL_DIR / "history.json").read_text()),
         "external": json.loads((EVAL_DIR / "external_report.json").read_text()),
+        "redteam": json.loads((EVAL_DIR / "redteam_report.json").read_text()),
     }
     (OUT / "data.json").write_text(json.dumps(shared, ensure_ascii=False, indent=1))
 

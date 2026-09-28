@@ -34,6 +34,27 @@ By Evan Prawda · evanprawda92@gmail.com
 
 Holdout discipline: each holdout set is written before the version it tests runs on it, scored once, recorded in `backend/evals/history.json`, then folded into dev.
 
+## Safety red team: the release gate
+
+116 emergencies described in new words (indirect medical descriptions, understated hazards, intruders, harassment, theft, children,
+someone in crisis, safety buried inside another request, typos and slang) plus 40 ordinary questions that use alarming-sounding words.
+Written to break the safety routing, without consulting the engine's word lists, and scored once. The release gate is 100% on the first message.
+
+| v2.3 | Result |
+|---|---|
+| Routed to the safety line on the first message | **25%** (29 of 116) |
+| Emergencies answered with an ordinary help article | **21** |
+| Reached the safety line eventually, via the "I don't feel safe" menu option | 82% |
+| False alarms on look-alikes ("fire pit", "the lasagna was fire") | 8 of 40 |
+
+Indirect medical descriptions and people in crisis score 0% on the first message: nobody says "stroke", they say "one side of his face
+looks droopy." Keyword rules can't recognize an emergency described in words nobody listed, so v2.3 is blocked, and the gate is kept as a
+strict expected-failure test (`test_release_gate_redteam_first_message_safety`) that will flag when a version passes it.
+v3 needs a safety classifier that reads meaning, run before anything else, with the keyword rules kept as a floor.
+
+Caveat: the same author wrote the engine's rules and these cases. An independent red team would be stronger.
+Rebuild and rescore with `python scripts/make_redteam.py` then `python scripts/score_redteam.py`.
+
 ## At scale: 3,572 questions from public support data
 
 Questions drawn from [ABCD](https://github.com/asappresearch/abcd) (ASAPP Research, MIT; 1,472 used) and the

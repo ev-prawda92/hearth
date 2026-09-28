@@ -157,6 +157,14 @@ def external_report() -> dict:
     return json.loads(p.read_text())
 
 
+@app.get("/api/redteam")
+def redteam_report() -> dict:
+    p = EVAL_DIR / "redteam_report.json"
+    if not p.exists():
+        raise HTTPException(404, "Run scripts/make_redteam.py and scripts/score_redteam.py first")
+    return json.loads(p.read_text())
+
+
 @app.get("/api/handoffs")
 def handoffs() -> list[dict]:
     return HANDOFFS
