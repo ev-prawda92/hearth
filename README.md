@@ -6,6 +6,33 @@ The point of the project is the **evaluation discipline** as much as the copilot
 
 By Evan Prawda · evanprawda92@gmail.com
 
+
+## Start here
+
+**What it is.** An AI support copilot for Hearth, a fictional home-sharing marketplace. It applies the policy to the person's actual
+reservation ("you'd get back €517"), resolves what it safely can behind a confirm step (cancel and refund, report an issue, message the host),
+and hands everything else to the right team with the context written up. Five versions, each tested on questions it had never seen.
+
+**What the evidence says**
+
+| | Result |
+|---|---|
+| Wrong answers on 1,785 unseen public support questions | 13% (v2.2) → **4%** (v2.3), 95% range 3–5% |
+| Real "what's the status of my refund?" questions answered right | 9% → **81%** |
+| Hearth holdout resolved in conversation (small set, simulated guest) | 41% first reply → **68%** with clarifying |
+| **Safety red team: emergencies routed to the safety line on the first message** | **25%** against a 100% gate, so **release blocked** |
+
+**Why it isn't shipped.** Keyword rules handle everyday questions well but can't recognize an emergency described in words nobody listed
+("one side of his face looks droopy"). The next version needs a safety check that reads meaning and runs first. Blocking a release on its own
+safety test is the point of the project.
+
+**Two-minute tour.** Open the demo's **Overview** tab, try the three suggested questions (the third one fails on purpose), then open
+**Evaluation** for the red team, the public-data results and the version history. Questions an expert would ask are answered in
+[docs/FAQ.md](docs/FAQ.md) and in the app.
+
+**How it was built.** Directed by Evan Prawda and built with AI coding tools (commits are co-authored with Claude). The product and
+evaluation decisions, including blocking the release, are his.
+
 ## What's in the app
 
 | Tab | What it does |

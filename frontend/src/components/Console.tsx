@@ -36,6 +36,7 @@ export function Console(p: Props) {
   const [busy, setBusy] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [bannerHidden, setBannerHidden] = useState(false);
   const lastAsked = useRef("");
   const threadRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(1);
@@ -90,6 +91,14 @@ export function Console(p: Props) {
   const lastBot = last && last.kind === "bot" ? last : null;
 
   return (
+    <>
+    {!bannerHidden && (
+      <div className="proto-banner" role="note">
+        <span><b>Prototype.</b> Keyword-based engine v2.3. It handles everyday questions well but <b>fails the safety red team</b> (25% of emergencies
+          routed correctly on the first message), so it isn't shippable. <a href="#eval" onClick={(e) => { e.preventDefault(); window.location.hash = "eval"; }}>See the evaluation</a>.</span>
+        <button className="icon-btn" aria-label="Dismiss" onClick={() => setBannerHidden(true)}>×</button>
+      </div>
+    )}
     <div className="console">
       <nav className="trips" aria-label="Reservations">
         <h2>Trips and hosting</h2>
@@ -160,6 +169,7 @@ export function Console(p: Props) {
 
       <WhyPanel r={inspected?.r ?? null} res={res} {...p} />
     </div>
+    </>
   );
 }
 

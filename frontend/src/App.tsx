@@ -5,15 +5,16 @@ import { Console } from "./components/Console";
 import { Evaluation } from "./components/Evaluation";
 import { Activity } from "./components/Inbox";
 import { Logo } from "./components/icons";
+import { Overview } from "./components/Overview";
 import { Probe } from "./components/Probe";
 import { fmtDate } from "./engine/engine";
 import type { Meta, Reservation } from "./types";
 
-const TABS = [["console", "Console"], ["eval", "Evaluation"], ["probe", "Probe"], ["activity", "Activity"], ["brief", "Brief"]] as const;
+const TABS = [["overview", "Overview"], ["console", "Console"], ["eval", "Evaluation"], ["probe", "Probe"], ["activity", "Activity"], ["brief", "Brief"]] as const;
 type Tab = (typeof TABS)[number][0];
 const readHash = (): Tab => {
   const h = window.location.hash.slice(1);
-  return (TABS.some(([k]) => k === h) ? h : "console") as Tab;
+  return (TABS.some(([k]) => k === h) ? h : "overview") as Tab;
 };
 
 export default function App() {
@@ -55,7 +56,7 @@ export default function App() {
     <>
       <header className="topbar">
         <div className="topbar-inner">
-          <a className="logo" href="#console" onClick={(e) => { e.preventDefault(); go("console"); }}><Logo />hearth</a>
+          <a className="logo" href="#overview" onClick={(e) => { e.preventDefault(); go("overview"); }}><Logo />hearth</a>
           <div className="tabs" role="tablist" aria-label="Sections">
             {TABS.map(([k, label]) => (
               <button key={k} role="tab" className="tab" aria-selected={tab === k} onClick={() => go(k)}>
@@ -79,6 +80,7 @@ export default function App() {
                 setThreshold={setThreshold} maxClarify={maxClarify} setMaxClarify={setMaxClarify}
                 pending={pending} clearPending={() => setPending(null)} onActivity={refreshTickets} />
             </div>
+            {tab === "overview" && <Overview go={go} tryIt={replay} />}
             {tab === "eval" && <Evaluation api={api} threshold={threshold} setThreshold={setThreshold} maxClarify={maxClarify} setMaxClarify={setMaxClarify} replay={replay} />}
             {tab === "probe" && <Probe api={api} reservations={reservations} threshold={threshold} />}
             {tab === "activity" && <Activity api={api} refreshKey={ticketKey} onChange={refreshTickets} goToConsole={replay} />}
