@@ -11,7 +11,7 @@ The engine is stateless: the caller passes `state` in and gets the next `state` 
 from __future__ import annotations
 
 from .data import ARTICLES, RESERVATIONS
-from .engine import DEFAULT_THRESHOLD, FIRST_STEP, QUEUES, answer, fmt_date, money, refund_for, render, round_half_up
+from .engine import DEFAULT_THRESHOLD, FIRST_STEP, QUEUES, fmt_date, money, refund_for, render, round_half_up
 
 DEFAULT_MAX_CLARIFY = 2
 SAFETY_OPTION = "SAFETY"
@@ -241,13 +241,15 @@ NO = {"no", "n", "nope", "cancel that", "don't", "dont", "never mind", "nevermin
 
 
 def turn(rid: str, inp: dict, state: dict | None = None, threshold: float = DEFAULT_THRESHOLD,
-         max_clarify: int = DEFAULT_MAX_CLARIFY) -> dict:
+         max_clarify: int = DEFAULT_MAX_CLARIFY, engine: str = "v2.3", router=None) -> dict:
     """One conversational turn.
 
     inp is one of:
       {"type": "message", "text": "..."}
       {"type": "choose", "option": "HC-04" | "SAFETY" | "OTHER"}
       {"type": "action", "action": "cancel_reservation", "confirm": true | false | None}
+
+    engine is "v2.3" (keyword rules) or "v3" (model routing over the keyword floor; see v3.py).
     """
     state = _copy(state)
     r = reservation(rid, state)
@@ -308,7 +310,9 @@ def turn(rid: str, inp: dict, state: dict | None = None, threshold: float = DEFA
     # A message: combine with anything we've been clarifying.
     text = inp.get("text", "").strip()
     combined = (state["context"] + " " + text).strip() if state["clarify_turns"] else text
-    a = answer(combined, rid, threshold, reservation=r)
+    from .v3 import answer_with  # late import: v3 builds on this module's engine
+
+    a = answer_with(engine, router)(combined, rid, threshold, reservation=r)
     if a["decision"] == "answer":
         state.update(clarify_turns=0, context="")
         return {"kind": "answer", **a, "actions": actions_for(a["article"], r), "state": state}

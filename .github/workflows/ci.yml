@@ -24,6 +24,13 @@ jobs:
       - run: pip install -r requirements.txt -r requirements-dev.txt
       - name: Tests and release gates
         run: python -m pytest -q
+      - name: Recorded v3 run replays to the committed report
+        run: |
+          if [ ! -d evals/model_cache ]; then echo "No recorded v3 run yet; skipping."; exit 0; fi
+          git ls-files --error-unmatch evals/v3_report.json
+          export HEARTH_MODEL=$(python -c "import json; print(json.load(open('evals/v3_report.json'))['model']['model'])")
+          python scripts/score_v3.py
+          git diff --exit-code evals/v3_report.json
 
   frontend:
     runs-on: ubuntu-latest

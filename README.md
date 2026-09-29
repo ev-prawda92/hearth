@@ -24,7 +24,8 @@ and hands everything else to the right team with the context written up. Five ve
 
 **Why it isn't shipped.** Keyword rules handle everyday questions well but can't recognize an emergency described in words nobody listed
 ("one side of his face looks droopy"). The next version needs a safety check that reads meaning and runs first. Blocking a release on its own
-safety test is the point of the project.
+safety test is the point of the project. That version, v3, is built and tested, and waits on its first recorded run against the real
+model before it gets any numbers ([v3](#v3-model-routing-over-the-keyword-floor-built-awaiting-its-first-recorded-run)).
 
 **Two-minute tour.** Open the demo's **Overview** tab, try the three suggested questions (the third one fails on purpose), then open
 **Evaluation** for the red team, the public-data results and the version history. Questions an expert would ask are answered in
@@ -81,6 +82,50 @@ v3 needs a safety classifier that reads meaning, run before anything else, with 
 
 Caveat: the same author wrote the engine's rules and these cases. An independent red team would be stronger.
 Rebuild and rescore with `python scripts/make_redteam.py` then `python scripts/score_redteam.py`.
+
+## v3: model routing over the keyword floor (built; awaiting its first recorded run)
+
+v3 is the fix the red team called for. A language model reads each message and decides only where it goes: the safety line,
+the trust team, a person, one of the 11 help articles, or "unclear" (which opens the clarifying menu). Everything else stays:
+
+```
+message ─► model: one structured call (route + article + one-line reason), role and trip stage as context
+        ─► safety  if the model says so OR a v2.3 keyword safety rule fires   (the floor: v3 can't miss what v2.3 caught)
+        ─► trust / person, the same way
+        ─► answer: the engine applies the chosen article to the reservation, exactly as in v2.3
+        ─► model call fails ─► answer exactly as v2.3 would, marked degraded (the live app waits one attempt, 8s at most)
+```
+
+Design choices worth checking:
+
+- **The model never touches money.** It sees the message, the account role and the trip stage; no names, amounts or dates. It
+  picks a route; code computes the refund. A model mistake can pick the wrong article but can't invent a number.
+- **Structured output.** A forced tool call with enumerated routes and article ids; anything malformed is rejected, and a
+  host-only article picked for a guest is sent to clarifying rather than answered.
+- **Reproducible.** Every response is recorded (`backend/evals/model_cache/`), keyed by a hash of the exact request. Tests and CI
+  replay the recording with no API key, and CI checks that the replay reproduces the committed report.
+- **Measured the same way as v2.3**, side by side on the same cases: dev, holdout, the red team, and the untouched public half,
+  plus cost per 1,000 messages and p50/p95 latency.
+- **The confidence threshold only governs the fallback.** When the model picks an article it's answered; "unclear" is how the
+  model says it isn't sure. The threshold still applies to v2.3 and to degraded answers.
+
+**No v3 results are published yet.** The prompt (`backend/hearth/model.py`) was written once from the routing policy and the
+help-center scope lines and is frozen; it will be scored once. Two disclosures, so the red-team number can be read correctly:
+
+- The safety definition was written with the red team's published categories in view (indirect medical descriptions, hazards,
+  intruders, harassment, crime, children, someone in crisis, risk buried in another request, typos and slang), so it tests
+  whether the model recognizes new wordings of known categories, not whether it finds categories nobody named.
+- The author had seen v2.3's published false-alarm list; an early draft echoed two of those look-alikes, and that wording was
+  replaced with a general description before any run. No red-team, holdout or external case text is in the prompt.
+
+The release gate is the same one v2.3 failed (`test_v3_release_gate`: 100% of red-team emergencies to the safety line on the first
+message), and it runs automatically once a recorded run exists. If v3 fails it, the run is published anyway with the gate kept as
+a strict expected failure, the way v2.3's is.
+
+To record a run: add an `ANTHROPIC_API_KEY` repository secret, then run the **Record v3 model run** workflow (Actions tab). It
+records every response (about 2,000 calls; a few dollars with Haiku 4.5), checks the replay matches, reports the gate, and pushes the
+recording to a branch for review. If it stops partway, what was recorded is saved; pass that run's ID to resume. Locally:
+`HEARTH_MODEL_MODE=record ANTHROPIC_API_KEY=... python scripts/score_v3.py`. To run the app on v3: `HEARTH_ENGINE=v3`.
 
 ## At scale: 3,572 questions from public support data
 
@@ -156,7 +201,7 @@ question ─► normalize + stem ─► drop negated words ("I don't want to can
             or hand off: queue + specialist summary + suggested first step
 ```
 
-Everything is deterministic, so the evaluation is reproducible. The demo clock is fixed at Sep 26, 2026.
+Everything in v2.3 is deterministic; v3's model calls are recorded and replayed, so the evaluation stays reproducible. The demo clock is fixed at Sep 26, 2026.
 
 ## Tests
 
@@ -167,9 +212,9 @@ Everything is deterministic, so the evaluation is reproducible. The demo clock i
 
 ```
 backend/
-  hearth/        engine, text handling, data, evals, FastAPI app
-  evals/         dev.jsonl, holdout.jsonl, history.json
-  scripts/       make_sets.py, record_run.py, export_demo.py
+  hearth/        engine (v2.3), model routing (model.py, v3.py), text handling, data, evals, FastAPI app
+  evals/         dev.jsonl, holdout.jsonl, redteam.jsonl, external.jsonl, history.json, model_cache/ (recorded v3 responses)
+  scripts/       make_sets.py, record_run.py, export_demo.py, score_redteam.py, score_external.py, score_v3.py
   tests/
 frontend/
   src/components Console, Evaluation, Probe, Inbox, Brief, ListingArt
