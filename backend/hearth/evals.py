@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from .conversation import DEFAULT_MAX_CLARIFY, HUMAN_OPTION, OTHER_OPTION, SAFETY_OPTION, turn
-from .engine import DEFAULT_THRESHOLD, answer
+from .engine import DEFAULT_THRESHOLD
 
 EVAL_DIR = Path(__file__).resolve().parent.parent / "evals"
 SPLITS = ("dev", "holdout")
@@ -21,12 +21,13 @@ def load_cases(split: str = "all") -> list[dict]:
     return cases
 
 
-def simulate(c: dict, threshold: float, max_clarify: int) -> dict:
+def simulate(c: dict, threshold: float, max_clarify: int, engine: str = "v2.3", router=None) -> dict:
     """Plays the conversation with a simulated guest who picks the right option whenever it's offered.
 
     That makes the result an upper bound: real people sometimes pick the wrong option or give up.
     """
-    out = turn(c["reservation_id"], {"type": "message", "text": c["question"]}, None, threshold, max_clarify)
+    out = turn(c["reservation_id"], {"type": "message", "text": c["question"]}, None, threshold, max_clarify,
+               engine, router)
     turns, clarified = 1, 0
     while out["kind"] == "clarify" and turns < 10:
         ids = [o["id"] for o in out["options"]]
@@ -37,15 +38,19 @@ def simulate(c: dict, threshold: float, max_clarify: int) -> dict:
         else:
             pick = OTHER_OPTION
         clarified += 1
-        out = turn(c["reservation_id"], {"type": "choose", "option": pick}, out["state"], threshold, max_clarify)
+        out = turn(c["reservation_id"], {"type": "choose", "option": pick}, out["state"], threshold, max_clarify,
+                   engine, router)
         turns += 1
     got = out.get("article") if out["kind"] == "answer" else "HANDOFF"
     return {"got": got, "queue": out.get("queue"), "turns": turns, "clarified": clarified,
             "text": out.get("text") or ""}
 
 
-def score_case(c: dict, threshold: float, max_clarify: int = DEFAULT_MAX_CLARIFY) -> dict:
-    a = answer(c["question"], c["reservation_id"], threshold)
+def score_case(c: dict, threshold: float, max_clarify: int = DEFAULT_MAX_CLARIFY, engine: str = "v2.3",
+               router=None) -> dict:
+    from .v3 import answer_with
+
+    a = answer_with(engine, router)(c["question"], c["reservation_id"], threshold)
     got = a["article"] if a["decision"] == "answer" else "HANDOFF"
     facts_ok = None
     if a["decision"] == "answer" and c.get("facts") is not None:
@@ -61,7 +66,7 @@ def score_case(c: dict, threshold: float, max_clarify: int = DEFAULT_MAX_CLARIFY
         verdict = "handoff"
     else:
         verdict = "pass" if got == c["expect"] and facts_ok is not False else "wrong"
-    sim = simulate(c, threshold, max_clarify)
+    sim = simulate(c, threshold, max_clarify, engine, router)
     if c["expect"] == "HANDOFF":
         if sim["got"] != "HANDOFF":
             conv = "missed_safety" if c["queue"] == "safety" else "wrong"
@@ -79,7 +84,8 @@ def score_case(c: dict, threshold: float, max_clarify: int = DEFAULT_MAX_CLARIFY
         conv = "wrong"
     return {**c, "got": got, "got_queue": a["queue"], "confidence": a["confidence"], "reason": a["reason"],
             "facts_ok": facts_ok, "verdict": verdict, "conv_verdict": conv, "conv_got": sim["got"],
-            "conv_queue": sim["queue"], "turns": sim["turns"], "clarified": sim["clarified"]}
+            "conv_queue": sim["queue"], "turns": sim["turns"], "clarified": sim["clarified"],
+            "degraded": bool(a.get("degraded")), "model_route": (a.get("model") or {}).get("route")}
 
 
 def summarize(rows: list[dict]) -> dict:
